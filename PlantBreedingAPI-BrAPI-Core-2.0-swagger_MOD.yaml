@@ -1,0 +1,3971 @@
+components:
+  parameters:
+    acceptHeader:
+      description: The requested content type which should be returned by the server
+      example: application/json
+      in: header
+      name: Accept
+      required: true
+      schema:
+        $ref: '#/components/schemas/WSMIMEDataTypes'
+    authorizationHeader:
+      description: "HTTP HEADER - Token used for Authorization \n\n<strong> Bearer {token_string} </strong>"
+      example: Bearer XXXX
+      in: header
+      name: Authorization
+      schema:
+        pattern: ^Bearer .*$
+        type: string
+    externalReferenceID:
+      description: An external reference ID. Could be a simple string or a URI. (use with `externalReferenceSource` parameter)
+      in: query
+      name: externalReferenceID
+      required: false
+      schema:
+        type: string
+    externalReferenceSource:
+      description: An identifier for the source system or database of an external reference (use with `externalReferenceID` parameter)
+      in: query
+      name: externalReferenceSource
+      required: false
+      schema:
+        type: string
+    page:
+      description: 'Used to request a specific page of data to be returned.
+
+
+        The page indexing starts at 0 (the first page is ''page''= 0). Default is `0`.'
+      example: '0'
+      in: query
+      name: page
+      required: false
+      schema:
+        type: integer
+    pageSize:
+      description: The size of the pages to be returned. Default is `1000`.
+      example: 1000
+      in: query
+      name: pageSize
+      required: false
+      schema:
+        type: integer
+    pageToken:
+      description: 'Used to request a specific page of data to be returned.
+
+
+        Tokenized pages are for large data sets which can not be efficiently broken into indexed pages. Use the nextPageToken and prevPageToken from a prior response to construct a query and move to the next or previous page respectively. '
+      example: 33c27874
+      in: query
+      name: pageToken
+      required: false
+      schema:
+        type: string
+    searchResultsDbId:
+      description: Unique identifier which references the search results
+      in: path
+      name: searchResultsDbId
+      required: true
+      schema:
+        type: string
+  responses:
+    code202AcceptedSearchResponse:
+      content:
+        application/json:
+          schema:
+            properties:
+              '@context':
+                $ref: '#/components/schemas/Context'
+              metadata:
+                $ref: '#/components/schemas/metadata'
+              result:
+                properties:
+                  searchResultsDbId:
+                    example: 551ae08c
+                    type: string
+                type: object
+            title: code202AcceptedSearchResponse
+            type: object
+      description: Accepted
+      headers: {}
+    code400BadRequest:
+      content:
+        application/json:
+          example: 'ERROR - 2018-10-08T18:15:11Z - Malformed JSON Request Object
+
+
+            ERROR - 2018-10-08T18:15:11Z - Invalid query parameter
+
+
+            ERROR - 2018-10-08T18:15:11Z - Required parameter is missing'
+          schema:
+            type: string
+      description: Bad Request
+      headers: {}
+    code401Unauthorized:
+      content:
+        application/json:
+          example: ERROR - 2018-10-08T18:15:11Z - Missing or expired authorization token
+          schema:
+            type: string
+      description: Unauthorized
+      headers: {}
+    code403Forbidden:
+      content:
+        application/json:
+          example: ERROR - 2018-10-08T18:15:11Z - User does not have permission to perform this action
+          schema:
+            type: string
+      description: Forbidden
+      headers: {}
+    code404NotFound:
+      content:
+        application/json:
+          example: ERROR - 2018-10-08T18:15:11Z - The requested object DbId is not found
+          schema:
+            type: string
+      description: Not Found
+      headers: {}
+    ListsListResponse:
+      content:
+        application/json:
+          schema:
+            properties:
+              '@context':
+                $ref: '#/components/schemas/Context'
+              metadata:
+                $ref: '#/components/schemas/metadata'
+              result:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/ListSummary'
+                    type: array
+                required:
+                - data
+                type: object
+            required:
+            - metadata
+            - result
+            title: ListsListResponse
+            type: object
+      description: OK
+      headers: {}
+    ListsSingleResponse:
+      content:
+        application/json:
+          schema:
+            properties:
+              '@context':
+                $ref: '#/components/schemas/Context'
+              metadata:
+                $ref: '#/components/schemas/metadata'
+              result:
+                $ref: '#/components/schemas/ListDetails'
+            required:
+            - metadata
+            - result
+            title: ListsSingleResponse
+            type: object
+      description: OK
+      headers: {}
+    LocationListResponse:
+      content:
+        application/json:
+          schema:
+            properties:
+              '@context':
+                $ref: '#/components/schemas/Context'
+              metadata:
+                $ref: '#/components/schemas/metadata'
+              result:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/Location'
+                    type: array
+                required:
+                - data
+                type: object
+            required:
+            - metadata
+            - result
+            title: LocationListResponse
+            type: object
+      description: OK
+      headers: {}
+    LocationSingleResponse:
+      content:
+        application/json:
+          schema:
+            properties:
+              '@context':
+                $ref: '#/components/schemas/Context'
+              metadata:
+                $ref: '#/components/schemas/metadata'
+              result:
+                $ref: '#/components/schemas/Location'
+            required:
+            - metadata
+            - result
+            title: LocationSingleResponse
+            type: object
+      description: OK
+      headers: {}
+    PersonListResponse:
+      content:
+        application/json:
+          schema:
+            properties:
+              '@context':
+                $ref: '#/components/schemas/Context'
+              metadata:
+                $ref: '#/components/schemas/metadata'
+              result:
+                properties:
+                  data:
+                    description: Array of people
+                    items:
+                      $ref: '#/components/schemas/Person'
+                    type: array
+                required:
+                - data
+                type: object
+            required:
+            - metadata
+            - result
+            title: PersonListResponse
+            type: object
+      description: OK
+      headers: {}
+    PersonSingleResponse:
+      content:
+        application/json:
+          schema:
+            properties:
+              '@context':
+                $ref: '#/components/schemas/Context'
+              metadata:
+                $ref: '#/components/schemas/metadata'
+              result:
+                $ref: '#/components/schemas/Person'
+            required:
+            - metadata
+            - result
+            title: PersonSingleResponse
+            type: object
+      description: OK
+      headers: {}
+    ProgramListResponse:
+      content:
+        application/json:
+          schema:
+            properties:
+              '@context':
+                $ref: '#/components/schemas/Context'
+              metadata:
+                $ref: '#/components/schemas/metadata'
+              result:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/Program'
+                    type: array
+                required:
+                - data
+                type: object
+            required:
+            - metadata
+            - result
+            title: ProgramListResponse
+            type: object
+      description: OK
+      headers: {}
+    ProgramSingleResponse:
+      content:
+        application/json:
+          schema:
+            properties:
+              '@context':
+                $ref: '#/components/schemas/Context'
+              metadata:
+                $ref: '#/components/schemas/metadata'
+              result:
+                $ref: '#/components/schemas/Program'
+            required:
+            - metadata
+            - result
+            title: ProgramSingleResponse
+            type: object
+      description: OK
+      headers: {}
+    SeasonListResponse:
+      content:
+        application/json:
+          schema:
+            properties:
+              '@context':
+                $ref: '#/components/schemas/Context'
+              metadata:
+                $ref: '#/components/schemas/metadata'
+              result:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/Season'
+                    type: array
+                required:
+                - data
+                type: object
+            required:
+            - metadata
+            - result
+            title: SeasonListResponse
+            type: object
+      description: OK
+      headers: {}
+    SeasonSingleResponse:
+      content:
+        application/json:
+          schema:
+            properties:
+              '@context':
+                $ref: '#/components/schemas/Context'
+              metadata:
+                $ref: '#/components/schemas/metadata'
+              result:
+                $ref: '#/components/schemas/Season'
+            required:
+            - metadata
+            - result
+            title: SeasonSingleResponse
+            type: object
+      description: OK
+      headers: {}
+    StudyListResponse:
+      content:
+        application/json:
+          schema:
+            properties:
+              '@context':
+                $ref: '#/components/schemas/Context'
+              metadata:
+                $ref: '#/components/schemas/metadata'
+              result:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/Study'
+                    type: array
+                required:
+                - data
+                type: object
+            required:
+            - metadata
+            - result
+            title: StudyListResponse
+            type: object
+      description: OK
+      headers: {}
+    StudySingleResponse:
+      content:
+        application/json:
+          schema:
+            properties:
+              '@context':
+                $ref: '#/components/schemas/Context'
+              metadata:
+                $ref: '#/components/schemas/metadata'
+              result:
+                $ref: '#/components/schemas/Study'
+            required:
+            - metadata
+            - result
+            title: StudySingleResponse
+            type: object
+      description: OK
+      headers: {}
+    TrialListResponse:
+      content:
+        application/json:
+          schema:
+            properties:
+              '@context':
+                $ref: '#/components/schemas/Context'
+              metadata:
+                $ref: '#/components/schemas/metadata'
+              result:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/Trial'
+                    type: array
+                required:
+                - data
+                type: object
+            required:
+            - metadata
+            - result
+            title: TrialListResponse
+            type: object
+      description: OK
+      headers: {}
+    TrialSingleResponse:
+      content:
+        application/json:
+          schema:
+            properties:
+              '@context':
+                $ref: '#/components/schemas/Context'
+              metadata:
+                $ref: '#/components/schemas/metadata'
+              result:
+                $ref: '#/components/schemas/Trial'
+            required:
+            - metadata
+            - result
+            title: TrialSingleResponse
+            type: object
+      description: OK
+      headers: {}
+  schemas:
+    Contact:
+      properties:
+        contactDbId:
+          description: 'The ID which uniquely identifies this contact
+
+
+            MIAPPE V1.1 (DM-33) Person ID - An identifier for the data submitter. If that submitter is an individual, ORCID identifiers are recommended.'
+          example: 5f4e5509
+          type: string
+        email:
+          description: 'The contacts email address
+
+
+            MIAPPE V1.1 (DM-32) Person email - The electronic mail address of the person.'
+          example: bob@bob.com
+          type: string
+        instituteName:
+          description: 'The name of the institution which this contact is part of
+
+
+            MIAPPE V1.1 (DM-35) Person affiliation - The institution the person belongs to'
+          example: The BrAPI Institute
+          type: string
+        name:
+          description: 'The full name of this contact person
+
+
+            MIAPPE V1.1 (DM-31) Person name - The name of the person (either full name or as used in scientific publications)'
+          example: Bob Robertson
+          type: string
+        orcid:
+          description: 'The Open Researcher and Contributor ID for this contact person (orcid.org)
+
+
+            MIAPPE V1.1 (DM-33) Person ID - An identifier for the data submitter. If that submitter is an individual, ORCID identifiers are recommended.'
+          example: http://orcid.org/0000-0001-8640-1750
+          type: string
+        type:
+          description: 'The type of person this contact represents (ex: Coordinator, Scientist, PI, etc.)
+
+
+            MIAPPE V1.1 (DM-34) Person role - Type of contribution of the person to the investigation'
+          example: PI
+          type: string
+      required:
+      - contactDbId
+      type: object
+    Context:
+      description: "The JSON-LD Context is used to provide JSON-LD definitions to each field in a JSON object. By providing an array of context file urls, a BrAPI response object becomes JSON-LD compatible.  \n\nFor more information, see https://w3c.github.io/json-ld-syntax/#the-context"
+      example:
+      - https://brapi.org/jsonld/context/metadata.jsonld
+      items:
+        format: uri
+        type: string
+      title: context
+      type: array
+    DataLink:
+      properties:
+        dataFormat:
+          description: The structure of the data within a file. For example - VCF, table, image archive, multispectral image archives in EDAM ontology (used in Galaxy)
+          example: Image Archive
+          type: string
+        description:
+          description: The general description of this data link
+          example: Raw drone images collected for this study
+          type: string
+        fileFormat:
+          description: The MIME type of the file (ie text/csv, application/excel, application/zip).
+          example: application/zip
+          type: string
+        name:
+          description: 'The name of the external data link
+
+
+            MIAPPE V1.1 (DM-38) Data file description - Description of the format of the data file. May be a standard file format name, or a description of organization of the data in a tabular file.'
+          example: image-archive.zip
+          type: string
+        provenance:
+          description: The description of the origin or ownership of this linked data. Could be a formal reference to software, method, or workflow.
+          example: 'Image Processing Pipeline, built at the University of Antarctica: https://github.com/antarctica/pipeline'
+          type: string
+        scientificType:
+          description: The general type of data. For example- Genotyping, Phenotyping raw data, Phenotyping reduced data, Environmental, etc
+          example: Environmental
+          type: string
+        url:
+          description: MIAPPE V1.1 (DM-37) Data file link - Link to the data file (or digital object) in a public database or in a persistent institutional repository; or identifier of the data file when submitted together with the MIAPPE submission.
+          example: https://brapi.org/image-archive.zip
+          format: uri
+          type: string
+        version:
+          description: MIAPPE V1.1 (DM-39) Data file version - The version of the dataset (the actual data).
+          example: 1.0.3
+          type: string
+      type: object
+    EnvironmentParameter:
+      properties:
+        description:
+          description: Human-readable value of the environment parameter (defined above) constant within the experiment
+          example: the soil type was clay
+          type: string
+        parameterName:
+          description: Name of the environment parameter constant within the experiment
+          example: soil type
+          type: string
+        parameterPUI:
+          description: URI pointing to an ontology class for the parameter
+          example: PECO:0007155
+          type: string
+        unit:
+          description: Unit of the value for this parameter
+          example: pH
+          type: string
+        unitPUI:
+          description: URI pointing to an ontology class for the unit
+          example: PECO:0007059
+          type: string
+        value:
+          description: Numerical or categorical value
+          example: clay soil
+          type: string
+        valuePUI:
+          description: URI pointing to an ontology class for the parameter value
+          example: ENVO:00002262
+          type: string
+      required:
+      - parameterName
+      - description
+      type: object
+    ExternalReferences:
+      description: An array of external reference ids. These are references to this piece of data in an external system. Could be a simple string or a URI.
+      example:
+      - referenceID: doi:10.155454/12341234
+        referenceSource: DOI
+      - referenceID: http://purl.obolibrary.org/obo/ro.owl
+        referenceSource: OBO Library
+      - referenceID: 75a50e76
+        referenceSource: Remote Data Collection Upload Tool
+      items:
+        properties:
+          referenceID:
+            description: The external reference ID. Could be a simple string or a URI.
+            type: string
+          referenceSource:
+            description: An identifier for the source system or database of this reference
+            type: string
+        type: object
+      title: ExternalReferences
+      type: array
+    ListBaseFields:
+      properties:
+        additionalInfo:
+          additionalProperties:
+            type: string
+          description: Additional arbitrary info
+          example: {}
+          type: object
+        dateCreated:
+          description: Timestamp when the entity was first created
+          format: date-time
+          type: string
+        dateModified:
+          description: Timestamp when the entity was last updated
+          format: date-time
+          type: string
+        externalReferences:
+          $ref: '#/components/schemas/ExternalReferences'
+        listDescription:
+          description: Description of a List
+          example: This is a list of germplasm I would like to investigate next season
+          type: string
+        listName:
+          description: Human readable name of a List
+          example: MyGermplasm_Sept_2020
+          type: string
+        listOwnerName:
+          description: Human readable name of a List Owner. (usually a user or person)
+          example: Bob Robertson
+          type: string
+        listOwnerPersonDbId:
+          description: The unique identifier for a List Owner. (usually a user or person)
+          example: 58db0628
+          type: string
+        listSize:
+          description: The number of elements in a List
+          example: 53
+          type: integer
+        listSource:
+          description: The description of where a List originated from
+          example: GeneBank Repository 1.3
+          type: string
+        listType:
+          $ref: '#/components/schemas/ListTypes'
+      required:
+      - listType
+      type: object
+    ListDetails:
+      allOf:
+      - $ref: '#/components/schemas/ListSummary'
+      - $ref: '#/components/schemas/ListNewRequest'
+    ListNewRequest:
+      allOf:
+      - $ref: '#/components/schemas/ListBaseFields'
+      - properties:
+          data:
+            description: The list of DbIds contained in this list
+            example:
+            - 758a78c0
+            - 2c78f9ee
+            items:
+              type: string
+            type: array
+        type: object
+    ListSearchRequest:
+      allOf:
+      - $ref: '#/components/schemas/SearchRequestParametersPaging'
+      - $ref: '#/components/schemas/SearchRequestParametersExternalReferences'
+      - properties:
+          dateCreatedRangeEnd:
+            format: date-time
+            type: string
+          dateCreatedRangeStart:
+            format: date-time
+            type: string
+          dateModifiedRangeEnd:
+            format: date-time
+            type: string
+          dateModifiedRangeStart:
+            format: date-time
+            type: string
+          listDbIds:
+            example:
+            - 55f20cf6
+            - 3193ca3d
+            items:
+              type: string
+            type: array
+          listNames:
+            example:
+            - Planing List 1
+            - Bobs List
+            items:
+              type: string
+            type: array
+          listOwnerNames:
+            example:
+            - Bob Robertson
+            - Rob Robertson
+            items:
+              type: string
+            type: array
+          listOwnerPersonDbIds:
+            example:
+            - bob@bob.com
+            - rob@bob.com
+            items:
+              type: string
+            type: array
+          listSources:
+            example:
+            - USER
+            - SYSTEM
+            - EXTERNAL
+            items:
+              type: string
+            type: array
+          listType:
+            $ref: '#/components/schemas/ListTypes'
+        type: object
+    ListSummary:
+      allOf:
+      - $ref: '#/components/schemas/ListBaseFields'
+      - properties:
+          listDbId:
+            description: The unique identifier for a List
+            example: 6f621cfa
+            type: string
+        required:
+        - listDbId
+        type: object
+    ListTypes:
+      enum:
+      - germplasm
+      - markers
+      - programs
+      - trials
+      - studies
+      - observationUnits
+      - observations
+      - observationVariables
+      - samples
+      example: germplasm
+      type: string
+    Location:
+      allOf:
+      - $ref: '#/components/schemas/LocationNewRequest'
+      - properties:
+          locationDbId:
+            description: The unique identifier for a Location
+            example: 3cfdd67d
+            type: string
+        type: object
+    LocationNewRequest:
+      properties:
+        abbreviation:
+          description: An abbreviation which represents this location
+          example: L1
+          type: string
+        additionalInfo:
+          additionalProperties:
+            type: string
+          description: Additional arbitrary info
+          example: {}
+          type: object
+        coordinateDescription:
+          description: Describes the precision and landmarks of the coordinate values used for this location. (ex. the site, the nearest town, a 10 kilometers radius circle, +/- 20 meters, etc)
+          example: North East corner of greenhouse
+          type: string
+        coordinateUncertainty:
+          description: Uncertainty associated with the coordinates in meters. Leave the value empty if the uncertainty is unknown.
+          example: '20'
+          type: string
+        coordinates:
+          $ref: '#/components/schemas/geoJSON'
+        countryCode:
+          description: ' [ISO_3166-1_alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) spec
+
+            MIAPPE V1.1 (DM-17) Geographic location (country) - The country where the experiment took place, either as a full name or preferably as a 2-letter code.'
+          example: PER
+          type: string
+        countryName:
+          description: 'The full name of the country where this location is
+
+
+            MIAPPE V1.1 (DM-17) Geographic location (country) - The country where the experiment took place, either as a full name or preferably as a 2-letter code.'
+          example: Peru
+          type: string
+        documentationURL:
+          description: A URL to the human readable documentation of this object
+          example: https://brapi.org
+          format: uri
+          type: string
+        environmentType:
+          description: Describes the general type of environment of the location. (ex. forest, field, nursery, etc)
+          example: Nursery
+          type: string
+        exposure:
+          description: Describes the level of protection/exposure for things like sun light and wind.
+          example: Structure, no exposure
+          type: string
+        externalReferences:
+          $ref: '#/components/schemas/ExternalReferences'
+        instituteAddress:
+          description: 'The street address of the institute representing this location
+
+
+            MIAPPE V1.1 (DM-16) Contact institution - Name and address of the institution responsible for the study.'
+          example: 71 Pilgrim Avenue Chevy Chase MD 20815
+          type: string
+        instituteName:
+          description: 'Each institute/laboratory can have several experimental field
+
+
+            MIAPPE V1.1 (DM-16) Contact institution - Name and address of the institution responsible for the study.'
+          example: Plant Science Institute
+          type: string
+        locationName:
+          description: 'A human readable name for this location
+
+
+            MIAPPE V1.1 (DM-18) Experimental site name - The name of the natural site, experimental field, greenhouse, phenotyping facility, etc. where the experiment took place.'
+          example: Location 1
+          type: string
+        locationType:
+          description: The type of location this represents (ex. Breeding Location, Storage Location, etc)
+          example: Storage Location
+          type: string
+        siteStatus:
+          description: Description of the accessibility of the location (ex. Public, Private)
+          example: Private
+          type: string
+        slope:
+          description: Describes the approximate slope (height/distance) of the location.
+          example: '0'
+          type: string
+        topography:
+          description: Describes the topography of the land at the location. (ex. Plateau, Cirque, Hill, Valley, etc)
+          example: Valley
+          type: string
+      type: object
+    LocationSearchRequest:
+      allOf:
+      - $ref: '#/components/schemas/SearchRequestParametersPaging'
+      - $ref: '#/components/schemas/SearchRequestParametersExternalReferences'
+      - $ref: '#/components/schemas/SearchRequestParametersLocations'
+      - properties:
+          abbreviations:
+            description: An abbreviation which represents this location
+            example:
+            - L1
+            - LHC
+            items:
+              type: string
+            type: array
+          altitudeMax:
+            description: The maximum altitude to search for
+            example: 200
+            type: number
+          altitudeMin:
+            description: The minimum altitude to search for
+            example: 20
+            type: number
+          coordinates:
+            $ref: '#/components/schemas/geoJSONSearchArea'
+          countryCodes:
+            description: '[ISO_3166-1_alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) spec'
+            example:
+            - USA
+            - PER
+            items:
+              type: string
+            type: array
+          countryNames:
+            description: The full name of the country to search for
+            example:
+            - United States of America
+            - Peru
+            items:
+              type: string
+            type: array
+          instituteAddresses:
+            description: The street address of the institute to search for
+            example:
+            - 123 Main Street
+            - 456 Side Street
+            items:
+              type: string
+            type: array
+          instituteNames:
+            description: The name of the institute to search for
+            example:
+            - The Institute
+            - The Other Institute
+            items:
+              type: string
+            type: array
+          locationTypes:
+            description: The type of location this represents (ex. Breeding Location, Storage Location, etc)
+            example:
+            - Nursery
+            - Storage Location
+            items:
+              type: string
+            type: array
+        type: object
+    MethodBaseClass:
+      properties:
+        additionalInfo:
+          additionalProperties:
+            type: string
+          description: Additional arbitrary info
+          type: object
+        bibliographicalReference:
+          description: 'Bibliographical reference describing the method.
+
+
+            MIAPPE V1.1 (DM-91) Reference associated to the method - URI/DOI of reference describing the method.'
+          example: Smith, 1893, Really Cool Paper, Popular Journal
+          type: string
+        description:
+          description: 'Method description
+
+
+            MIAPPE V1.1 (DM-90) Method description - Textual description of the method, which may extend a method defined in an external reference with specific parameters, e.g. growth stage, inoculation precise organ (leaf number)'
+          example: A measuring tape was used
+          type: string
+        externalReferences:
+          $ref: '#/components/schemas/ExternalReferences'
+        formula:
+          description: For computational methods i.e., when the method consists in assessing the trait by computing measurements, write the generic formula used for the calculation
+          example: a^2 + b^2 = c^2
+          type: string
+        methodClass:
+          description: 'Method class (examples: "Measurement", "Counting", "Estimation", "Computation", etc.)'
+          example: Measurement
+          type: string
+        methodName:
+          description: 'Human readable name for the method
+
+
+            MIAPPE V1.1 (DM-88) Method  Name of the method of observation'
+          example: Measuring Tape
+          type: string
+        ontologyReference:
+          $ref: '#/components/schemas/OntologyReference'
+      type: object
+    ObservationUnitHierarchyLevel:
+      description: 'Observation levels indicate the granularity level at which the measurements are taken. `levelName` defines the level, `levelOrder` defines where that level exists in the hierarchy of levels. `levelOrder`s lower numbers are at the top of the hierarchy (ie field > 0) and higher numbers are at the bottom of the hierarchy (ie plant > 6). '
+      properties:
+        levelName:
+          description: A name for this level
+          enum:
+          - study
+          - field
+          - entry
+          - rep
+          - block
+          - sub-block
+          - plot
+          - sub-plot
+          - plant
+          - pot
+          - sample
+          example: plot
+          type: string
+        levelOrder:
+          description: '`levelOrder` defines where that level exists in the hierarchy of levels. `levelOrder`''s lower numbers are at the top of the hierarchy (ie field -> 1) and higher numbers are at the bottom of the hierarchy (ie plant -> 9).'
+          example: 2
+          type: integer
+      title: ObservationUnitHierarchyLevel
+      type: object
+    OntologyReference:
+      description: 'MIAPPE V1.1
+
+
+        (DM-85) Variable accession number - Accession number of the variable in the Crop Ontology
+
+
+        (DM-87) Trait accession number - Accession number of the trait in a suitable controlled vocabulary (Crop Ontology, Trait Ontology).
+
+
+        (DM-89) Method accession number - Accession number of the method in a suitable controlled vocabulary (Crop Ontology, Trait Ontology).
+
+
+        (DM-93) Scale accession number - Accession number of the scale in a suitable controlled vocabulary (Crop Ontology).'
+      properties:
+        documentationLinks:
+          description: links to various ontology documentation
+          items:
+            properties:
+              URL:
+                example: http://purl.obolibrary.org/obo/ro.owl
+                format: uri
+                type: string
+              type:
+                enum:
+                - OBO
+                - RDF
+                - WEBPAGE
+                example: OBO
+                type: string
+            type: object
+          type: array
+        ontologyDbId:
+          description: Ontology database unique identifier
+          example: 6b071868
+          type: string
+        ontologyName:
+          description: Ontology name
+          example: The Crop Ontology
+          type: string
+        version:
+          description: Ontology version (no specific format)
+          example: 7.2.3
+          type: string
+      required:
+      - ontologyName
+      - ontologyDbId
+      type: object
+    Person:
+      allOf:
+      - $ref: '#/components/schemas/PersonNewRequest'
+      - properties:
+          personDbId:
+            description: Unique ID for a person
+            example: 14340a54
+            type: string
+        required:
+        - personDbId
+        type: object
+    PersonNewRequest:
+      properties:
+        additionalInfo:
+          additionalProperties:
+            type: string
+          description: Additional arbitrary info
+          type: object
+        description:
+          description: description of this person
+          example: Bob likes pina coladas and getting caught in the rain.
+          type: string
+        emailAddress:
+          description: email address for this person
+          example: bob@bob.com
+          type: string
+        externalReferences:
+          $ref: '#/components/schemas/ExternalReferences'
+        firstName:
+          description: Persons first name
+          example: Bob
+          type: string
+        lastName:
+          description: Persons last name
+          example: Robertson
+          type: string
+        mailingAddress:
+          description: physical address of this person
+          example: 123 Street Ave, City, State, Country
+          type: string
+        middleName:
+          description: Persons middle name
+          example: Danger
+          type: string
+        phoneNumber:
+          description: phone number of this person
+          example: +1-555-555-5555
+          type: string
+        userID:
+          description: A systems user ID associated with this person. Different from personDbId because you could have a person who is not a user of the system.
+          example: bob-23
+          type: string
+      type: object
+    PersonSearchRequest:
+      allOf:
+      - $ref: '#/components/schemas/SearchRequestParametersPaging'
+      - $ref: '#/components/schemas/SearchRequestParametersExternalReferences'
+      - properties:
+          emailAddresses:
+            description: email address for this person
+            example:
+            - bob@bob.com
+            - rob@bob.com
+            items:
+              type: string
+            type: array
+          firstNames:
+            description: Persons first name
+            example:
+            - Bob
+            - Rob
+            items:
+              type: string
+            type: array
+          lastNames:
+            description: Persons last name
+            example:
+            - Robertson
+            - Smith
+            items:
+              type: string
+            type: array
+          mailingAddresses:
+            description: physical address of this person
+            example:
+            - 123 Main Street
+            - 456 Side Street
+            items:
+              type: string
+            type: array
+          middleNames:
+            description: Persons middle name
+            example:
+            - Danger
+            - Fight
+            items:
+              type: string
+            type: array
+          personDbIds:
+            description: Unique ID for this person
+            example:
+            - 1e7731ab
+            - bc28cff8
+            items:
+              type: string
+            type: array
+          phoneNumbers:
+            description: phone number of this person
+            example:
+            - '9995555555'
+            - '8884444444'
+            items:
+              type: string
+            type: array
+          userIDs:
+            description: A systems user ID associated with this person. Different from personDbId because you could have a person who is not a user of the system.
+            example:
+            - bob
+            - rob
+            items:
+              type: string
+            type: array
+        type: object
+    Program:
+      allOf:
+      - $ref: '#/components/schemas/ProgramNewRequest'
+      - properties:
+          programDbId:
+            description: The ID which uniquely identifies the program
+            example: f60f15b2
+            type: string
+        required:
+        - programDbId
+        type: object
+    ProgramNewRequest:
+      properties:
+        abbreviation:
+          description: An abbreviation which represents this program
+          example: P1
+          type: string
+        additionalInfo:
+          additionalProperties:
+            type: string
+          description: Additional arbitrary info
+          type: object
+        commonCropName:
+          description: Common name for the crop which this program is for
+          example: Tomatillo
+          type: string
+        documentationURL:
+          description: A URL to the human readable documentation of this object
+          example: https://wiki.brapi.org
+          format: uri
+          type: string
+        externalReferences:
+          $ref: '#/components/schemas/ExternalReferences'
+        leadPersonDbId:
+          description: The unique identifier of the program leader
+          example: fe6f5c50
+          type: string
+        leadPersonName:
+          description: The name of the program leader
+          example: Bob Robertson
+          type: string
+        objective:
+          description: The primary objective of the program
+          example: Make a better tomatillo
+          type: string
+        programName:
+          description: Human readable name of the program
+          example: Tomatillo_Breeding_Program
+          type: string
+      type: object
+    ProgramSearchRequest:
+      allOf:
+      - $ref: '#/components/schemas/SearchRequestParametersPaging'
+      - $ref: '#/components/schemas/SearchRequestParametersCommonCropNames'
+      - $ref: '#/components/schemas/SearchRequestParametersPrograms'
+      - $ref: '#/components/schemas/SearchRequestParametersExternalReferences'
+      - properties:
+          abbreviations:
+            description: An abbreviation of a program to search for
+            example:
+            - P1
+            - P2
+            items:
+              type: string
+            type: array
+          leadPersonDbIds:
+            description: The person DbIds of the program leader to search for
+            example:
+            - d8bd96c7
+            - a2b9c8e7
+            items:
+              type: string
+            type: array
+          leadPersonNames:
+            description: The names of the program leader to search for
+            example:
+            - Bob Robertson
+            - Rob Robertson
+            items:
+              type: string
+            type: array
+          objectives:
+            description: A program objective to search for
+            example:
+            - Objective Code One
+            - This is a longer objective search query
+            items:
+              type: string
+            type: array
+        type: object
+    ScaleBaseClass:
+      description: Scale metadata
+      properties:
+        additionalInfo:
+          additionalProperties:
+            type: string
+          description: Additional arbitrary info
+          type: object
+        dataType:
+          $ref: '#/components/schemas/TraitDataType'
+        decimalPlaces:
+          description: For numerical, number of decimal places to be reported
+          example: 2
+          type: integer
+        externalReferences:
+          $ref: '#/components/schemas/ExternalReferences'
+        ontologyReference:
+          $ref: '#/components/schemas/OntologyReference'
+        scaleName:
+          description: 'Name of the scale
+
+
+            MIAPPE V1.1 (DM-92) Scale Name of the scale associated with the variable'
+          example: Meters
+          type: string
+        validValues:
+          properties:
+            categories:
+              description: List of possible values with optional labels
+              example:
+              - label: low
+                value: '0'
+              - label: medium
+                value: '5'
+              - label: high
+                value: '10'
+              items:
+                properties:
+                  label:
+                    description: A text label for a category
+                    type: string
+                  value:
+                    description: The actual value for a category
+                    type: string
+                type: object
+              type: array
+            max:
+              description: Maximum value (used for field data capture control).
+              example: 9999
+              type: integer
+            min:
+              description: Minimum value (used for data capture control) for numerical and date scales
+              example: 2
+              type: integer
+          type: object
+      required:
+      - scaleName
+      type: object
+    SearchRequestParametersCommonCropNames:
+      properties:
+        commonCropNames:
+          description: Common name for the crop which this program is for
+          example:
+          - Tomatillo
+          - Paw Paw
+          items:
+            type: string
+          type: array
+      type: object
+    SearchRequestParametersExternalReferences:
+      properties:
+        externalReferenceIDs:
+          description: List of external reference IDs. Could be a simple strings or a URIs. (use with `externalReferenceSources` parameter)
+          example:
+          - http://purl.obolibrary.org/obo/ro.owl
+          - 14a19841
+          items:
+            type: string
+          type: array
+        externalReferenceSources:
+          description: List of identifiers for the source system or database of an external reference (use with `externalReferenceIDs` parameter)
+          example:
+          - OBO Library
+          - Field App Name
+          items:
+            type: string
+          type: array
+      type: object
+    SearchRequestParametersGermplasm:
+      properties:
+        germplasmDbIds:
+          description: List of IDs which uniquely identify germplasm to search for
+          example:
+          - e9c6edd7
+          - 1b1df4a6
+          items:
+            type: string
+          type: array
+        germplasmNames:
+          description: List of human readable names to identify germplasm to search for
+          example:
+          - A0000003
+          - A0000477
+          items:
+            type: string
+          type: array
+      type: object
+    SearchRequestParametersLocations:
+      properties:
+        locationDbIds:
+          description: The location ids to search for
+          example:
+          - b28911cf
+          - 5071d1e4
+          items:
+            type: string
+          type: array
+        locationNames:
+          description: A human readable names to search for
+          example:
+          - Location Alpha
+          - The Large Hadron Collider
+          items:
+            type: string
+          type: array
+      type: object
+    SearchRequestParametersObservationVariables:
+      properties:
+        observationVariableDbIds:
+          description: The DbIds of Variables to search for
+          example:
+          - a646187d
+          - 6d23513b
+          items:
+            type: string
+          type: array
+        observationVariableNames:
+          description: The names of Variables to search for
+          example:
+          - Plant Height in meters
+          - Wheat rust score 1-5
+          items:
+            type: string
+          type: array
+      type: object
+    SearchRequestParametersPaging:
+      properties:
+        page:
+          description: Which result page is requested. The page indexing starts at 0 (the first page is 'page'= 0). Default is `0`.
+          example: 0
+          type: integer
+        pageSize:
+          description: The size of the pages to be returned. Default is `1000`.
+          example: 1000
+          type: integer
+      type: object
+    SearchRequestParametersPrograms:
+      properties:
+        programDbIds:
+          description: A program identifier to search for
+          example:
+          - 8f5de35b
+          - 0e2d4a13
+          items:
+            type: string
+          type: array
+        programNames:
+          description: A name of a program to search for
+          example:
+          - Better Breeding Program
+          - Best Breeding Program
+          items:
+            type: string
+          type: array
+      type: object
+    SearchRequestParametersStudies:
+      properties:
+        studyDbIds:
+          description: List of study identifiers to search for
+          example:
+          - cf6c4bd4
+          - 691e69d6
+          items:
+            type: string
+          type: array
+        studyNames:
+          description: List of study names to filter search results
+          example:
+          - The First Bob Study 2017
+          - Wheat Yield Trial 246
+          items:
+            type: string
+          type: array
+      type: object
+    SearchRequestParametersTokenPaging:
+      properties:
+        pageSize:
+          description: The size of the pages to be returned. Default is `1000`.
+          example: 1000
+          type: integer
+        pageToken:
+          description: 'Used to request a specific page of data to be returned.
+
+
+            Tokenized pages are for large data sets which can not be efficiently broken into indexed pages. Use the nextPageToken and prevPageToken from a prior response to construct a query and move to the next or previous page respectively. '
+          example: 33c27874
+          type: string
+      type: object
+    SearchRequestParametersTrials:
+      properties:
+        trialDbIds:
+          description: The ID which uniquely identifies a trial to search for
+          example:
+          - d2593dc2
+          - 9431a731
+          items:
+            type: string
+          type: array
+        trialNames:
+          description: The human readable name of a trial to search for
+          example:
+          - All Yield Trials 2016
+          - Disease Resistance Study Comparison Group
+          items:
+            type: string
+          type: array
+      type: object
+    Season:
+      properties:
+        seasonDbId:
+          description: The ID which uniquely identifies a season. For backward compatibility it can be a string like '2012', '1957-2004'
+          example: Spring_2018
+          type: string
+        seasonName:
+          description: Name of the season. ex. 'Spring', 'Q2', 'Season A', etc.
+          example: Spring
+          type: string
+        year:
+          description: The 4 digit year of the season.
+          example: 2018
+          type: integer
+      required:
+      - seasonDbId
+      type: object
+    ServerInfo:
+      properties:
+        calls:
+          description: Array of available calls on this server
+          items:
+            $ref: '#/components/schemas/Service'
+          type: array
+        contactEmail:
+          description: A contact email address for this server management
+          example: contact@institute.org
+          type: string
+        documentationURL:
+          description: A URL to the human readable documentation of this object
+          example: institute.org/server
+          type: string
+        location:
+          description: Physical location of this server (ie. City, Country)
+          example: USA
+          type: string
+        organizationName:
+          description: The name of the organization that manages this server and data
+          example: The Institute
+          type: string
+        organizationURL:
+          description: The URL of the organization that manages this server and data
+          example: institute.org/home
+          type: string
+        serverDescription:
+          description: A description of this server
+          example: 'The BrAPI Test Server
+
+            Web Server - Apache Tomcat 7.0.32
+
+            Database - Postgres 10
+
+            Supported BrAPI Version - V2.0'
+          type: string
+        serverName:
+          description: The name of this server
+          example: The BrAPI Test Server
+          type: string
+      required:
+      - calls
+      type: object
+    Service:
+      properties:
+        dataTypes:
+          description: The possible data formats returned by the available call
+          example:
+          - application/json
+          items:
+            $ref: '#/components/schemas/WSMIMEDataTypes'
+          type: array
+        methods:
+          description: The possible HTTP Methods to be used with the available call
+          example:
+          - GET
+          - POST
+          items:
+            enum:
+            - GET
+            - POST
+            - PUT
+            - DELETE
+            type: string
+          type: array
+        service:
+          description: The name of the available call as recorded in the documentation
+          example: germplasm/{germplasmDbId}/pedigree
+          type: string
+        versions:
+          description: The supported versions of a particular call
+          example:
+          - '2.0'
+          - '2.1'
+          items:
+            enum:
+            - '2.0'
+            - '2.1'
+            - '2.2'
+            type: string
+          type: array
+      required:
+      - service
+      - versions
+      - methods
+      type: object
+    Study:
+      allOf:
+      - $ref: '#/components/schemas/StudyNewRequest'
+      - properties:
+          studyDbId:
+            description: 'The ID which uniquely identifies a study within the given database server
+
+
+              MIAPPE V1.1 (DM-11) Study unique ID - Unique identifier comprising the name or identifier for the institution/database hosting the submission of the study data, and the identifier of the study in that institution.'
+            example: 175ac75a
+            type: string
+        required:
+        - studyDbId
+        type: object
+    StudyNewRequest:
+      properties:
+        active:
+          description: Is this study currently active
+          example: true
+          type: boolean
+        additionalInfo:
+          additionalProperties:
+            type: string
+          description: Additional arbitrary info
+          type: object
+        commonCropName:
+          description: Common name for the crop associated with this study
+          example: Grape
+          type: string
+        contacts:
+          description: List of contact entities associated with this study
+          items:
+            $ref: '#/components/schemas/Contact'
+          type: array
+        culturalPractices:
+          description: MIAPPE V1.1 (DM-28) Cultural practices - General description of the cultural practices of the study.
+          example: Irrigation was applied according needs during summer to prevent water stress.
+          type: string
+        dataLinks:
+          description: List of links to extra data files associated with this study. Extra data could include notes, images, and reference data.
+          items:
+            $ref: '#/components/schemas/DataLink'
+          type: array
+        documentationURL:
+          description: A URL to the human readable documentation of this object
+          example: https://wiki.brapi.org
+          format: uri
+          type: string
+        endDate:
+          description: 'The date the study ends
+
+
+            MIAPPE V1.1 (DM-15) End date of study - Date and, if relevant, time when the experiment ended'
+          format: date-time
+          type: string
+        environmentParameters:
+          description: Environmental parameters that were kept constant throughout the study and did not change between observation units.
+          items:
+            $ref: '#/components/schemas/EnvironmentParameter'
+          type: array
+        experimentalDesign:
+          description: The experimental and statistical design full description plus a category PUI taken from crop research ontology or agronomy ontology
+          properties:
+            PUI:
+              description: MIAPPE V1.1 (DM-23) Type of experimental design - Type of experimental  design of the study, in the form of an accession number from the Crop Ontology.
+              example: CO_715:0000145
+              type: string
+            description:
+              description: MIAPPE V1.1 (DM-22) Description of the experimental design - Short description of the experimental design, possibly including statistical design. In specific cases, e.g. legacy datasets or data computed from several studies, the experimental design can be "unknown"/"NA", "aggregated/reduced data", or simply 'none'.
+              example: Lines were repeated twice at each location using a complete block design. In order to limit competition effects, each block was organized into four sub-blocks corresponding to earliest groups based on a prior information.
+              type: string
+          type: object
+        externalReferences:
+          $ref: '#/components/schemas/ExternalReferences'
+        growthFacility:
+          description: Short description of the facility in which the study was carried out.
+          properties:
+            PUI:
+              description: MIAPPE V1.1 (DM-27) Type of growth facility - Type of growth facility in which the study was carried out, in the form of an accession number from the Crop Ontology.
+              example: CO_715:0000162
+              type: string
+            description:
+              description: MIAPPE V1.1 (DM-26) Description of growth facility - Short description of the facility in which the study was carried out.
+              example: field environment condition, greenhouse
+              type: string
+          type: object
+        lastUpdate:
+          description: The date and time when this study was last modified
+          properties:
+            timestamp:
+              format: date-time
+              type: string
+            version:
+              example: 1.2.3
+              type: string
+          type: object
+        license:
+          description: The usage license associated with the study data
+          example: MIT License
+          type: string
+        locationDbId:
+          description: The unique identifier for a Location
+          example: 3cfdd67d
+          type: string
+        locationName:
+          description: 'A human readable name for this location
+
+
+            MIAPPE V1.1 (DM-18) Experimental site name - The name of the natural site, experimental field, greenhouse, phenotyping facility, etc. where the experiment took place.'
+          example: Location 1
+          type: string
+        observationLevels:
+          description: 'Observation levels indicate the granularity level at which the measurements are taken. `levelName` defines the level, `levelOrder` defines where that level exists in the hierarchy of levels. `levelOrder`s lower numbers are at the top of the hierarchy (ie field > 0) and higher numbers are at the bottom of the hierarchy (ie plant > 6). '
+          example:
+          - levelName: field
+            levelOrder: 0
+          - levelName: block
+            levelOrder: 1
+          - levelName: plot
+            levelOrder: 2
+          items:
+            $ref: '#/components/schemas/ObservationUnitHierarchyLevel'
+          type: array
+        observationUnitsDescription:
+          description: MIAPPE V1.1 (DM-25) Observation unit description - General description of the observation units in the study.
+          example: Observation units consisted in individual plots themselves consisting of a row of 15 plants at a density of approximately six plants per square meter.
+          type: string
+        seasons:
+          description: List of seasons over which this study was performed.
+          example:
+          - Spring_2018
+          items:
+            type: string
+          type: array
+        startDate:
+          description: 'The date this study started
+
+
+            MIAPPE V1.1 (DM-14) Start date of study - Date and, if relevant, time when the experiment started'
+          format: date-time
+          type: string
+        studyCode:
+          description: A short human readable code for a study
+          example: Grape_Yield_Spring_2018
+          type: string
+        studyDescription:
+          description: 'The description of this study
+
+
+            MIAPPE V1.1 (DM-13) Study description - Human-readable text describing the study'
+          example: This is a yield study for Spring 2018
+          type: string
+        studyName:
+          description: 'The human readable name for a study
+
+
+            MIAPPE V1.1 (DM-12) Study title - Human-readable text summarising the study'
+          example: INRA's Walnut Genetic Resources Observation at Kenya
+          type: string
+        studyPUI:
+          description: A permanent unique identifier associated with this study data. For example, a URI or DOI
+          example: doi:10.155454/12349537312
+          type: string
+        studyType:
+          description: The type of study being performed. ex. "Yield Trial", etc
+          example: Phenotyping
+          type: string
+        trialDbId:
+          description: The ID which uniquely identifies a trial
+          example: 48b327ea
+          type: string
+        trialName:
+          description: The human readable name of a trial
+          example: Grape_Yield_Trial
+          type: string
+      type: object
+    StudySearchRequest:
+      allOf:
+      - $ref: '#/components/schemas/SearchRequestParametersPaging'
+      - $ref: '#/components/schemas/SearchRequestParametersCommonCropNames'
+      - $ref: '#/components/schemas/SearchRequestParametersPrograms'
+      - $ref: '#/components/schemas/SearchRequestParametersTrials'
+      - $ref: '#/components/schemas/SearchRequestParametersStudies'
+      - $ref: '#/components/schemas/SearchRequestParametersLocations'
+      - $ref: '#/components/schemas/SearchRequestParametersGermplasm'
+      - $ref: '#/components/schemas/SearchRequestParametersObservationVariables'
+      - $ref: '#/components/schemas/SearchRequestParametersExternalReferences'
+      - properties:
+          active:
+            description: Is this study currently active
+            example: true
+            type: boolean
+          observationVariableDbIds:
+            description: List of observation variable IDs to search for
+            example:
+            - 819e508f
+            - f540b703
+            items:
+              type: string
+            type: array
+          seasonDbIds:
+            description: The ID which uniquely identifies a season
+            example:
+            - Harvest Two 2017
+            - Summer 2018
+            items:
+              type: string
+            type: array
+          sortBy:
+            description: Name of one of the fields within the study object on which results can be sorted
+            enum:
+            - studyDbId
+            - trialDbId
+            - programDbId
+            - locationDbId
+            - seasonDbId
+            - studyType
+            - studyName
+            - studyLocation
+            - programName
+            - germplasmDbId
+            - observationVariableDbId
+            type: string
+          sortOrder:
+            description: Order results should be sorted. ex. "ASC" or "DESC"
+            enum:
+            - ASC
+            - DESC
+            type: string
+          studyCodes:
+            description: A short human readable code for a study
+            example:
+            - Grape_Yield_Spring_2018
+            - Walnut_Kenya
+            items:
+              type: string
+            type: array
+          studyPUIs:
+            description: Permanent unique identifier associated with study data. For example, a URI or DOI
+            example:
+            - doi:10.155454/12349537312
+            - https://pui.per/d8dd35e1
+            items:
+              type: string
+            type: array
+          studyTypes:
+            description: The type of study being performed. ex. "Yield Trial", etc
+            example:
+            - Yield Trial
+            - Disease Resistance Trial
+            items:
+              type: string
+            type: array
+        type: object
+    TraitBaseClass:
+      properties:
+        additionalInfo:
+          additionalProperties:
+            type: string
+          description: Additional arbitrary info
+          type: object
+        alternativeAbbreviations:
+          description: Other frequent abbreviations of the trait, if any. These abbreviations do not have to follow a convention
+          example:
+          - H
+          - PH
+          - H1
+          items:
+            type: string
+          type: array
+        attribute:
+          description: A trait can be decomposed as "Trait" = "Entity" + "Attribute", the attribute is the observed feature (or characteristic) of the entity e.g., for "grain colour", attribute = "colour"
+          example: height
+          type: string
+        entity:
+          description: A trait can be decomposed as "Trait" = "Entity" + "Attribute", the entity is the part of the plant that the trait refers to e.g., for "grain colour", entity = "grain"
+          example: Stalk
+          type: string
+        externalReferences:
+          $ref: '#/components/schemas/ExternalReferences'
+        mainAbbreviation:
+          description: 'Main abbreviation for trait name. (examples: "Carotenoid content" => "CC")'
+          example: PH
+          type: string
+        ontologyReference:
+          $ref: '#/components/schemas/OntologyReference'
+        status:
+          description: 'Trait status (examples: "recommended", "obsolete", "legacy", etc.)'
+          example: recommended
+          type: string
+        synonyms:
+          description: Other trait names
+          example:
+          - Height
+          - Plant Height
+          - Stalk Height
+          - Canopy Height
+          items:
+            type: string
+          type: array
+        traitClass:
+          description: 'Trait class. (examples: "morphological", "phenological", "agronomical", "physiological", "abiotic stress", "biotic stress", "biochemical", "quality traits", "fertility", etc.)'
+          example: phenological
+          type: string
+        traitDescription:
+          description: The description of a trait
+          example: The height of the plant
+          type: string
+        traitName:
+          description: 'The human readable name of a trait
+
+
+            MIAPPE V1.1 (DM-86) Trait - Name of the (plant or environmental) trait under observation'
+          example: Height
+          type: string
+      type: object
+    TraitDataType:
+      description: '<p>Class of the scale, entries can be</p>
+
+        <p>"Code" -  This scale class is exceptionally used to express complex traits. Code is a nominal scale that combines the expressions of the different traits composing the complex trait. For example a severity trait might be expressed by a 2 digit and 2 character code. The first 2 digits are the percentage of the plant covered by a fungus and the 2 characters refer to the delay in development, e.g. "75VD" means "75 %" of the plant is infected and the plant is very delayed.</p>
+
+        <p>"Date" - The date class is for events expressed in a time format, See ISO 8601</p>
+
+        <p>"Duration" - The Duration class is for time elapsed between two events expressed in a time format, e.g. days, hours, months</p>
+
+        <p>"Nominal" - Categorical scale that can take one of a limited and fixed number of categories. There is no intrinsic ordering to the categories</p>
+
+        <p>"Numerical" - Numerical scales express the trait with real numbers. The numerical scale defines the unit e.g. centimeter, ton per hectare, branches</p>
+
+        <p>"Ordinal" - Ordinal scales are scales composed of ordered categories</p>
+
+        <p>"Text" - A free text is used to express the trait.</p>'
+      enum:
+      - Code
+      - Date
+      - Duration
+      - Nominal
+      - Numerical
+      - Ordinal
+      - Text
+      example: Numerical
+      type: string
+    Trial:
+      allOf:
+      - $ref: '#/components/schemas/TrialNewRequest'
+      - properties:
+          trialDbId:
+            description: 'The ID which uniquely identifies a trial
+
+
+              MIAPPE V1.1 (DM-2) Investigation unique ID - Identifier comprising the unique name of the institution/database hosting the submission of the investigation data, and the accession number of the investigation in that institution.'
+            example: 1883b402
+            type: string
+        required:
+        - trialDbId
+        type: object
+    TrialNewRequest:
+      properties:
+        active:
+          description: Is this trail currently active
+          example: true
+          type: boolean
+        additionalInfo:
+          additionalProperties:
+            type: string
+          description: Additional arbitrary info
+          type: object
+        commonCropName:
+          description: Common name for the crop associated with this trial
+          example: Wheat
+          type: string
+        contacts:
+          description: List of contact entities associated with this trial
+          items:
+            $ref: '#/components/schemas/Contact'
+          type: array
+        datasetAuthorships:
+          description: License and citation information for the data in this trial
+          items:
+            properties:
+              datasetPUI:
+                example: doi:10.15454/312953986E3
+                type: string
+              license:
+                description: MIAPPE V1.1 (DM-7) License - License for the reuse of the data associated with this investigation. The Creative Commons licenses cover most use cases and are recommended.
+                example: https://CreativeCommons.org/licenses/by/4.0
+                type: string
+              publicReleaseDate:
+                description: MIAPPE V1.1 (DM-6) Public release date - Date of first public release of the dataset presently being described.
+                format: date
+                type: string
+              submissionDate:
+                description: MIAPPE V1.1 (DM-5) Submission date - Date of submission of the dataset presently being described to a host repository.
+                format: date
+                type: string
+            type: object
+          type: array
+        documentationURL:
+          description: A URL to the human readable documentation of this object
+          example: https://wiki.brapi.org
+          format: uri
+          type: string
+        endDate:
+          description: The date this trial ends
+          format: date
+          type: string
+        externalReferences:
+          $ref: '#/components/schemas/ExternalReferences'
+        programDbId:
+          description: A program identifier to search for
+          example: 673f378a
+          type: string
+        programName:
+          description: Human readable name of the program
+          example: Tomatillo_Breeding_Program
+          type: string
+        publications:
+          description: MIAPPE V1.1 (DM-9) Associated publication - An identifier for a literature publication where the investigation is described. Use of DOIs is recommended.
+          items:
+            properties:
+              publicationPUI:
+                example: doi:10.15454/312953986E3
+                type: string
+              publicationReference:
+                example: Selby, BrAPI - An application programming interface for plant breeding applications, Bioinformatics, https://doi.org/10.1093/bioinformatics/190
+                type: string
+            type: object
+          type: array
+        startDate:
+          description: The date this trial started
+          format: date
+          type: string
+        trialDescription:
+          description: 'The human readable description of a trial
+
+
+            MIAPPE V1.1 (DM-4) Investigation description - Human-readable text describing the investigation in more detail.'
+          example: General drought resistance trial initiated in Peru before duplication in Africa
+          type: string
+        trialName:
+          description: 'The human readable name of a trial
+
+
+            MIAPPE V1.1 (DM-3) Investigation title - Human-readable string summarising the investigation.'
+          example: Peru Yield Trial 1
+          type: string
+        trialPUI:
+          description: A permanent identifier for a trial. Could be DOI or other URI formatted identifier.
+          example: https://doi.org/101093190
+          type: string
+      type: object
+    TrialSearchRequest:
+      allOf:
+      - $ref: '#/components/schemas/SearchRequestParametersPaging'
+      - $ref: '#/components/schemas/SearchRequestParametersCommonCropNames'
+      - $ref: '#/components/schemas/SearchRequestParametersPrograms'
+      - $ref: '#/components/schemas/SearchRequestParametersTrials'
+      - $ref: '#/components/schemas/SearchRequestParametersStudies'
+      - $ref: '#/components/schemas/SearchRequestParametersLocations'
+      - $ref: '#/components/schemas/SearchRequestParametersExternalReferences'
+      - properties:
+          active:
+            description: Is this trail currently active
+            example: true
+            type: boolean
+          contactDbIds:
+            description: List of contact entities associated with this trial
+            example:
+            - e0f70c2a
+            - b82f0967
+            items:
+              type: string
+            type: array
+          searchDateRangeEnd:
+            description: "The end of the overlapping search date range. `searchDateRangeStart` must be before `searchDateRangeEnd`.\n\nReturn a Trial entity if any of the following cases are true\n\n- `searchDateRangeStart` is before `trial.endDate` AND `searchDateRangeEnd` is null \n\n- `searchDateRangeStart` is before `trial.endDate` AND `searchDateRangeEnd` is after `trial.startDate`\n\n- `searchDateRangeEnd` is after `trial.startDate` AND `searchDateRangeStart` is null\n\n- `searchDateRangeEnd` is after `trial.startDate` AND `searchDateRangeStart` is before `trial.endDate`"
+            format: date
+            type: string
+          searchDateRangeStart:
+            description: "The start of the overlapping search date range. `searchDateRangeStart` must be before `searchDateRangeEnd`.\n\nReturn a Trial entity if any of the following cases are true\n\n- `searchDateRangeStart` is before `trial.endDate` AND `searchDateRangeEnd` is null \n\n- `searchDateRangeStart` is before `trial.endDate` AND `searchDateRangeEnd` is after `trial.startDate`\n\n- `searchDateRangeEnd` is after `trial.startDate` AND `searchDateRangeStart` is null\n\n- `searchDateRangeEnd` is after `trial.startDate` AND `searchDateRangeStart` is before `trial.endDate`"
+            format: date
+            type: string
+          trialPUIs:
+            description: A permanent identifier for a trial. Could be DOI or other URI formatted identifier.
+            example:
+            - https://doi.org/01093190
+            - https://doi.org/11192409
+            items:
+              type: string
+            type: array
+        type: object
+    VariableBaseClass:
+      properties:
+        additionalInfo:
+          additionalProperties:
+            type: string
+          description: Additional arbitrary info
+          type: object
+        commonCropName:
+          description: 'Crop name (examples: "Maize", "Wheat")'
+          example: Maize
+          type: string
+        contextOfUse:
+          description: 'Indication of how trait is routinely used. (examples: ["Trial evaluation", "Nursery evaluation"])'
+          example:
+          - Trial evaluation
+          - Nursery evaluation
+          items:
+            type: string
+          type: array
+        defaultValue:
+          description: 'Variable default value. (examples: "red", "2.3", etc.)'
+          example: '2.0'
+          type: string
+        documentationURL:
+          description: A URL to the human readable documentation of this object
+          example: https://wiki.brapi.org/documentation.html
+          format: uri
+          type: string
+        externalReferences:
+          $ref: '#/components/schemas/ExternalReferences'
+        growthStage:
+          description: 'Growth stage at which measurement is made (examples: "flowering")'
+          example: flowering
+          type: string
+        institution:
+          description: Name of institution submitting the variable
+          example: The BrAPI Institute
+          type: string
+        language:
+          description: 2 letter ISO 639-1 code for the language of submission of the variable.
+          example: en
+          type: string
+        method:
+          allOf:
+          - $ref: '#/components/schemas/MethodBaseClass'
+          - properties:
+              methodDbId:
+                description: Method unique identifier
+                example: 0adb2764
+                type: string
+            type: object
+        ontologyReference:
+          $ref: '#/components/schemas/OntologyReference'
+        scale:
+          allOf:
+          - $ref: '#/components/schemas/ScaleBaseClass'
+          - description: Scale metadata
+            properties:
+              scaleDbId:
+                description: Unique identifier of the scale. If left blank, the upload system will automatically generate a scale ID.
+                example: af730171
+                type: string
+            required:
+            - scaleDbId
+            type: object
+        scientist:
+          description: Name of scientist submitting the variable.
+          example: Dr. Bob Robertson
+          type: string
+        status:
+          description: 'Variable status. (examples: "recommended", "obsolete", "legacy", etc.)'
+          example: recommended
+          type: string
+        submissionTimestamp:
+          description: Timestamp when the Variable was added (ISO 8601)
+          format: date-time
+          type: string
+        synonyms:
+          description: Other variable names
+          example:
+          - Maize Height
+          - Stalk Height
+          - Corn Height
+          items:
+            type: string
+          type: array
+        trait:
+          allOf:
+          - $ref: '#/components/schemas/TraitBaseClass'
+          - properties:
+              traitDbId:
+                description: The ID which uniquely identifies a trait
+                example: 9b2e34f5
+                type: string
+            type: object
+      required:
+      - trait
+      - method
+      - scale
+      type: object
+    WSMIMEDataTypes:
+      enum:
+      - application/json
+      - text/csv
+      - text/tsv
+      - application/flapjack
+      type: string
+    basePagination:
+      properties:
+        pageSize:
+          default: 1000
+          description: The number of data elements returned, aka the size of the current page. If the requested page does not have enough elements to fill a page at the requested page size, this field should indicate the actual number of elements returned.
+          example: 1000
+          type: integer
+        totalCount:
+          description: The total number of elements that are available on the server and match the requested query parameters.
+          example: 10
+          type: integer
+        totalPages:
+          description: "The total number of pages of elements available on the server. This should be calculated with the following formula. \n\ntotalPages = CEILING( totalCount / requested_page_size)"
+          example: 1
+          type: integer
+      required:
+      - pageSize
+      type: object
+    dataFile:
+      description: A dataFile contains a URL and the relevant file metadata to represent a file
+      properties:
+        fileDescription:
+          description: A human readable description of the file contents
+          example: This is an Excel data file
+          type: string
+        fileMD5Hash:
+          description: The MD5 Hash of the file contents to be used as a check sum
+          example: c2365e900c81a89cf74d83dab60df146
+          type: string
+        fileName:
+          description: The name of the file
+          example: datafile.xlsx
+          type: string
+        fileSize:
+          description: The size of the file in bytes
+          example: 4398
+          type: integer
+        fileType:
+          description: The type or format of the file. Preferably MIME Type.
+          example: application/vnd.ms-excel
+          type: string
+        fileURL:
+          description: The absolute URL where the file is located
+          example: https://wiki.brapi.org/examples/datafile.xlsx
+          format: uri
+          type: string
+      required:
+      - fileURL
+      type: object
+    geoJSON:
+      description: 'One geometry as defined by GeoJSON (RFC 7946). All coordinates are decimal values on the WGS84 geographic coordinate reference system.
+
+
+        Copied from RFC 7946 Section 3.1.1
+
+
+        A position is an array of numbers. There MUST be two or more elements. The first two elements are longitude and latitude, or
+
+        easting and northing, precisely in that order and using decimal numbers. Altitude or elevation MAY be included as an optional third element.'
+      properties:
+        geometry:
+          description: A geometry as defined by GeoJSON (RFC 7946). In this context, only Point or Polygon geometry are allowed.
+          discriminator:
+            mapping:
+              Point: '#/components/schemas/pointGeometry'
+              Polygon: '#/components/schemas/polygonGeometry'
+            propertyName: type
+          example:
+            coordinates:
+            - -76.506042
+            - 42.417373
+            - 123
+            type: Point
+          oneOf:
+          - $ref: '#/components/schemas/pointGeometry'
+          - $ref: '#/components/schemas/polygonGeometry'
+          title: GeoJSON Geometry
+          type: object
+        type:
+          default: Feature
+          description: The literal string "Feature"
+          example: Feature
+          type: string
+      title: GeoJSON
+      type: object
+    geoJSONSearchArea:
+      allOf:
+      - $ref: '#/components/schemas/geoJSON'
+      - description: "A GeoJSON Polygon which describes an area to search for other GeoJSON objects. All contained Points and intersecting Polygons should be returned as search results. \n\nAll coordinates are decimal values on the WGS84 geographic coordinate reference system."
+        example:
+          geometry:
+            coordinates:
+            - - - -77.456654
+                - 42.241133
+              - - -75.414133
+                - 41.508282
+              - - -76.506042
+                - 42.417373
+              - - -77.456654
+                - 42.241133
+            type: Polygon
+          type: Feature
+        properties: {}
+        title: GeoJSONSearchArea
+        type: object
+    indexPagination:
+      allOf:
+      - $ref: '#/components/schemas/basePagination'
+      - description: "The pagination object is applicable only when the payload contains a \"data\" key. It describes the pagination of the data contained in the \"data\" array, as a way to identify which subset of data is being returned. \n\nPages are zero indexed, so the first page will be page 0 (zero)."
+        properties:
+          currentPage:
+            default: 0
+            description: The index number for the returned page of data. This should always match the requested page number or the default page (0).
+            example: 0
+            type: integer
+        required:
+        - currentPage
+        type: object
+    linearRing:
+      description: An array of at least four positions where the first equals the last
+      example:
+      - - -77.456654
+        - 42.241133
+        - 494
+      - - -75.414133
+        - 41.508282
+        - 571
+      - - -76.506042
+        - 42.417373
+        - 123
+      - - -77.456654
+        - 42.241133
+        - 346
+      items:
+        $ref: '#/components/schemas/position'
+      minItems: 4
+      type: array
+    metadata:
+      allOf:
+      - $ref: '#/components/schemas/metadataBase'
+      - properties:
+          pagination:
+            $ref: '#/components/schemas/indexPagination'
+        type: object
+    metadataBase:
+      properties:
+        datafiles:
+          description: "The datafiles contains a list of file URLs and metadata. \nThese files contain additional information related to the returned object and can be retrieved by a subsequent call. \nThis could be a supplementary data file, an informational file, the uploaded file where the data originated from, a generated file representing the whole dataset in a particular format, or any other related file. "
+          items:
+            $ref: '#/components/schemas/dataFile'
+          type: array
+        status:
+          description: "The status field contains a list of informational status messages from the server. \nIf no status is reported, an empty list should be returned. See Error Reporting for more information."
+          items:
+            $ref: '#/components/schemas/status'
+          type: array
+      type: object
+    metadataTokenPagination:
+      allOf:
+      - $ref: '#/components/schemas/metadataBase'
+      - properties:
+          pagination:
+            $ref: '#/components/schemas/tokenPagination'
+        type: object
+    pointGeometry:
+      description: 'Copied from RFC 7946 Section 3.1.1
+
+
+        A position is an array of numbers. There MUST be two or more elements. The first two elements are longitude and latitude, or
+
+        easting and northing, precisely in that order and using decimal numbers. Altitude or elevation MAY be included as an optional third element.'
+      properties:
+        coordinates:
+          $ref: '#/components/schemas/position'
+        type:
+          default: Point
+          description: The literal string "Point"
+          example: Point
+          type: string
+      type: object
+    polygon:
+      description: An array of linear rings
+      example:
+      - - - -77.456654
+          - 42.241133
+          - 494
+        - - -75.414133
+          - 41.508282
+          - 571
+        - - -76.506042
+          - 42.417373
+          - 123
+        - - -77.456654
+          - 42.241133
+          - 346
+      items:
+        $ref: '#/components/schemas/linearRing'
+      type: array
+    polygonGeometry:
+      description: "An array of Linear Rings. Each Linear Ring is an array of Points. \n\nA Point is an array of numbers. There MUST be two or more elements. The first two elements are longitude and latitude, or\neasting and northing, precisely in that order and using decimal numbers. Altitude or elevation MAY be included as an optional third element."
+      properties:
+        coordinates:
+          $ref: '#/components/schemas/polygon'
+        type:
+          default: Polygon
+          description: The literal string "Polygon"
+          example: Polygon
+          type: string
+      type: object
+    position:
+      description: A single position
+      example:
+      - -76.506042
+      - 42.417373
+      - 123
+      items:
+        type: number
+      minItems: 2
+      type: array
+    status:
+      description: An array of status messages to convey technical logging information from the server to the client.
+      properties:
+        message:
+          description: A short message concerning the status of this request/response
+          example: Request accepted, response successful
+          type: string
+        messageType:
+          description: The logging level for the attached message
+          enum:
+          - DEBUG
+          - ERROR
+          - WARNING
+          - INFO
+          example: INFO
+          type: string
+      required:
+      - message
+      - messageType
+      type: object
+    tokenPagination:
+      allOf:
+      - $ref: '#/components/schemas/basePagination'
+      - description: "The pagination object is applicable only when the payload contains a \"data\" key. It describes the pagination of the data contained in the \"data\" array, as a way to identify which subset of data is being returned. \n\nTokenized pages are for large data sets which can not be efficiently broken into indexed pages. Use the nextPageToken and prevPageToken to construct an additional query and move to the next or previous page respectively.  "
+        properties:
+          currentPageToken:
+            description: The string token used to query the current page of data.
+            example: 48bc6ac1
+            type: string
+          nextPageToken:
+            description: The string token used to query the next page of data.
+            example: cb668f63
+            type: string
+          prevPageToken:
+            description: The string token used to query the previous page of data.
+            example: 9659857e
+            type: string
+        required:
+        - nextPageToken
+        type: object
+  securitySchemes:
+    AuthorizationToken:
+      bearerFormat: nonce token or JWT
+      description: OAuth Bearer Token - A valid Bearer token to prove authorization
+      scheme: bearer
+      type: http
+info:
+  description: "The Breeding API (BrAPI) is a Standardized REST ful Web Service API Specification for communicating Plant Breeding Data. BrAPI allows for easy data sharing between databases and tools involved in plant breeding.\n<div class=\"brapi-section\">\n<h2 class=\"brapi-section-title\">General Reference Documentation</h2>\n<div class=\"gen-info-link\"><a href=\"https://github.com/plantbreeding/API/blob/master/Specification/GeneralInfo/URL_Structure.md\">URL Structure</a></div>\n<div class=\"gen-info-link\"><a href=\"https://github.com/plantbreeding/API/blob/master/Specification/GeneralInfo/Response_Structure.md\">Response Structure</a></div>\n<div class=\"gen-info-link\"><a href=\"https://github.com/plantbreeding/API/blob/master/Specification/GeneralInfo/Date_Time_Encoding.md\">Date/Time Encoding</a></div>\n<div class=\"gen-info-link\"><a href=\"https://github.com/plantbreeding/API/blob/master/Specification/GeneralInfo/Location_Encoding.md\">Location Encoding</a></div>\n<div class=\"gen-info-link\"><a href=\"https://github.com/plantbreeding/API/blob/master/Specification/GeneralInfo/Error_Handling.md\">Error Handling</a></div>\n<div class=\"gen-info-link\"><a href=\"https://github.com/plantbreeding/API/blob/master/Specification/GeneralInfo/Search_Services.md\">Search Services</a></div>\n</div>\n\n<div class=\"current-brapi-section brapi-section\">\n<h2 class=\"brapi-section-title\">BrAPI Core</h2>\n<div class=\"brapi-section-description\">The BrAPI Core module contains high level entities used for organization and management. This includes Programs, Trials, Studies, Locations, People, and Lists</div>\n<div class=\"version-number\">V2.0</div>\n<div class=\"link-btn\"><a href=\"https://github.com/plantbreeding/API/tree/master/Specification/BrAPI-Core\">GitHub</a></div>\n<div class=\"link-btn\"><a href=\"https://app.swaggerhub.com/apis/PlantBreedingAPI/BrAPI-Core\">SwaggerHub</a></div>\n<div class=\"link-btn\"><a href=\"https://brapicore.docs.apiary.io\">Apiary</a></div>\n<div class=\"stop-float\"></div>\n</div>\n\n<div class=\"brapi-section\">\n<h2 class=\"brapi-section-title\">BrAPI Phenotyping</h2>\n<div class=\"brapi-section-description\">The BrAPI Phenotyping module contains entities related to phenotypic observations. This includes Observation Units, Observations, Observation Variables, Traits, Scales, Methods, and Images</div>\n<div class=\"version-number\">V2.0</div>\n<div class=\"link-btn\"><a href=\"https://github.com/plantbreeding/API/tree/master/Specification/BrAPI-Phenotyping\">GitHub</a></div>\n<div class=\"link-btn\"><a href=\"https://app.swaggerhub.com/apis/PlantBreedingAPI/BrAPI-Phenotyping\">SwaggerHub</a></div>\n<div class=\"link-btn\"><a href=\"https://brapiphenotyping.docs.apiary.io\">Apiary</a></div>\n<div class=\"stop-float\"></div>\n</div>\n\n<div class=\"brapi-section\">\n<h2 class=\"brapi-section-title\">BrAPI Genotyping</h2>\n<div class=\"brapi-section-description\">The BrAPI Genotyping module contains entities related to genotyping analysis. This includes Samples, Markers, Variant Sets, Variants, Call Sets, Calls, References, Reads, and Vendor Orders</div>\n<div class=\"version-number\">V2.0</div>\n<div class=\"link-btn\"><a href=\"https://github.com/plantbreeding/API/tree/master/Specification/BrAPI-Genotyping\">GitHub</a></div>\n<div class=\"link-btn\"><a href=\"https://app.swaggerhub.com/apis/PlantBreedingAPI/BrAPI-Genotyping\">SwaggerHub</a></div>\n<div class=\"link-btn\"><a href=\"https://brapigenotyping.docs.apiary.io\">Apiary</a></div>\n<div class=\"stop-float\"></div>\n</div>\n\n<div class=\"brapi-section\">\n<h2 class=\"brapi-section-title\">BrAPI Germplasm</h2>\n<div class=\"brapi-section-description\">The BrAPI Germplasm module contains entities related to germplasm management. This includes Germplasm, Germplasm Attributes, Seed Lots, Crosses, Pedigree, and Progeny</div>\n<div class=\"version-number\">V2.0</div>\n<div class=\"link-btn\"><a href=\"https://github.com/plantbreeding/API/tree/master/Specification/BrAPI-Germplasm\">GitHub</a></div>\n<div class=\"link-btn\"><a href=\"https://app.swaggerhub.com/apis/PlantBreedingAPI/BrAPI-Germplasm\">SwaggerHub</a></div>\n<div class=\"link-btn\"><a href=\"https://brapigermplasm.docs.apiary.io\">Apiary</a></div>\n<div class=\"stop-float\"></div>\n</div>\n\n<style>\n.link-btn{\nfloat: left; \nmargin: 2px 10px 0 0; \npadding: 0 5px; \nborder-radius: 5px; \nbackground-color: #ddd;\n}\n.stop-float{\n  clear: both;\n}\n.version-number{\n  float: left; \n  margin: 5px 10px 0 5px;\n}\n.brapi-section-title{\n  margin: 0 10px 0 0;\n  font-size: 20px;\n}\n.current-brapi-section{\n  font-weight: bolder;\n  border-radius: 5px; \n  background-color: #ddd;\n}\n.brapi-section{\n  padding: 5px 5px; \n}\n.brapi-section-description{\n  margin: 5px 0 0 5px;\n}\n</style>"
+  title: BrAPI-Core
+  version: '2.0'
+openapi: 3.0.0
+paths:
+  /commoncropnames:
+    get:
+      description: "List the common crop names for the crops available in a database server. \n\nThis call is ** required ** for multi-crop systems where data from multiple \ncrops may be stored in the same database server. A distinct database server \nis defined by everything in the URL before \"/brapi/v2\", including host \nname and base path.\n\nThis call is recommended for single crop systems to be compatible with \nmulti-crop clients. For a single crop system the response should contain \nan array with exactly 1 element. \n\nThe common crop name can be used as a search parameter for Programs, \nStudies, and Germplasm."
+      parameters:
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/authorizationHeader'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  '@context':
+                    $ref: '#/components/schemas/Context'
+                  metadata:
+                    $ref: '#/components/schemas/metadata'
+                  result:
+                    properties:
+                      data:
+                        description: array of crop names available on the server
+                        example:
+                        - Tomatillo
+                        - Paw Paw
+                        items:
+                          description: supported crop name
+                          type: string
+                        type: array
+                    required:
+                    - data
+                    type: object
+                required:
+                - metadata
+                - result
+                title: commonCropNamesResponse
+                type: object
+          description: OK
+          headers: {}
+        '400':
+          $ref: '#/components/responses/code400BadRequest'
+        '401':
+          $ref: '#/components/responses/code401Unauthorized'
+        '403':
+          $ref: '#/components/responses/code403Forbidden'
+      summary: Get the Common Crop Names
+      tags:
+      - Common Crop Names
+  /lists:
+    get:
+      description: Get filtered set of generic lists
+      parameters:
+      - description: The type of objects contained by this generic list
+        in: query
+        name: listType
+        required: false
+        schema:
+          $ref: '#/components/schemas/ListTypes'
+      - description: The human readable name of this generic list
+        in: query
+        name: listName
+        required: false
+        schema:
+          type: string
+      - description: The unique ID of this generic list
+        in: query
+        name: listDbId
+        required: false
+        schema:
+          type: string
+      - description: The source tag of this generic list
+        in: query
+        name: listSource
+        required: false
+        schema:
+          type: string
+      - $ref: '#/components/parameters/externalReferenceID'
+      - $ref: '#/components/parameters/externalReferenceSource'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/authorizationHeader'
+      responses:
+        '200':
+          $ref: '#/components/responses/ListsListResponse'
+        '400':
+          $ref: '#/components/responses/code400BadRequest'
+        '401':
+          $ref: '#/components/responses/code401Unauthorized'
+        '403':
+          $ref: '#/components/responses/code403Forbidden'
+      summary: Get filtered set of generic lists
+      tags:
+      - Lists
+    post:
+      description: Create new list objects in the database
+      parameters:
+      - $ref: '#/components/parameters/authorizationHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/ListNewRequest'
+              type: array
+      responses:
+        '200':
+          $ref: '#/components/responses/ListsListResponse'
+        '400':
+          $ref: '#/components/responses/code400BadRequest'
+        '401':
+          $ref: '#/components/responses/code401Unauthorized'
+        '403':
+          $ref: '#/components/responses/code403Forbidden'
+      summary: Create New List Objects
+      tags:
+      - Lists
+  /lists/{listDbId}:
+    get:
+      description: Get a specific generic lists
+      parameters:
+      - description: The unique ID of this generic list
+        in: path
+        name: listDbId
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/authorizationHeader'
+      responses:
+        '200':
+          $ref: '#/components/responses/ListsSingleResponse'
+        '400':
+          $ref: '#/components/responses/code400BadRequest'
+        '401':
+          $ref: '#/components/responses/code401Unauthorized'
+        '403':
+          $ref: '#/components/responses/code403Forbidden'
+        '404':
+          $ref: '#/components/responses/code404NotFound'
+      summary: Get the details of a specific List
+      tags:
+      - Lists
+    put:
+      description: Update an existing generic list
+      parameters:
+      - description: The unique ID of this generic list
+        in: path
+        name: listDbId
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/authorizationHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListNewRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/ListsSingleResponse'
+        '400':
+          $ref: '#/components/responses/code400BadRequest'
+        '401':
+          $ref: '#/components/responses/code401Unauthorized'
+        '403':
+          $ref: '#/components/responses/code403Forbidden'
+        '404':
+          $ref: '#/components/responses/code404NotFound'
+      summary: Update an existing generic list
+      tags:
+      - Lists
+  /lists/{listDbId}/items:
+    post:
+      description: Add new data to a specific generic lists
+      parameters:
+      - description: The unique ID of this generic list
+        in: path
+        name: listDbId
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/authorizationHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example:
+              - 758a78c0
+              - 2c78f9ee
+              items:
+                type: string
+              type: array
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  '@context':
+                    $ref: '#/components/schemas/Context'
+                  metadata:
+                    $ref: '#/components/schemas/metadata'
+                  result:
+                    $ref: '#/components/schemas/ListDetails'
+                required:
+                - metadata
+                - result
+                title: listResponse
+                type: object
+          description: OK
+          headers: {}
+        '400':
+          $ref: '#/components/responses/code400BadRequest'
+        '401':
+          $ref: '#/components/responses/code401Unauthorized'
+        '403':
+          $ref: '#/components/responses/code403Forbidden'
+        '404':
+          $ref: '#/components/responses/code404NotFound'
+      summary: Add Items to a specific List
+      tags:
+      - Lists
+  /locations:
+    get:
+      description: 'Get a list of locations.
+
+        * The `countryCode` is as per [ISO_3166-1_alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) spec.
+
+        * `altitude` is in meters.'
+      parameters:
+      - description: Filter by location type specified.
+        in: query
+        name: locationType
+        required: false
+        schema:
+          type: string
+      - description: Filter by location DbId
+        in: query
+        name: locationDbId
+        required: false
+        schema:
+          type: string
+      - $ref: '#/components/parameters/externalReferenceID'
+      - $ref: '#/components/parameters/externalReferenceSource'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/authorizationHeader'
+      responses:
+        '200':
+          $ref: '#/components/responses/LocationListResponse'
+        '400':
+          $ref: '#/components/responses/code400BadRequest'
+        '401':
+          $ref: '#/components/responses/code401Unauthorized'
+        '403':
+          $ref: '#/components/responses/code403Forbidden'
+      summary: Get a filtered list of Locations
+      tags:
+      - Locations
+    post:
+      description: 'Add new locations to database
+
+        * The `countryCode` is as per [ISO_3166-1_alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) spec.
+
+        * `altitude` is in meters.'
+      parameters:
+      - $ref: '#/components/parameters/authorizationHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/LocationNewRequest'
+              type: array
+      responses:
+        '200':
+          $ref: '#/components/responses/LocationListResponse'
+        '400':
+          $ref: '#/components/responses/code400BadRequest'
+        '401':
+          $ref: '#/components/responses/code401Unauthorized'
+        '403':
+          $ref: '#/components/responses/code403Forbidden'
+      summary: Create new Locations
+      tags:
+      - Locations
+  /locations/{locationDbId}:
+    get:
+      description: 'Get details for a location.
+
+        - The `countryCode` is as per [ISO_3166-1_alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) spec.
+
+        - `altitude` is in meters.'''
+      parameters:
+      - description: The internal DB id for a location
+        in: path
+        name: locationDbId
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/authorizationHeader'
+      responses:
+        '200':
+          $ref: '#/components/responses/LocationSingleResponse'
+        '400':
+          $ref: '#/components/responses/code400BadRequest'
+        '401':
+          $ref: '#/components/responses/code401Unauthorized'
+        '403':
+          $ref: '#/components/responses/code403Forbidden'
+        '404':
+          $ref: '#/components/responses/code404NotFound'
+      summary: Get the details of a specific Location
+      tags:
+      - Locations
+    put:
+      description: 'Update the details for an existing location.
+
+        - The `countryCode` is as per [ISO_3166-1_alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) spec.
+
+        - `altitude` is in meters.'''
+      parameters:
+      - description: The internal DB id for a location
+        in: path
+        name: locationDbId
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/authorizationHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationNewRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/LocationSingleResponse'
+        '400':
+          $ref: '#/components/responses/code400BadRequest'
+        '401':
+          $ref: '#/components/responses/code401Unauthorized'
+        '403':
+          $ref: '#/components/responses/code403Forbidden'
+        '404':
+          $ref: '#/components/responses/code404NotFound'
+      summary: Update the details for an existing Location
+      tags:
+      - Locations
+  /people:
+    get:
+      description: Get filtered list of people
+      parameters:
+      - description: A persons first name
+        in: query
+        name: firstName
+        required: false
+        schema:
+          type: string
+      - description: A persons last name
+        in: query
+        name: lastName
+        required: false
+        schema:
+          type: string
+      - description: The unique ID of a person
+        in: query
+        name: personDbId
+        required: false
+        schema:
+          type: string
+      - description: A systems user ID associated with this person. Different from personDbId because you could have a person who is not a user of the system.
+        in: query
+        name: userID
+        required: false
+        schema:
+          type: string
+      - $ref: '#/components/parameters/externalReferenceID'
+      - $ref: '#/components/parameters/externalReferenceSource'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/authorizationHeader'
+      responses:
+        '200':
+          $ref: '#/components/responses/PersonListResponse'
+        '400':
+          $ref: '#/components/responses/code400BadRequest'
+        '401':
+          $ref: '#/components/responses/code401Unauthorized'
+        '403':
+          $ref: '#/components/responses/code403Forbidden'
+      summary: Get filtered list of People
+      tags:
+      - People
+    post:
+      description: Create new People entities. `personDbId` is generated and managed by the server.
+      parameters:
+      - $ref: '#/components/parameters/authorizationHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/PersonNewRequest'
+              type: array
+      responses:
+        '200':
+          $ref: '#/components/responses/PersonListResponse'
+        '400':
+          $ref: '#/components/responses/code400BadRequest'
+        '401':
+          $ref: '#/components/responses/code401Unauthorized'
+        '403':
+          $ref: '#/components/responses/code403Forbidden'
+      summary: Create new People
+      tags:
+      - People
+  /people/{personDbId}:
+    get:
+      description: Get the details for a specific Person
+      parameters:
+      - description: The unique ID of a person
+        in: path
+        name: personDbId
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/authorizationHeader'
+      responses:
+        '200':
+          $ref: '#/components/responses/PersonSingleResponse'
+        '400':
+          $ref: '#/components/responses/code400BadRequest'
+        '401':
+          $ref: '#/components/responses/code401Unauthorized'
+        '403':
+          $ref: '#/components/responses/code403Forbidden'
+        '404':
+          $ref: '#/components/responses/code404NotFound'
+      summary: Get the details for a specific Person
+      tags:
+      - People
+    put:
+      description: Update an existing Person
+      parameters:
+      - description: The unique ID of a person
+        in: path
+        name: personDbId
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/authorizationHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PersonNewRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/PersonSingleResponse'
+        '400':
+          $ref: '#/components/responses/code400BadRequest'
+        '401':
+          $ref: '#/components/responses/code401Unauthorized'
+        '403':
+          $ref: '#/components/responses/code403Forbidden'
+        '404':
+          $ref: '#/components/responses/code404NotFound'
+      summary: Update an existing Person
+      tags:
+      - People
+  /programs:
+    get:
+      description: Get a filtered list of breeding Programs. This list can be filtered by common crop name to narrow results to a specific crop.
+      parameters:
+      - description: Filter by the common crop name. Exact match.
+        in: query
+        name: commonCropName
+        required: false
+        schema:
+          type: string
+      - description: Program filter to only return trials associated with given program id.
+        in: query
+        name: programDbId
+        required: false
+        schema:
+          type: string
+      - description: Filter by program name. Exact match.
+        in: query
+        name: programName
+        required: false
+        schema:
+          type: string
+      - description: Filter by program abbreviation. Exact match.
+        in: query
+        name: abbreviation
+        required: false
+        schema:
+          type: string
+      - $ref: '#/components/parameters/externalReferenceID'
+      - $ref: '#/components/parameters/externalReferenceSource'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/authorizationHeader'
+      responses:
+        '200':
+          $ref: '#/components/responses/ProgramListResponse'
+        '400':
+          $ref: '#/components/responses/code400BadRequest'
+        '401':
+          $ref: '#/components/responses/code401Unauthorized'
+        '403':
+          $ref: '#/components/responses/code403Forbidden'
+      summary: Get a filtered list of breeding Programs
+      tags:
+      - Programs
+    post:
+      description: Add new breeding Programs to the database. The `programDbId` is set by the server, all other fields are take from the request body, or a default value is used.
+      parameters:
+      - $ref: '#/components/parameters/authorizationHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/ProgramNewRequest'
+              type: array
+      responses:
+        '200':
+          $ref: '#/components/responses/ProgramListResponse'
+        '400':
+          $ref: '#/components/responses/code400BadRequest'
+        '401':
+          $ref: '#/components/responses/code401Unauthorized'
+        '403':
+          $ref: '#/components/responses/code403Forbidden'
+      summary: Add new breeding Programs to the database
+      tags:
+      - Programs
+  /programs/{programDbId}:
+    get:
+      description: Get a single breeding Program by Id. This can be used to quickly get the details of a Program when you have the Id from another entity.
+      parameters:
+      - description: Filter by the common crop name. Exact match.
+        in: path
+        name: programDbId
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/authorizationHeader'
+      responses:
+        '200':
+          $ref: '#/components/responses/ProgramSingleResponse'
+        '400':
+          $ref: '#/components/responses/code400BadRequest'
+        '401':
+          $ref: '#/components/responses/code401Unauthorized'
+        '403':
+          $ref: '#/components/responses/code403Forbidden'
+      summary: Get a breeding Program by Id
+      tags:
+      - Programs
+    put:
+      description: Update the details of an existing breeding Program.
+      parameters:
+      - description: Filter by the common crop name. Exact match.
+        in: path
+        name: programDbId
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/authorizationHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProgramNewRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/ProgramSingleResponse'
+        '400':
+          $ref: '#/components/responses/code400BadRequest'
+        '401':
+          $ref: '#/components/responses/code401Unauthorized'
+        '403':
+          $ref: '#/components/responses/code403Forbidden'
+      summary: Update an existing Program
+      tags:
+      - Programs
+  /search/lists:
+    post:
+      description: 'Advanced searching for the list resource.
+
+        See Search Services for additional implementation details.'
+      parameters:
+      - $ref: '#/components/parameters/authorizationHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListSearchRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/ListsListResponse'
+        '202':
+          $ref: '#/components/responses/code202AcceptedSearchResponse'
+        '400':
+          $ref: '#/components/responses/code400BadRequest'
+        '401':
+          $ref: '#/components/responses/code401Unauthorized'
+        '403':
+          $ref: '#/components/responses/code403Forbidden'
+      summary: Submit a search request for Lists
+      tags:
+      - Lists
+  /search/lists/{searchResultsDbId}:
+    get:
+      description: 'Advanced searching for the list resource.
+
+        See Search Services for additional implementation details.'
+      parameters:
+      - $ref: '#/components/parameters/searchResultsDbId'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/authorizationHeader'
+      responses:
+        '200':
+          $ref: '#/components/responses/ListsListResponse'
+        '202':
+          $ref: '#/components/responses/code202AcceptedSearchResponse'
+        '400':
+          $ref: '#/components/responses/code400BadRequest'
+        '401':
+          $ref: '#/components/responses/code401Unauthorized'
+        '403':
+          $ref: '#/components/responses/code403Forbidden'
+      summary: Get the results of a List search request
+      tags:
+      - Lists
+  /search/locations:
+    post:
+      description: 'Advanced searching for the locations resource.
+
+        See Search Services for additional implementation details.'
+      parameters:
+      - $ref: '#/components/parameters/authorizationHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationSearchRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/LocationListResponse'
+        '202':
+          $ref: '#/components/responses/code202AcceptedSearchResponse'
+        '400':
+          $ref: '#/components/responses/code400BadRequest'
+        '401':
+          $ref: '#/components/responses/code401Unauthorized'
+        '403':
+          $ref: '#/components/responses/code403Forbidden'
+      summary: Submit a search request for Locations
+      tags:
+      - Locations
+  /search/locations/{searchResultsDbId}:
+    get:
+      description: 'Advanced searching for the locations resource.
+
+        See Search Services for additional implementation details.'
+      parameters:
+      - $ref: '#/components/parameters/searchResultsDbId'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/authorizationHeader'
+      responses:
+        '200':
+          $ref: '#/components/responses/LocationListResponse'
+        '202':
+          $ref: '#/components/responses/code202AcceptedSearchResponse'
+        '400':
+          $ref: '#/components/responses/code400BadRequest'
+        '401':
+          $ref: '#/components/responses/code401Unauthorized'
+        '403':
+          $ref: '#/components/responses/code403Forbidden'
+      summary: Get the results of a Locations search request
+      tags:
+      - Locations
+  /search/people:
+    post:
+      description: 'Advanced searching for the programs resource.
+
+
+        See Search Services for additional implementation details.'
+      parameters:
+      - $ref: '#/components/parameters/authorizationHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PersonSearchRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/PersonListResponse'
+        '202':
+          $ref: '#/components/responses/code202AcceptedSearchResponse'
+        '400':
+          $ref: '#/components/responses/code400BadRequest'
+        '401':
+          $ref: '#/components/responses/code401Unauthorized'
+        '403':
+          $ref: '#/components/responses/code403Forbidden'
+      summary: Submit a search request for People
+      tags:
+      - People
+  /search/people/{searchResultsDbId}:
+    get:
+      description: 'Advanced searching for the people resource.
+
+
+        See Search Services for additional implementation details.'
+      parameters:
+      - $ref: '#/components/parameters/searchResultsDbId'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/authorizationHeader'
+      responses:
+        '200':
+          $ref: '#/components/responses/PersonListResponse'
+        '202':
+          $ref: '#/components/responses/code202AcceptedSearchResponse'
+        '400':
+          $ref: '#/components/responses/code400BadRequest'
+        '401':
+          $ref: '#/components/responses/code401Unauthorized'
+        '403':
+          $ref: '#/components/responses/code403Forbidden'
+      summary: Get the results of a People search request
+      tags:
+      - People
+  /search/programs:
+    post:
+      description: 'Advanced searching for the programs resource.
+
+        See Search Services for additional implementation details.'
+      parameters:
+      - $ref: '#/components/parameters/authorizationHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProgramSearchRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/ProgramListResponse'
+        '202':
+          $ref: '#/components/responses/code202AcceptedSearchResponse'
+        '400':
+          $ref: '#/components/responses/code400BadRequest'
+        '401':
+          $ref: '#/components/responses/code401Unauthorized'
+        '403':
+          $ref: '#/components/responses/code403Forbidden'
+      summary: Submit a search request for Programs
+      tags:
+      - Programs
+  /search/programs/{searchResultsDbId}:
+    get:
+      description: 'Advanced searching for the programs resource.
+
+        See Search Services for additional implementation details.'
+      parameters:
+      - $ref: '#/components/parameters/searchResultsDbId'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/authorizationHeader'
+      responses:
+        '200':
+          $ref: '#/components/responses/ProgramListResponse'
+        '202':
+          $ref: '#/components/responses/code202AcceptedSearchResponse'
+        '400':
+          $ref: '#/components/responses/code400BadRequest'
+        '401':
+          $ref: '#/components/responses/code401Unauthorized'
+        '403':
+          $ref: '#/components/responses/code403Forbidden'
+        '404':
+          $ref: '#/components/responses/code404NotFound'
+      summary: Get the results of a Programs search request
+      tags:
+      - Programs
+  /search/studies:
+    post:
+      description: 'Get list of studies
+
+        StartDate and endDate should be ISO-8601 format for dates
+
+        See Search Services for additional implementation details.'
+      parameters:
+      - $ref: '#/components/parameters/authorizationHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StudySearchRequest'
+        description: Study Search request
+      responses:
+        '200':
+          $ref: '#/components/responses/StudyListResponse'
+        '202':
+          $ref: '#/components/responses/code202AcceptedSearchResponse'
+        '400':
+          $ref: '#/components/responses/code400BadRequest'
+        '401':
+          $ref: '#/components/responses/code401Unauthorized'
+        '403':
+          $ref: '#/components/responses/code403Forbidden'
+      summary: Submit a search request for Studies
+      tags:
+      - Studies
+  /search/studies/{searchResultsDbId}:
+    get:
+      description: 'Get list of studies
+
+
+        StartDate and endDate should be ISO-8601 format for dates
+
+
+        See Search Services for additional implementation details.'
+      parameters:
+      - $ref: '#/components/parameters/searchResultsDbId'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/authorizationHeader'
+      responses:
+        '200':
+          $ref: '#/components/responses/StudyListResponse'
+        '202':
+          $ref: '#/components/responses/code202AcceptedSearchResponse'
+        '400':
+          $ref: '#/components/responses/code400BadRequest'
+        '401':
+          $ref: '#/components/responses/code401Unauthorized'
+        '403':
+          $ref: '#/components/responses/code403Forbidden'
+        '404':
+          $ref: '#/components/responses/code404NotFound'
+      summary: Get the results of a Studies search request
+      tags:
+      - Studies
+  /search/trials:
+    post:
+      description: 'Advanced searching for the programs resource.
+
+        See Search Services for additional implementation details.'
+      parameters:
+      - $ref: '#/components/parameters/authorizationHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrialSearchRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/TrialListResponse'
+        '202':
+          $ref: '#/components/responses/code202AcceptedSearchResponse'
+        '400':
+          $ref: '#/components/responses/code400BadRequest'
+        '401':
+          $ref: '#/components/responses/code401Unauthorized'
+        '403':
+          $ref: '#/components/responses/code403Forbidden'
+      summary: Submit a search request for Trials
+      tags:
+      - Trials
+  /search/trials/{searchResultsDbId}:
+    get:
+      description: 'Advanced searching for the trials resource.
+
+        See Search Services for additional implementation details.'
+      parameters:
+      - $ref: '#/components/parameters/searchResultsDbId'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/authorizationHeader'
+      responses:
+        '200':
+          $ref: '#/components/responses/TrialListResponse'
+        '202':
+          $ref: '#/components/responses/code202AcceptedSearchResponse'
+        '400':
+          $ref: '#/components/responses/code400BadRequest'
+        '401':
+          $ref: '#/components/responses/code401Unauthorized'
+        '403':
+          $ref: '#/components/responses/code403Forbidden'
+        '404':
+          $ref: '#/components/responses/code404NotFound'
+      summary: Get the results of a Trials search request
+      tags:
+      - Trials
+  /seasons:
+    get:
+      description: "Call to retrieve all seasons in the database.\n\nA season is made of 2 parts; the primary year and a term which defines a segment of the year. \nThis could be a traditional season, like \"Spring\" or \"Summer\" or this could be a month, like \n\"May\" or \"June\" or this could be an arbitrary season name which is meaningful to the breeding \nprogram like \"PlantingTime_3\" or \"Season E\""
+      parameters:
+      - description: The unique identifier for a season. For backward compatibility it can be a string like '2012', '1957-2004'
+        example: b230a1d2, Spring_2017, 3
+        in: query
+        name: seasonDbId
+        required: false
+        schema:
+          type: string
+      - description: The term to describe a given season. Example "Spring" OR "May" OR "Planting_Time_7".
+        example: Spring
+        in: query
+        name: season
+        required: false
+        schema:
+          type: string
+      - description: The 4 digit year of a season. Example "2017"
+        example: 2017
+        in: query
+        name: year
+        required: false
+        schema:
+          type: integer
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/authorizationHeader'
+      responses:
+        '200':
+          $ref: '#/components/responses/SeasonListResponse'
+        '400':
+          $ref: '#/components/responses/code400BadRequest'
+        '401':
+          $ref: '#/components/responses/code401Unauthorized'
+        '403':
+          $ref: '#/components/responses/code403Forbidden'
+      summary: Get the Seasons
+      tags:
+      - Seasons
+    post:
+      description: Add new season entries to the database
+      parameters:
+      - $ref: '#/components/parameters/authorizationHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/Season'
+              type: array
+      responses:
+        '200':
+          $ref: '#/components/responses/SeasonListResponse'
+        '400':
+          $ref: '#/components/responses/code400BadRequest'
+        '401':
+          $ref: '#/components/responses/code401Unauthorized'
+        '403':
+          $ref: '#/components/responses/code403Forbidden'
+      summary: POST new Seasons
+      tags:
+      - Seasons
+  /seasons/{seasonDbId}:
+    get:
+      description: Get the a single Season
+      parameters:
+      - description: The unique identifier for a season. For backward compatibility it can be a string like '2012', '1957-2004'
+        example: b230a1d2, Spring_2017, 3
+        in: path
+        name: seasonDbId
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/authorizationHeader'
+      responses:
+        '200':
+          $ref: '#/components/responses/SeasonSingleResponse'
+        '400':
+          $ref: '#/components/responses/code400BadRequest'
+        '401':
+          $ref: '#/components/responses/code401Unauthorized'
+        '403':
+          $ref: '#/components/responses/code403Forbidden'
+      summary: Get the a single Season
+      tags:
+      - Seasons
+    put:
+      description: Update existing Seasons
+      parameters:
+      - description: The unique identifier for a season. For backward compatibility it can be a string like '2012', '1957-2004'
+        example: b230a1d2, Spring_2017, 3
+        in: path
+        name: seasonDbId
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/authorizationHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Season'
+      responses:
+        '200':
+          $ref: '#/components/responses/SeasonSingleResponse'
+        '400':
+          $ref: '#/components/responses/code400BadRequest'
+        '401':
+          $ref: '#/components/responses/code401Unauthorized'
+        '403':
+          $ref: '#/components/responses/code403Forbidden'
+      summary: Update existing Seasons
+      tags:
+      - Seasons
+  /serverinfo:
+    get:
+      description: "Implementation Notes\n\nHaving a consistent structure for the path string of each call is very \nimportant for teams to be able to connect and find errors. Read more on Github.\n\nHere are the rules for the path of each call that should be returned\n\nEvery word in the call path should match the documentation exactly, both in \nspelling and capitalization. Note that path strings are all lower case, but \npath parameters are camel case.\n\nEach path should start relative to \\\"/\\\" and therefore should not include \\\"/\\\"\n\nNo leading or trailing slashes (\\\"/\\\") \n\nPath parameters are wrapped in curly braces (\\\"{}\\\"). The name of the path parameter \nshould be spelled exactly as it is specified in the documentation.\n\nExamples \n\nGOOD   \"call\": \"germplasm/{germplasmDbId}/pedigree\" \n\nBAD    \"call\": \"germplasm/{id}/pedigree\"\n\nBAD    \"call\": \"germplasm/{germplasmDBid}/pedigree\" \n\nBAD    \"call\": \"brapi/v2/germplasm/{germplasmDbId}/pedigree\" \n\nBAD    \"call\": \"/germplasm/{germplasmDbId}/pedigree/\" \n\nBAD    \"call\": \"germplasm/<germplasmDbId>/pedigree\""
+      parameters:
+      - description: The data format supported by the call.
+        in: query
+        name: dataType
+        required: false
+        schema:
+          $ref: '#/components/schemas/WSMIMEDataTypes'
+      - $ref: '#/components/parameters/authorizationHeader'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  '@context':
+                    $ref: '#/components/schemas/Context'
+                  metadata:
+                    $ref: '#/components/schemas/metadata'
+                  result:
+                    $ref: '#/components/schemas/ServerInfo'
+                required:
+                - metadata
+                - result
+                title: ServerInfoResponse
+                type: object
+          description: OK
+          headers: {}
+        '400':
+          $ref: '#/components/responses/code400BadRequest'
+        '401':
+          $ref: '#/components/responses/code401Unauthorized'
+        '403':
+          $ref: '#/components/responses/code403Forbidden'
+      summary: Get the list of implemented Calls
+      tags:
+      - Server Info
+  /studies:
+    get:
+      description: 'Get list of studies
+
+
+        StartDate and endDate should be ISO-8601 format for dates'
+      parameters:
+      - description: Common name for the crop associated with this study
+        in: query
+        name: commonCropName
+        required: false
+        schema:
+          type: string
+      - description: Filter based on study type unique identifier
+        in: query
+        name: studyType
+        required: false
+        schema:
+          type: string
+      - description: Program filter to only return studies associated with given program id.
+        in: query
+        name: programDbId
+        required: false
+        schema:
+          type: string
+      - description: Filter by location
+        in: query
+        name: locationDbId
+        required: false
+        schema:
+          type: string
+      - description: Filter by season or year
+        in: query
+        name: seasonDbId
+        required: false
+        schema:
+          type: string
+      - description: Filter by trial
+        in: query
+        name: trialDbId
+        required: false
+        schema:
+          type: string
+      - description: Filter by study DbId
+        in: query
+        name: studyDbId
+        required: false
+        schema:
+          type: string
+      - description: Filter by study name
+        in: query
+        name: studyName
+        required: false
+        schema:
+          type: string
+      - description: Filter by study code
+        in: query
+        name: studyCode
+        required: false
+        schema:
+          type: string
+      - description: Filter by study PUI
+        in: query
+        name: studyPUI
+        required: false
+        schema:
+          type: string
+      - description: Filter by germplasm DbId
+        in: query
+        name: germplasmDbId
+        required: false
+        schema:
+          type: string
+      - description: Filter by observation variable DbId
+        in: query
+        name: observationVariableDbId
+        required: false
+        schema:
+          type: string
+      - description: Filter active status true/false.
+        in: query
+        name: active
+        required: false
+        schema:
+          type: boolean
+      - description: Name of the field to sort by.
+        in: query
+        name: sortBy
+        required: false
+        schema:
+          enum:
+          - studyDbId
+          - trialDbId
+          - programDbId
+          - locationDbId
+          - seasonDbId
+          - studyType
+          - studyName
+          - studyLocation
+          - programName
+          type: string
+      - description: Sort order direction. Ascending/Descending.
+        in: query
+        name: sortOrder
+        required: false
+        schema:
+          enum:
+          - asc
+          - ASC
+          - desc
+          - DESC
+          type: string
+      - $ref: '#/components/parameters/externalReferenceID'
+      - $ref: '#/components/parameters/externalReferenceSource'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/authorizationHeader'
+      responses:
+        '200':
+          $ref: '#/components/responses/StudyListResponse'
+        '400':
+          $ref: '#/components/responses/code400BadRequest'
+        '401':
+          $ref: '#/components/responses/code401Unauthorized'
+        '403':
+          $ref: '#/components/responses/code403Forbidden'
+      summary: Get a filtered list of Studies
+      tags:
+      - Studies
+    post:
+      description: 'Create new studies
+
+
+        Implementation Notes
+
+
+        StartDate and endDate should be ISO-8601 format for dates
+
+
+        `studDbId` is generated by the server.'
+      parameters:
+      - $ref: '#/components/parameters/authorizationHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/StudyNewRequest'
+              type: array
+      responses:
+        '200':
+          $ref: '#/components/responses/StudyListResponse'
+        '400':
+          $ref: '#/components/responses/code400BadRequest'
+        '401':
+          $ref: '#/components/responses/code401Unauthorized'
+        '403':
+          $ref: '#/components/responses/code403Forbidden'
+      summary: Create new Studies.
+      tags:
+      - Studies
+  /studies/{studyDbId}:
+    get:
+      description: 'Retrieve the information of the study required for field data collection
+
+
+        An additionalInfo field was added to provide a controlled vocabulary for less common data fields.'
+      parameters:
+      - description: Identifier of the study. Usually a number, could be alphanumeric.
+        in: path
+        name: studyDbId
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/authorizationHeader'
+      responses:
+        '200':
+          $ref: '#/components/responses/StudySingleResponse'
+        '400':
+          $ref: '#/components/responses/code400BadRequest'
+        '401':
+          $ref: '#/components/responses/code401Unauthorized'
+        '403':
+          $ref: '#/components/responses/code403Forbidden'
+        '404':
+          $ref: '#/components/responses/code404NotFound'
+      summary: Get the details for a specific Study
+      tags:
+      - Studies
+    put:
+      description: Update an existing Study with new data
+      parameters:
+      - description: Identifier of the study. Usually a number, could be alphanumeric.
+        in: path
+        name: studyDbId
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/authorizationHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StudyNewRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/StudySingleResponse'
+        '400':
+          $ref: '#/components/responses/code400BadRequest'
+        '401':
+          $ref: '#/components/responses/code401Unauthorized'
+        '403':
+          $ref: '#/components/responses/code403Forbidden'
+        '404':
+          $ref: '#/components/responses/code404NotFound'
+      summary: Update an existing Study
+      tags:
+      - Studies
+  /studytypes:
+    get:
+      description: Call to retrieve the list of study types.
+      parameters:
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/authorizationHeader'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  '@context':
+                    $ref: '#/components/schemas/Context'
+                  metadata:
+                    $ref: '#/components/schemas/metadata'
+                  result:
+                    properties:
+                      data:
+                        description: the list of all study types available in this server.
+                        example:
+                        - Crossing Nursery
+                        - Yield study
+                        items:
+                          type: string
+                        type: array
+                    required:
+                    - data
+                    type: object
+                required:
+                - metadata
+                - result
+                title: studyTypesResponse
+                type: object
+          description: OK
+          headers: {}
+        '400':
+          $ref: '#/components/responses/code400BadRequest'
+        '401':
+          $ref: '#/components/responses/code401Unauthorized'
+        '403':
+          $ref: '#/components/responses/code403Forbidden'
+      summary: Get the Study Types
+      tags:
+      - Studies
+  /trials:
+    get:
+      description: Retrieve a filtered list of breeding Trials. A Trial is a collection of Studies
+      parameters:
+      - description: Filter active status true/false.
+        in: query
+        name: active
+        required: false
+        schema:
+          type: boolean
+      - description: Common name for the crop associated with this trial
+        in: query
+        name: commonCropName
+        required: false
+        schema:
+          type: string
+      - description: Contact entities associated with this trial
+        in: query
+        name: contactDbId
+        required: false
+        schema:
+          type: string
+      - description: Program filter to only return trials associated with given program id.
+        in: query
+        name: programDbId
+        required: false
+        schema:
+          type: string
+      - description: Filter by location
+        in: query
+        name: locationDbId
+        required: false
+        schema:
+          type: string
+      - description: "The start of the overlapping search date range. `searchDateRangeStart` must be before `searchDateRangeEnd`.\n\nReturn a Trial entity if any of the following cases are true\n\n- `searchDateRangeStart` is before `trial.endDate` AND `searchDateRangeEnd` is null \n\n- `searchDateRangeStart` is before `trial.endDate` AND `searchDateRangeEnd` is after `trial.startDate`\n\n- `searchDateRangeEnd` is after `trial.startDate` AND `searchDateRangeStart` is null\n\n- `searchDateRangeEnd` is after `trial.startDate` AND `searchDateRangeStart` is before `trial.endDate`"
+        in: query
+        name: searchDateRangeStart
+        required: false
+        schema:
+          format: date
+          type: string
+      - description: "The start of the overlapping search date range. `searchDateRangeStart` must be before `searchDateRangeEnd`.\n\nReturn a Trial entity if any of the following cases are true\n\n- `searchDateRangeStart` is before `trial.endDate` AND `searchDateRangeEnd` is null \n\n- `searchDateRangeStart` is before `trial.endDate` AND `searchDateRangeEnd` is after `trial.startDate`\n\n- `searchDateRangeEnd` is after `trial.startDate` AND `searchDateRangeStart` is null\n\n- `searchDateRangeEnd` is after `trial.startDate` AND `searchDateRangeStart` is before `trial.endDate`"
+        in: query
+        name: searchDateRangeEnd
+        required: false
+        schema:
+          format: date
+          type: string
+      - description: Filter by connected studyDbId
+        in: query
+        name: studyDbId
+        required: false
+        schema:
+          type: string
+      - description: Filter by trialDbId
+        in: query
+        name: trialDbId
+        required: false
+        schema:
+          type: string
+      - description: Filter by trial name
+        in: query
+        name: trialName
+        required: false
+        schema:
+          type: string
+      - description: Filter by trial PUI
+        in: query
+        name: trialPUI
+        required: false
+        schema:
+          type: string
+      - description: Sort order. Name of the field to sort by.
+        in: query
+        name: sortBy
+        required: false
+        schema:
+          enum:
+          - trialDbId
+          - trialName
+          - programDbId
+          - programName
+          - locationDbId
+          - startDate
+          - endDate
+          type: string
+      - description: 'Sort order direction: asc/desc'
+        in: query
+        name: sortOrder
+        required: false
+        schema:
+          enum:
+          - asc
+          - ASC
+          - desc
+          - DESC
+          type: string
+      - $ref: '#/components/parameters/externalReferenceID'
+      - $ref: '#/components/parameters/externalReferenceSource'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/authorizationHeader'
+      responses:
+        '200':
+          $ref: '#/components/responses/TrialListResponse'
+        '400':
+          $ref: '#/components/responses/code400BadRequest'
+        '401':
+          $ref: '#/components/responses/code401Unauthorized'
+        '403':
+          $ref: '#/components/responses/code403Forbidden'
+      summary: Get a filtered list of Trials
+      tags:
+      - Trials
+    post:
+      description: Create new breeding Trials. A Trial represents a collection of related Studies. `trialDbId` is generated by the server.
+      parameters:
+      - $ref: '#/components/parameters/authorizationHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/TrialNewRequest'
+              type: array
+      responses:
+        '200':
+          $ref: '#/components/responses/TrialListResponse'
+        '400':
+          $ref: '#/components/responses/code400BadRequest'
+        '401':
+          $ref: '#/components/responses/code401Unauthorized'
+        '403':
+          $ref: '#/components/responses/code403Forbidden'
+      summary: Create new trials
+      tags:
+      - Trials
+  /trials/{trialDbId}:
+    get:
+      description: Get the details of a specific Trial
+      parameters:
+      - description: The internal trialDbId
+        in: path
+        name: trialDbId
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/authorizationHeader'
+      responses:
+        '200':
+          $ref: '#/components/responses/TrialSingleResponse'
+        '400':
+          $ref: '#/components/responses/code400BadRequest'
+        '401':
+          $ref: '#/components/responses/code401Unauthorized'
+        '403':
+          $ref: '#/components/responses/code403Forbidden'
+        '404':
+          $ref: '#/components/responses/code404NotFound'
+      summary: Get the details of a specific Trial
+      tags:
+      - Trials
+    put:
+      description: Update the details of an existing Trial
+      parameters:
+      - description: The internal trialDbId
+        in: path
+        name: trialDbId
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/authorizationHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrialNewRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/TrialSingleResponse'
+        '400':
+          $ref: '#/components/responses/code400BadRequest'
+        '401':
+          $ref: '#/components/responses/code401Unauthorized'
+        '403':
+          $ref: '#/components/responses/code403Forbidden'
+        '404':
+          $ref: '#/components/responses/code404NotFound'
+      summary: Update the details of an existing Trial
+      tags:
+      - Trials
+security:
+- AuthorizationToken: []
+servers:
+- url: https://test-server.brapi.org/brapi/v2
+tags:
+- description: Check the available calls on a server
+  externalDocs:
+    description: Docs
+    url: https://wiki.brapi.org/
+  name: Server Info
+- description: List of crops supported by this server
+  externalDocs:
+    description: Docs
+    url: https://wiki.brapi.org/
+  name: Common Crop Names
+- description: Information about Programs
+  externalDocs:
+    description: Docs
+    url: https://wiki.brapi.org/
+  name: Programs
+- description: Information about Trials
+  externalDocs:
+    description: Docs
+    url: https://wiki.brapi.org/
+  name: Trials
+- description: Information about Studies
+  externalDocs:
+    description: Docs
+    url: https://wiki.brapi.org/
+  name: Studies
+- description: Information about Locations
+  externalDocs:
+    description: Docs
+    url: https://wiki.brapi.org/
+  name: Locations
+- description: Information about Seasons
+  externalDocs:
+    description: Docs
+    url: https://wiki.brapi.org/
+  name: Seasons
+- description: Create and manipulate generic lists
+  externalDocs:
+    description: Docs
+    url: https://wiki.brapi.org/
+  name: Lists
+- description: Create and manipulate information about people
+  externalDocs:
+    description: Docs
+    url: https://wiki.brapi.org/
+  name: People

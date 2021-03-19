@@ -1,0 +1,4028 @@
+components:
+  parameters:
+    acceptHeader:
+      description: The requested content type which should be returned by the server
+      example: application/json
+      in: header
+      name: Accept
+      required: true
+      schema:
+        $ref: '#/components/schemas/WSMIMEDataTypes'
+    authorizationHeader:
+      description: "HTTP HEADER - Token used for Authorization \n\n<strong> Bearer {token_string} </strong>"
+      example: Bearer XXXX
+      in: header
+      name: Authorization
+      schema:
+        pattern: ^Bearer .*$
+        type: string
+    externalReferenceID:
+      description: An external reference ID. Could be a simple string or a URI. (use with `externalReferenceSource` parameter)
+      in: query
+      name: externalReferenceID
+      required: false
+      schema:
+        type: string
+    externalReferenceSource:
+      description: An identifier for the source system or database of an external reference (use with `externalReferenceID` parameter)
+      in: query
+      name: externalReferenceSource
+      required: false
+      schema:
+        type: string
+    page:
+      description: 'Used to request a specific page of data to be returned.
+
+
+        The page indexing starts at 0 (the first page is ''page''= 0). Default is `0`.'
+      example: '0'
+      in: query
+      name: page
+      required: false
+      schema:
+        type: integer
+    pageSize:
+      description: The size of the pages to be returned. Default is `1000`.
+      example: 1000
+      in: query
+      name: pageSize
+      required: false
+      schema:
+        type: integer
+    pageToken:
+      description: 'Used to request a specific page of data to be returned.
+
+
+        Tokenized pages are for large data sets which can not be efficiently broken into indexed pages. Use the nextPageToken and prevPageToken from a prior response to construct a query and move to the next or previous page respectively. '
+      example: 33c27874
+      in: query
+      name: pageToken
+      required: false
+      schema:
+        type: string
+    searchResultsDbId:
+      description: Unique identifier which references the search results
+      in: path
+      name: searchResultsDbId
+      required: true
+      schema:
+        type: string
+  responses:
+    202AcceptedSearchResponse:
+      content:
+        application/json:
+          schema:
+            properties:
+              '@context':
+                $ref: '#/components/schemas/Context'
+              metadata:
+                $ref: '#/components/schemas/metadata'
+              result:
+                properties:
+                  searchResultsDbId:
+                    example: 551ae08c
+                    type: string
+                type: object
+            title: 202AcceptedSearchResponse
+            type: object
+      description: Accepted
+      headers: {}
+    400BadRequest:
+      content:
+        application/json:
+          example: 'ERROR - 2018-10-08T18:15:11Z - Malformed JSON Request Object
+
+
+            ERROR - 2018-10-08T18:15:11Z - Invalid query parameter
+
+
+            ERROR - 2018-10-08T18:15:11Z - Required parameter is missing'
+          schema:
+            type: string
+      description: Bad Request
+      headers: {}
+    401Unauthorized:
+      content:
+        application/json:
+          example: ERROR - 2018-10-08T18:15:11Z - Missing or expired authorization token
+          schema:
+            type: string
+      description: Unauthorized
+      headers: {}
+    403Forbidden:
+      content:
+        application/json:
+          example: ERROR - 2018-10-08T18:15:11Z - User does not have permission to perform this action
+          schema:
+            type: string
+      description: Forbidden
+      headers: {}
+    404NotFound:
+      content:
+        application/json:
+          example: ERROR - 2018-10-08T18:15:11Z - The requested object DbId is not found
+          schema:
+            type: string
+      description: Not Found
+      headers: {}
+    CrossesListResponse:
+      content:
+        application/json:
+          schema:
+            properties:
+              '@context':
+                $ref: '#/components/schemas/Context'
+              metadata:
+                $ref: '#/components/schemas/metadata'
+              result:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/Cross'
+                    type: array
+                required:
+                - data
+                type: object
+            required:
+            - metadata
+            - result
+            title: CrossesListResponse
+            type: object
+      description: OK
+      headers: {}
+    CrossingProjectsListResponse:
+      content:
+        application/json:
+          schema:
+            properties:
+              '@context':
+                $ref: '#/components/schemas/Context'
+              metadata:
+                $ref: '#/components/schemas/metadata'
+              result:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/CrossingProject'
+                    type: array
+                required:
+                - data
+                type: object
+            required:
+            - metadata
+            - result
+            title: CrossingProjectsListResponse
+            type: object
+      description: OK
+      headers: {}
+    CrossingProjectsSingleResponse:
+      content:
+        application/json:
+          schema:
+            properties:
+              '@context':
+                $ref: '#/components/schemas/Context'
+              metadata:
+                $ref: '#/components/schemas/metadata'
+              result:
+                $ref: '#/components/schemas/CrossingProject'
+            required:
+            - metadata
+            - result
+            title: CrossingProjectsSingleResponse
+            type: object
+      description: OK
+      headers: {}
+    GermplasmAttributeListResponse:
+      content:
+        application/json:
+          schema:
+            properties:
+              '@context':
+                $ref: '#/components/schemas/Context'
+              metadata:
+                $ref: '#/components/schemas/metadata'
+              result:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/GermplasmAttribute'
+                    type: array
+                required:
+                - data
+                type: object
+            required:
+            - metadata
+            - result
+            title: GermplasmAttributeListResponse
+            type: object
+      description: OK
+      headers: {}
+    GermplasmAttributeSingleResponse:
+      content:
+        application/json:
+          schema:
+            properties:
+              '@context':
+                $ref: '#/components/schemas/Context'
+              metadata:
+                $ref: '#/components/schemas/metadata'
+              result:
+                $ref: '#/components/schemas/GermplasmAttribute'
+            required:
+            - metadata
+            - result
+            title: GermplasmAttributeSingleResponse
+            type: object
+      description: OK
+      headers: {}
+    GermplasmAttributeValueListResponse:
+      content:
+        application/json:
+          schema:
+            properties:
+              '@context':
+                $ref: '#/components/schemas/Context'
+              metadata:
+                $ref: '#/components/schemas/metadata'
+              result:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/GermplasmAttributeValue'
+                    type: array
+                required:
+                - data
+                type: object
+            required:
+            - metadata
+            - result
+            title: GermplasmAttributeValueListResponse
+            type: object
+      description: OK
+      headers: {}
+    GermplasmAttributeValueSingleResponse:
+      content:
+        application/json:
+          schema:
+            properties:
+              '@context':
+                $ref: '#/components/schemas/Context'
+              metadata:
+                $ref: '#/components/schemas/metadata'
+              result:
+                $ref: '#/components/schemas/GermplasmAttributeValue'
+            required:
+            - metadata
+            - result
+            title: GermplasmAttributeValueSingleResponse
+            type: object
+      description: OK
+      headers: {}
+    GermplasmListResponse:
+      content:
+        application/json:
+          schema:
+            properties:
+              '@context':
+                $ref: '#/components/schemas/Context'
+              metadata:
+                $ref: '#/components/schemas/metadata'
+              result:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/Germplasm'
+                    type: array
+                required:
+                - data
+                type: object
+            required:
+            - metadata
+            - result
+            title: GermplasmListResponse
+            type: object
+      description: OK
+      headers: {}
+    GermplasmSingleResponse:
+      content:
+        application/json:
+          schema:
+            properties:
+              '@context':
+                $ref: '#/components/schemas/Context'
+              metadata:
+                $ref: '#/components/schemas/metadata'
+              result:
+                $ref: '#/components/schemas/Germplasm'
+            required:
+            - metadata
+            - result
+            title: GermplasmSingleResponse
+            type: object
+      description: OK
+      headers: {}
+    PlannedCrossesListResponse:
+      content:
+        application/json:
+          schema:
+            properties:
+              '@context':
+                $ref: '#/components/schemas/Context'
+              metadata:
+                $ref: '#/components/schemas/metadata'
+              result:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/PlannedCross'
+                    type: array
+                required:
+                - data
+                type: object
+            required:
+            - metadata
+            - result
+            title: PlannedCrossesListResponse
+            type: object
+      description: OK
+      headers: {}
+    SeedLotListResponse:
+      content:
+        application/json:
+          schema:
+            properties:
+              '@context':
+                $ref: '#/components/schemas/Context'
+              metadata:
+                $ref: '#/components/schemas/metadata'
+              result:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/SeedLot'
+                    type: array
+                required:
+                - data
+                type: object
+            required:
+            - metadata
+            - result
+            title: SeedLotListResponse
+            type: object
+      description: OK
+      headers: {}
+    SeedLotSingleResponse:
+      content:
+        application/json:
+          schema:
+            properties:
+              '@context':
+                $ref: '#/components/schemas/Context'
+              metadata:
+                $ref: '#/components/schemas/metadata'
+              result:
+                $ref: '#/components/schemas/SeedLot'
+            required:
+            - metadata
+            - result
+            title: SeedLotSingleResponse
+            type: object
+      description: OK
+      headers: {}
+    SeedLotTransactionListResponse:
+      content:
+        application/json:
+          schema:
+            properties:
+              '@context':
+                $ref: '#/components/schemas/Context'
+              metadata:
+                $ref: '#/components/schemas/metadata'
+              result:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/SeedLotTransaction'
+                    type: array
+                required:
+                - data
+                type: object
+            required:
+            - metadata
+            - result
+            title: SeedLotTransactionListResponse
+            type: object
+      description: OK
+      headers: {}
+  schemas:
+    BreedingMethod:
+      properties:
+        abbreviation:
+          description: an abbreviation for the name of this breeding method
+          example: MB
+          type: string
+        breedingMethodDbId:
+          description: the unique identifier for this breeding method
+          example: ffcce7ef
+          type: string
+        breedingMethodName:
+          description: human readable name of the breeding method
+          example: Male Backcross
+          type: string
+        description:
+          description: human readable description of the breeding method
+          example: Backcross to recover a specific gene.
+          type: string
+      required:
+      - breedingMethodDbId
+      type: object
+    Context:
+      description: "The JSON-LD Context is used to provide JSON-LD definitions to each field in a JSON object. By providing an array of context file urls, a BrAPI response object becomes JSON-LD compatible.  \n\nFor more information, see https://w3c.github.io/json-ld-syntax/#the-context"
+      example:
+      - https://brapi.org/jsonld/context/metadata.jsonld
+      items:
+        format: uri
+        type: string
+      title: context
+      type: array
+    Cross:
+      allOf:
+      - $ref: '#/components/schemas/CrossNewRequest'
+      - properties:
+          crossDbId:
+            description: the unique identifier for a cross
+            example: d105fd6f
+            type: string
+        type: object
+    CrossNewRequest:
+      properties:
+        additionalInfo:
+          additionalProperties:
+            type: string
+          description: Additional arbitrary info
+          type: object
+        crossAttributes:
+          description: Set of custom attributes associated with a cross
+          items:
+            description: a custom attributes associated with a cross
+            properties:
+              crossAttributeName:
+                description: the human readable name of a cross attribute
+                example: Humidity Percentage
+                type: string
+              crossAttributeValue:
+                description: the value of a cross attribute
+                example: '45'
+                type: string
+            type: object
+          type: array
+        crossName:
+          description: the human readable name for a cross
+          example: my_Ibadan_Crosses_2018_01
+          type: string
+        crossType:
+          description: the type of cross
+          enum:
+          - BIPARENTAL
+          - SELF
+          - OPEN_POLLINATED
+          - BULK
+          - BULK_SELFED
+          - BULK_OPEN_POLLINATED
+          - DOUBLE_HAPLOID
+          example: BIPARENTAL
+          type: string
+        crossingProjectDbId:
+          description: the unique identifier for a crossing project
+          example: 696d7c92
+          type: string
+        crossingProjectName:
+          description: the human readable name for a crossing project
+          example: my_Ibadan_Crosses_2018
+          type: string
+        externalReferences:
+          $ref: '#/components/schemas/ExternalReferences'
+        parent1:
+          $ref: '#/components/schemas/CrossParent'
+        parent2:
+          $ref: '#/components/schemas/CrossParent'
+        pollinationTimeStamp:
+          description: the timestamp when the pollination took place
+          format: date-time
+          type: string
+      type: object
+    CrossParent:
+      properties:
+        germplasmDbId:
+          description: the unique identifier for a germplasm
+          example: d34b10c3
+          type: string
+        germplasmName:
+          description: the human readable name for a germplasm
+          example: TME_419
+          type: string
+        observationUnitDbId:
+          description: the unique identifier for an observation unit
+          example: 2e1926a7
+          type: string
+        observationUnitName:
+          description: the human readable name for an observation unit
+          example: my_Ibadan_Plot_9001
+          type: string
+        parentType:
+          description: The type of parent ex. 'MALE', 'FEMALE', 'SELF', 'POPULATION', etc.
+          enum:
+          - MALE
+          - FEMALE
+          - SELF
+          - POPULATION
+          example: MALE
+          type: string
+      type: object
+    CrossingProject:
+      allOf:
+      - $ref: '#/components/schemas/CrossingProjectNewRequest'
+      - properties:
+          crossingProjectDbId:
+            description: the unique identifier for a crossing project
+            example: ce0e1c29
+            type: string
+        type: object
+    CrossingProjectNewRequest:
+      properties:
+        additionalInfo:
+          additionalProperties:
+            type: string
+          description: Additional arbitrary info
+          type: object
+        commonCropName:
+          description: the common name of a crop (for multi-crop systems)
+          example: Cassava
+          type: string
+        crossingProjectDescription:
+          description: the description for a crossing project
+          example: Crosses between germplasm X and germplasm Y in male nursery study X_2018 and female nursery study Y_2018
+          type: string
+        crossingProjectName:
+          description: the human readable name for a crossing project
+          example: Ibadan_Crosses_2018
+          type: string
+        externalReferences:
+          $ref: '#/components/schemas/ExternalReferences'
+        programDbId:
+          description: the unique identifier for a program
+          example: a088176c
+          type: string
+        programName:
+          description: the human readable name for a program
+          example: IITA Cassava
+          type: string
+      type: object
+    ExternalReferences:
+      description: An array of external reference ids. These are references to this piece of data in an external system. Could be a simple string or a URI.
+      example:
+      - referenceID: doi:10.155454/12341234
+        referenceSource: DOI
+      - referenceID: http://purl.obolibrary.org/obo/ro.owl
+        referenceSource: OBO Library
+      - referenceID: 75a50e76
+        referenceSource: Remote Data Collection Upload Tool
+      items:
+        properties:
+          referenceID:
+            description: The external reference ID. Could be a simple string or a URI.
+            type: string
+          referenceSource:
+            description: An identifier for the source system or database of this reference
+            type: string
+        type: object
+      title: ExternalReferences
+      type: array
+    Germplasm:
+      allOf:
+      - $ref: '#/components/schemas/GermplasmNewRequest'
+      - properties:
+          germplasmDbId:
+            description: 'The ID which uniquely identifies a germplasm within the given database server
+
+
+              MIAPPE V1.1 (DM-41) Biological material ID - Code used to identify the biological material in the data file. Should be unique within the Investigation. Can correspond to experimental plant ID, seed lot ID, etc. This material identification is different from a BiosampleID which corresponds to Observation Unit or Samples sections below.'
+            example: d4076594
+            type: string
+        required:
+        - germplasmDbId
+        type: object
+    GermplasmAttribute:
+      allOf:
+      - $ref: '#/components/schemas/GermplasmAttributeNewRequest'
+      - properties:
+          attributeDbId:
+            description: The ID which uniquely identifies this attribute within the given database server
+            example: 2f08b902
+            type: string
+        required:
+        - attributeDbId
+        type: object
+    GermplasmAttributeNewRequest:
+      allOf:
+      - $ref: '#/components/schemas/VariableBaseClass'
+      - properties:
+          attributeCategory:
+            description: General category for the attribute. very similar to Trait class.
+            example: Morphological
+            type: string
+          attributeDescription:
+            description: A human readable description of this attribute
+            example: Height of the plant measured in meters by a tape
+            type: string
+          attributeName:
+            description: A human readable name for this attribute
+            example: Plant Height 1
+            type: string
+        required:
+        - attributeName
+        type: object
+    GermplasmAttributeSearchRequest:
+      allOf:
+      - $ref: '#/components/schemas/SearchRequestParametersPaging'
+      - $ref: '#/components/schemas/SearchRequestParametersExternalReferences'
+      - properties:
+          attributeDbIds:
+            description: List of Germplasm Attribute IDs to search for
+            example:
+            - 2ef15c9f
+            - 318e7f7d
+            items:
+              type: string
+            type: array
+          attributeNames:
+            description: List of human readable Germplasm Attribute names to search for
+            example:
+            - Plant Height 1
+            - Root Color
+            items:
+              type: string
+            type: array
+          dataTypes:
+            description: List of scale data types to filter search results
+            example:
+            - Numerical
+            - Ordinal
+            - Text
+            items:
+              $ref: '#/components/schemas/TraitDataType'
+            type: array
+          methodDbIds:
+            description: List of methods to filter search results
+            example:
+            - 07e34f83
+            - d3d5517a
+            items:
+              type: string
+            type: array
+          ontologyDbIds:
+            description: List of ontology IDs to search for
+            example:
+            - f44f7b23
+            - a26b576e
+            items:
+              type: string
+            type: array
+          scaleDbIds:
+            description: List of scales to filter search results
+            example:
+            - a13ecffa
+            - 7e1afe4f
+            items:
+              type: string
+            type: array
+          studyDbId:
+            description: The unique ID of a studies to filter on
+            example:
+            - 5bcac0ae
+            - 7f48e22d
+            items:
+              type: string
+            type: array
+          traitClasses:
+            description: List of trait classes to filter search results
+            example:
+            - morphological
+            - phenological
+            - agronomical
+            items:
+              type: string
+            type: array
+          traitDbIds:
+            description: List of trait unique ID to filter search results
+            example:
+            - ef81147b
+            - 78d82fad
+            items:
+              type: string
+            type: array
+        type: object
+    GermplasmAttributeValue:
+      allOf:
+      - $ref: '#/components/schemas/GermplasmAttributeValueNewRequest'
+      - properties:
+          attributeValueDbId:
+            description: The ID which uniquely identifies this attribute value within the given database server
+            example: 33edbab7
+            type: string
+        required:
+        - attributeValueDbId
+        type: object
+    GermplasmAttributeValueNewRequest:
+      properties:
+        additionalInfo:
+          additionalProperties:
+            type: string
+          description: Additional arbitrary info
+          type: object
+        attributeDbId:
+          description: The ID which uniquely identifies this attribute within the given database server
+          example: e529dd5a
+          type: string
+        attributeName:
+          description: A human readable name for this attribute
+          example: Weevil Resistance
+          type: string
+        determinedDate:
+          description: The date the value of this attribute was determined for a given germplasm
+          format: date-time
+          type: string
+        externalReferences:
+          $ref: '#/components/schemas/ExternalReferences'
+        germplasmDbId:
+          description: The ID which uniquely identifies a germplasm within the given database server
+          example: d4076594
+          type: string
+        germplasmName:
+          description: Name of the germplasm. It can be the preferred name and does not have to be unique.
+          example: A0000003
+          type: string
+        value:
+          description: The value of this attribute for a given germplasm
+          example: Present
+          type: string
+      required:
+      - attributeName
+      type: object
+    GermplasmAttributeValueSearchRequest:
+      allOf:
+      - $ref: '#/components/schemas/SearchRequestParametersPaging'
+      - $ref: '#/components/schemas/SearchRequestParametersGermplasm'
+      - $ref: '#/components/schemas/SearchRequestParametersExternalReferences'
+      - properties:
+          attributeDbIds:
+            description: List of Germplasm Attribute IDs to search for
+            example:
+            - 2ef15c9f
+            - 318e7f7d
+            items:
+              type: string
+            type: array
+          attributeNames:
+            description: List of human readable Germplasm Attribute names to search for
+            example:
+            - Plant Height 1
+            - Root Color
+            items:
+              type: string
+            type: array
+          attributeValueDbIds:
+            description: List of Germplasm Attribute Value IDs to search for
+            example:
+            - ca4636d0
+            - c8a92409
+            items:
+              type: string
+            type: array
+          dataTypes:
+            description: List of scale data types to filter search results
+            example:
+            - Numerical
+            - Ordinal
+            - Text
+            items:
+              $ref: '#/components/schemas/TraitDataType'
+            type: array
+          methodDbIds:
+            description: List of methods to filter search results
+            example:
+            - 07e34f83
+            - d3d5517a
+            items:
+              type: string
+            type: array
+          ontologyDbIds:
+            description: List of ontology IDs to search for
+            example:
+            - f44f7b23
+            - a26b576e
+            items:
+              type: string
+            type: array
+          scaleDbIds:
+            description: List of scales to filter search results
+            example:
+            - a13ecffa
+            - 7e1afe4f
+            items:
+              type: string
+            type: array
+          traitClasses:
+            description: List of trait classes to filter search results
+            example:
+            - morphological
+            - phenological
+            - agronomical
+            items:
+              type: string
+            type: array
+          traitDbIds:
+            description: List of trait unique ID to filter search results
+            example:
+            - ef81147b
+            - 78d82fad
+            items:
+              type: string
+            type: array
+        type: object
+    GermplasmMCPD:
+      properties:
+        accessionNames:
+          description: MCPD (v2.1) (ACCENAME) 11. Either a registered or other designation given to the material received, other than the donors accession number (23) or collecting number (3). First letter uppercase. Multiple names are separated by a semicolon without space.
+          example:
+          - Symphony
+          - Emma
+          items:
+            type: string
+          type: array
+        accessionNumber:
+          description: MCPD (v2.1) (ACCENUMB) 2. This is the unique identifier for accessions within a genebank, and is assigned when a sample is entered into the genebank collection (e.g. "PI 113869").
+          example: A0000003
+          type: string
+        acquisitionDate:
+          description: MCPD (v2.1) (ACQDATE) 12. Date on which the accession entered the collection [YYYYMMDD] where YYYY is the year, MM is the month and DD is the day. Missing data (MM or DD) should be indicated with hyphens or "00" [double zero].
+          format: date
+          type: string
+        acquisitionSourceCode:
+          description: "MCPD (v2.1) (COLLSRC) 21. The coding scheme proposed can be used at 2 different levels of detail: either by using the general codes (in bold-face) such as 10, 20, 30, 40, etc., or by using the more specific codes, such as 11, 12, etc. \n\n10) Wild habitat \n11) Forest or woodland \n12) Shrubland \n13) Grassland \n14) Desert or tundra \n15) Aquatic habitat \n20) Farm or cultivated habitat \n21) Field \n22) Orchard \n23) Backyard, kitchen or home garden (urban, peri-urban or rural) \n24) Fallow land \n25) Pasture \n26) Farm store \n27) Threshing floor \n28) Park \n30) Market or shop \n40) Institute, Experimental station, Research organization, Genebank \n50) Seed company \n60) Weedy, disturbed or ruderal habitat \n61) Roadside \n62) Field margin \n99) Other (Elaborate in REMARKS field)"
+          enum:
+          - '10'
+          - '11'
+          - '12'
+          - '13'
+          - '14'
+          - '15'
+          - '20'
+          - '21'
+          - '22'
+          - '23'
+          - '24'
+          - '25'
+          - '26'
+          - '27'
+          - '28'
+          - '30'
+          - '40'
+          - '50'
+          - '60'
+          - '61'
+          - '62'
+          - '99'
+          example: '26'
+          type: string
+        alternateIDs:
+          description: 'MCPD (v2.1) (OTHERNUMB) 24. Any other identifiers known to exist in other collections for this accession. Use the following format: INSTCODE:ACCENUMB;INSTCODE:identifier;INSTCODE and identifier are separated by a colon without space. Pairs of INSTCODE and identifier are separated by a semicolon without space. When the institute is not known, the identifier should be preceded by a colon. '
+          example:
+          - '3'
+          - http://pui.per/accession/A0000003
+          - A0000003
+          items:
+            type: string
+          type: array
+        ancestralData:
+          description: MCPD (v2.1) (ANCEST) 20. Information about either pedigree or other description of ancestral information (e.g. parent variety in case of mutant or selection). For example a pedigree 'Hanna/7*Atlas//Turk/8*Atlas' or a description 'mutation found in Hanna', 'selection from Irene' or 'cross involving amongst others Hanna and Irene'.
+          example: A0000001/A0000002
+          type: string
+        biologicalStatusOfAccessionCode:
+          description: "MCPD (v2.1) (SAMPSTAT) 19. The coding scheme proposed can be used at 3 different levels of detail: either by using the general codes such as 100, 200, 300, 400, or by using the more specific codes such as 110, 120, etc. \n\n100) Wild \n110) Natural \n120) Semi-natural/wild \n130) Semi-natural/sown \n200) Weedy \n300) Traditional cultivar/landrace \n400) Breeding/research material \n410) Breeders line \n411) Synthetic population \n412) Hybrid \n413) Founder stock/base population \n414) Inbred line (parent of hybrid cultivar) \n415) Segregating population \n416) Clonal selection \n420) Genetic stock \n421) Mutant (e.g. induced/insertion mutants, tilling populations) \n422) Cytogenetic stocks (e.g. chromosome addition/substitution, aneuploids,  amphiploids) \n423) Other genetic stocks (e.g. mapping populations) \n500) Advanced or improved cultivar (conventional breeding methods) \n600) GMO (by genetic engineering) \n999) Other (Elaborate in REMARKS field)"
+          enum:
+          - '100'
+          - '110'
+          - '120'
+          - '130'
+          - '200'
+          - '300'
+          - '400'
+          - '410'
+          - '411'
+          - '412'
+          - '413'
+          - '414'
+          - '415'
+          - '416'
+          - '420'
+          - '421'
+          - '422'
+          - '423'
+          - '500'
+          - '600'
+          - '999'
+          example: '421'
+          type: string
+        breedingInstitutes:
+          items:
+            properties:
+              instituteCode:
+                description: MCPD (v2.1) (BREDCODE) 18. FAO WIEWS code of the institute that has bred the material. If the holding institute has bred the material, the breeding institute code (BREDCODE) should be the same as the holding institute code (INSTCODE). Follows INSTCODE standard. Multiple values are separated by a semicolon without space.
+                example: PER001
+                type: string
+              instituteName:
+                description: MCPD (v2.1) (BREDNAME) 18.1  Name of the institute (or person) that bred the material. This descriptor should be used only if BREDCODE can not be filled because the FAO WIEWS code for this institute is not available. Multiple names are separated by a semicolon without space.
+                example: The BrAPI Institute
+                type: string
+            type: object
+          type: array
+        collectingInfo:
+          description: Information about the collection of this germplasm
+          properties:
+            collectingDate:
+              description: MCPD (v2.1) (COLLDATE) 17. Collecting date of the sample [YYYYMMDD] where YYYY is the year, MM is the month and DD is the day. Missing data (MM or DD) should be indicated with hyphens or "00" [double zero].
+              format: date
+              type: string
+            collectingInstitutes:
+              description: Institutes which collected the sample
+              items:
+                properties:
+                  instituteAddress:
+                    description: MCPD (v2.1) (COLLINSTADDRESS) 4.1.1  Address of the institute collecting the sample. This descriptor should be used only if COLLCODE can not be filled since the FAO WIEWS code for this institute is not available. Multiple values are separated by a semicolon without space.
+                    example: 123 Main Street, Lima, Peru, 5555
+                    type: string
+                  instituteCode:
+                    description: MCPD (v2.1) (COLLCODE) 4.  FAO WIEWS code of the institute collecting the sample. If the holding institute has collected the material, the collecting institute code (COLLCODE) should be the same as the holding institute code (INSTCODE). Follows INSTCODE standard. Multiple values are separated by a semicolon without space.
+                    example: PER001
+                    type: string
+                  instituteName:
+                    description: MCPD (v2.1) (COLLNAME) 4.1  Name of the institute collecting the sample. This descriptor should be used only if COLLCODE can not be filled because the FAO WIEWS code for this institute is not available. Multiple values are separated by a semicolon without space.
+                    example: The BrAPI Institute
+                    type: string
+                type: object
+              type: array
+            collectingMissionIdentifier:
+              description: MCPD (v2.1) (COLLMISSID) 4.2 Identifier of the collecting mission used by the Collecting Institute (4 or 4.1) (e.g. "CIATFOR_052", "CN_426").
+              example: CIATFOR_052
+              type: string
+            collectingNumber:
+              description: MCPD (v2.1) (COLLNUMB) 3. Original identifier assigned by the collector(s) of the sample, normally composed of the name or initials of the collector(s) followed by a number (e.g. "ab109909"). This identifier is essential for identifying duplicates held in different collections.
+              example: ab109909
+              type: string
+            collectingSite:
+              description: Information about the location where the sample was collected
+              properties:
+                coordinateUncertainty:
+                  description: MCPD (v2.1) (COORDUNCERT) 15.5 Uncertainty associated with the coordinates in metres. Leave the value empty if the uncertainty is unknown.
+                  example: '20'
+                  type: string
+                elevation:
+                  description: MCPD (v2.1) (ELEVATION) 16. Elevation of collecting site expressed in metres above sea level. Negative values are allowed.
+                  example: '35'
+                  type: string
+                georeferencingMethod:
+                  description: MCPD (v2.1) (GEOREFMETH) 15.7  The georeferencing method used (GPS, determined from map, gazetteer, or estimated using software). Leave the value empty if georeferencing method is not known.
+                  example: WGS84
+                  type: string
+                latitudeDecimal:
+                  description: MCPD (v2.1) (DECLATITUDE) 15.1 Latitude expressed in decimal degrees. Positive values are North of the Equator; negative values are South of the Equator (e.g. -44.6975).
+                  example: '+42.445295'
+                  type: string
+                latitudeDegrees:
+                  description: MCPD (v2.1) (LATITUDE) 15.2 Degrees (2 digits) minutes (2 digits), and seconds (2 digits) followed by N (North) or S (South) (e.g. 103020S). Every missing digit (minutes or seconds) should be indicated with a hyphen. Leading zeros are required (e.g. 10
+                  example: 42 26 43.1 N
+                  type: string
+                locationDescription:
+                  description: MCPD (v2.1) (COLLSITE) 14. Location information below the country level that describes where the accession was collected, preferable in English. This might include the distance in kilometres and direction from the nearest town, village or map grid reference point, (e.g. 7 km south of Townsville).
+                  example: South east hill near institute buildings
+                  type: string
+                longitudeDecimal:
+                  description: MCPD (v2.1) (DECLONGITUDE) 15.3 Longitude expressed in decimal degrees. Positive values are East of the Greenwich Meridian; negative values are West of the Greenwich Meridian (e.g. +120.9123).
+                  example: '-076.471934'
+                  type: string
+                longitudeDegrees:
+                  description: MCPD (v2.1) (LONGITUDE) 15.4 Degrees (3 digits), minutes (2 digits), and seconds (2 digits) followed by E (East) or W (West) (e.g. 0762510W). Every missing digit (minutes or seconds) should be indicated with a hyphen. Leading zeros are required (e.g. 076
+                  example: 76 28 19.0 W
+                  type: string
+                spatialReferenceSystem:
+                  description: MCPD (v2.1) (COORDDATUM) 15.6 The geodetic datum or spatial reference system upon which the coordinates given in decimal latitude and decimal longitude are based (e.g. WGS84). The GPS uses the WGS84 datum.
+                  example: WGS84
+                  type: string
+              type: object
+          type: object
+        commonCropName:
+          description: 'MCPD (v2.1) (CROPNAME) 10. Common name of the crop. Example: "malting barley", "mas". '
+          example: malting barley
+          type: string
+        countryOfOrigin:
+          description: 'MCPD (v2.1) (ORIGCTY) 13. 3-letter ISO 3166-1 code of the country in which the sample was originally collected (e.g. landrace, crop wild relative, farmers" variety), bred or selected (breeding lines, GMOs, segregating populations, hybrids, modern cultivars, etc.). Note: Descriptors 14 to 16 below should be completed accordingly only if it was "collected".'
+          example: Peru
+          type: string
+        donorInfo:
+          description: Information about the donor
+          properties:
+            donorAccessionNumber:
+              description: MCPD (v2.1) (DONORNUMB) 23. Identifier assigned to an accession by the donor. Follows ACCENUMB standard.
+              example: A0090204
+              type: string
+            donorAccessionPui:
+              description: PUI (DOI mostly) of the accession in the donor system.
+              example: http://pui.per/accession/A0010025
+              type: string
+            donorInstitute:
+              properties:
+                instituteCode:
+                  description: MCPD (v2.1) (DONORCODE) 22. FAO WIEWS code of the donor institute. Follows INSTCODE standard.
+                  example: PER001
+                  type: string
+                instituteName:
+                  description: MCPD (v2.1) (DONORNAME) 22.1  Name of the donor institute (or person). This descriptor should be used only if DONORCODE can not be filled because the FAO WIEWS code for this institute is not available.
+                  example: The BrAPI Institute
+                  type: string
+              type: object
+          type: object
+        genus:
+          description: MCPD (v2.1) (GENUS) 5. Genus name for taxon. Initial uppercase letter required.
+          example: Aspergillus
+          type: string
+        germplasmDbId:
+          description: A unique identifier which identifies a germplasm in this database
+          example: 31c4efbc
+          type: string
+        germplasmPUI:
+          description: MCPD (v2.1) (PUID) 0. Any persistent, unique identifier assigned to the accession so it can be unambiguously referenced at the global level and the information associated with it harvested through automated means. Report one PUID for each accession. The Secretariat of the International Treaty on Plant Genetic Resources for Food and Agriculture (PGRFA) is facilitating the assignment of a persistent unique identifier (PUID), in the form of a DOI, to PGRFA at the accession level. Genebanks not applying a true PUID to their accessions should use, and request recipients to use, the concatenation of INSTCODE, ACCENUMB, and GENUS as a globally unique identifier similar in most respects to the PUID whenever they exchange information on accessions with third parties.
+          example: http://pui.per/accession/A0403652
+          type: string
+        instituteCode:
+          description: MCPD (v2.1) (INSTCODE) 1. FAO WIEWS code of the institute where the accession is maintained. The codes consist of the 3-letter ISO 3166 country code of the country where the institute is located plus a number (e.g. PER001). The current set of institute codes is available from http://www.fao.org/wiews. For those institutes not yet having an FAO Code, or for those with "obsolete" codes, see "Common formatting rules (v)".
+          example: PER001
+          type: string
+        mlsStatus:
+          description: MCPD (v2.1) (MLSSTAT) 27. The status of an accession with regards to the Multilateral System (MLS) of the International Treaty on Plant Genetic Resources for Food and Agriculture. Leave the value empty if the status is not known 0 No (not included) 1 Yes (included) 99 Other (elaborate in REMARKS field, e.g. "under development")
+          enum:
+          - 'PATCH_ME'
+          - '0'
+          - '1'
+          - '99'
+          example: '0'
+          type: string
+        remarks:
+          description: MCPD (v2.1) (REMARKS) 28. The remarks field is used to add notes or to elaborate on descriptors with value 99 or 999 (= Other). Prefix remarks with the field name they refer to and a colon (:) without space (e.g. COLLSRC:riverside). Distinct remarks referring to different fields are separated by semi-colons without space.
+          example: This is an example remark to demonstrate that any notable information can be put here
+          type: string
+        safetyDuplicateInstitutes:
+          items:
+            properties:
+              instituteCode:
+                description: MCPD (v2.1) (DUPLSITE) 25. FAO WIEWS code of the institute(s) where a safety duplicate of the accession is maintained. Follows INSTCODE standard.
+                example: PER001
+                type: string
+              instituteName:
+                description: MCPD (v2.1) (DUPLINSTNAME) 25.1  Name of the institute where a safety duplicate of the accession is maintained.
+                example: The BrAPI Institute
+                type: string
+            type: object
+          type: array
+        species:
+          description: 'MCPD (v2.1) (SPECIES) 6. Specific epithet portion of the scientific name in lowercase letters. Only the following abbreviation is allowed: "sp." '
+          example: fructus
+          type: string
+        speciesAuthority:
+          description: MCPD (v2.1) (SPAUTHOR) 7. Provide the authority for the species name.
+          example: Smith, 1822
+          type: string
+        storageTypeCodes:
+          description: MCPD (v2.1) (STORAGE) 26. If germplasm is maintained under different types of storage, multiple choices are allowed, separated by a semicolon (e.g. 20;30). (Refer to FAO/IPGRI Genebank Standards 1994 for details on storage type.) 10) Seed collection 11) Short term 12) Medium term 13) Long term 20) Field collection 30) In vitro collection 40) Cryo-preserved collection 50) DNA collection 99) Other (elaborate in REMARKS field)
+          example:
+          - '11'
+          - '13'
+          items:
+            enum:
+            - '10'
+            - '11'
+            - '12'
+            - '13'
+            - '20'
+            - '30'
+            - '40'
+            - '50'
+            - '99'
+            type: string
+          type: array
+        subtaxon:
+          description: 'MCPD (v2.1) (SUBTAXA) 8. Subtaxon can be used to store any additional taxonomic identifier. The following abbreviations are allowed: "subsp." (for subspecies); "convar." (for convariety); "var." (for variety); "f." (for form); "Group" (for "cultivar group").'
+          example: Aspergillus fructus A
+          type: string
+        subtaxonAuthority:
+          description: MCPD (v2.1) (SUBTAUTHOR) 9. Provide the subtaxon authority at the most detailed taxonomic level.
+          example: Smith, 1822
+          type: string
+      type: object
+    GermplasmNewRequest:
+      properties:
+        accessionNumber:
+          description: 'This is the unique identifier for accessions within a genebank, and is assigned when a sample is entered into the genebank collection
+
+
+            MCPD (v2.1) (ACCENUMB) 2. This is the unique identifier for accessions within a genebank, and is assigned when a sample is entered into the genebank collection (e.g. "PI 113869").'
+          example: A0000003
+          type: string
+        acquisitionDate:
+          description: "The date this germplasm was acquired by the genebank \n\nMCPD (v2.1) (ACQDATE) 12. Date on which the accession entered the collection [YYYYMMDD] where YYYY is the year, MM is the month and DD is the day. Missing data (MM or DD) should be indicated with hyphens or \"00\" [double zero]."
+          format: date
+          type: string
+        additionalInfo:
+          additionalProperties:
+            type: string
+          description: Additional arbitrary info
+          type: object
+        biologicalStatusOfAccessionCode:
+          description: "MCPD (v2.1) (SAMPSTAT) 19. The coding scheme proposed can be used at 3 different levels of detail: either by using the general codes such as 100, 200, 300, 400, or by using the more specific codes such as 110, 120, etc. \n\n100) Wild \n110) Natural \n120) Semi-natural/wild \n130) Semi-natural/sown \n200) Weedy \n300) Traditional cultivar/landrace \n400) Breeding/research material \n410) Breeders line \n411) Synthetic population \n412) Hybrid \n413) Founder stock/base population \n414) Inbred line (parent of hybrid cultivar) \n415) Segregating population \n416) Clonal selection \n420) Genetic stock \n421) Mutant (e.g. induced/insertion mutants, tilling populations) \n422) Cytogenetic stocks (e.g. chromosome addition/substitution, aneuploids,  amphiploids) \n423) Other genetic stocks (e.g. mapping populations) \n500) Advanced or improved cultivar (conventional breeding methods) \n600) GMO (by genetic engineering) \n999) Other (Elaborate in REMARKS field)"
+          enum:
+          - '100'
+          - '110'
+          - '120'
+          - '130'
+          - '200'
+          - '300'
+          - '400'
+          - '410'
+          - '411'
+          - '412'
+          - '413'
+          - '414'
+          - '415'
+          - '416'
+          - '420'
+          - '421'
+          - '422'
+          - '423'
+          - '500'
+          - '600'
+          - '999'
+          example: '420'
+          type: string
+        biologicalStatusOfAccessionDescription:
+          description: Supplemental text description for 'biologicalStatusOfAccessionCode'
+          example: Genetic stock
+          type: string
+        breedingMethodDbId:
+          description: The unique identifier for the breeding method used to create this germplasm
+          example: ffcce7ef
+          type: string
+        collection:
+          description: A specific panel/collection/population name this germplasm belongs to.
+          example: Rice Diversity Panel 1 (RDP1)
+          type: string
+        commonCropName:
+          description: "Common name for the crop \n\nMCPD (v2.1) (CROPNAME) 10. Common name of the crop. Example: \"malting barley\", \"mas\"."
+          example: Maize
+          type: string
+        countryOfOriginCode:
+          description: "3-letter ISO 3166-1 code of the country in which the sample was originally collected \n\nMCPD (v2.1) (ORIGCTY) 13. 3-letter ISO 3166-1 code of the country in which the sample was originally collected (e.g. landrace, crop wild relative, farmers variety), bred or selected (breeding lines, GMOs, segregating populations, hybrids, modern cultivars, etc.). Note- Descriptors 14 to 16 below should be completed accordingly only if it was \"collected\"."
+          example: BES
+          type: string
+        defaultDisplayName:
+          description: Human readable name used for display purposes
+          example: A0000003
+          type: string
+        documentationURL:
+          description: A URL to the human readable documentation of this object
+          example: https://wiki.brapi.org
+          format: uri
+          type: string
+        donors:
+          description: List of donor institutes
+          items:
+            properties:
+              donorAccessionNumber:
+                description: "The accession number assigned by the donor\n\nMIAPPE V1.1 (DM-50) Material source ID (Holding institute/stock centre, accession) - An identifier for the source of the biological material, in the form of a key-value pair comprising the name/identifier of the repository from which the material was sourced plus the accession number of the repository for that material. Where an accession number has not been assigned, but the material has been derived from the crossing of known accessions, the material can be defined as follows: \"mother_accession X father_accession\", or, if father is unknown, as \"mother_accession X UNKNOWN\". For in situ material, the region of provenance may be used when an accession is not available.\n                  \nMCPD (v2.1) (DONORNUMB) 23. Identifier assigned to an accession by the donor. Follows ACCENUMB standard."
+                example: A0000123
+                type: string
+              donorInstituteCode:
+                description: 'The institute code for the donor institute
+
+
+                  MIAPPE V1.1 (DM-50) Material source ID (Holding institute/stock centre, accession) - An identifier for the source of the biological material, in the form of a key-value pair comprising the name/identifier of the repository from which the material was sourced plus the accession number of the repository for that material. Where an accession number has not been assigned, but the material has been derived from the crossing of known accessions, the material can be defined as follows: "mother_accession X father_accession", or, if father is unknown, as "mother_accession X UNKNOWN". For in situ material, the region of provenance may be used when an accession is not available.
+
+
+                  MCPD (v2.1) (DONORCODE) 22. FAO WIEWS code of the donor institute. Follows INSTCODE standard.'
+                example: PER001
+                type: string
+              germplasmPUI:
+                description: 'The Permanent Unique Identifier which represents a germplasm from the source or donor
+
+
+                  MIAPPE V1.1 (DM-51) Material source DOI - Digital Object Identifier (DOI) of the material source'
+                example: http://pui.per/accession/A0000003
+                type: string
+            type: object
+          type: array
+        externalReferences:
+          $ref: '#/components/schemas/ExternalReferences'
+        genus:
+          description: 'Genus name for taxon. Initial uppercase letter required.
+
+
+            MCPD (v2.1) (GENUS) 5. Genus name for taxon. Initial uppercase letter required.
+
+
+            MIAPPE V1.1 (DM-43) Genus - Genus name for the organism under study, according to standard scientific nomenclature.'
+          example: Aspergillus
+          type: string
+        germplasmName:
+          description: 'Name of the germplasm. It can be the preferred name and does not have to be unique.
+
+
+            MCPD (v2.1) (ACCENAME) 11. Either a registered or other designation given to the material received, other than the donors accession number (23) or collecting number (3). First letter uppercase. Multiple names are separated by a semicolon without space.'
+          example: A0000003
+          type: string
+        germplasmOrigin:
+          description: Information for material (orchard, natural sites, ...). Geographic identification of the plants from which seeds or cutting have been taken to produce that germplasm.
+          items:
+            $ref: '#/components/schemas/GermplasmOrigin'
+          type: array
+        germplasmPUI:
+          description: 'The Permanent Unique Identifier which represents a germplasm
+
+
+            MIAPPE V1.1 (DM-41) Biological material ID - Code used to identify the biological material in the data file. Should be unique within the Investigation. Can correspond to experimental plant ID, seed lot ID, etc This material identification is different from a BiosampleID which corresponds to Observation Unit or Samples sections below.
+
+
+            MCPD (v2.1) (PUID) 0. Any persistent, unique identifier assigned to the accession so it can be unambiguously referenced at the global level and the information associated with it harvested through automated means. Report one PUID for each accession. The Secretariat of the International Treaty on Plant Genetic Resources for Food and Agriculture (PGRFA) is facilitating the assignment of a persistent unique identifier (PUID), in the form of a DOI, to PGRFA at the accession level. Genebanks not applying a true PUID to their accessions should use, and request recipients to use, the concatenation of INSTCODE, ACCENUMB, and GENUS as a globally unique identifier similar in most respects to the PUID whenever they exchange information on accessions with third parties.'
+          example: http://pui.per/accession/A0000003
+          type: string
+        germplasmPreprocessing:
+          description: Description of any process or treatment applied uniformly to the germplasm, prior to the study itself. Can be provided as free text or as an accession number from a suitable controlled vocabulary.
+          example: 'EO:0007210; transplanted from study 2351 observation unit ID: pot:894'
+          type: string
+        instituteCode:
+          description: "The code for the institute that maintains the material. \n\nMCPD (v2.1) (INSTCODE) 1. FAO WIEWS code of the institute where the accession is maintained. The codes consist of the 3-letter ISO 3166 country code of the country where the institute is located plus a number (e.g. PER001). The current set of institute codes is available from http://www.fao.org/wiews. For those institutes not yet having an FAO Code, or for those with \"obsolete\" codes, see \"Common formatting rules (v)\"."
+          example: PER001
+          type: string
+        instituteName:
+          description: The name of the institute that maintains the material
+          example: The BrAPI Institute
+          type: string
+        pedigree:
+          description: 'The cross name and optional selection history.
+
+
+            MCPD (v2.1) (ANCEST) 20. Information about either pedigree or other description of ancestral information (e.g. parent variety in case of mutant or selection). For example a pedigree ''Hanna/7*Atlas//Turk/8*Atlas'' or a description ''mutation found in Hanna'', ''selection from Irene'' or ''cross involving amongst others Hanna and Irene''.'
+          example: A0000001/A0000002
+          type: string
+        seedSource:
+          description: 'The source of the seed '
+          example: A0000001/A0000002
+          type: string
+        seedSourceDescription:
+          description: 'Description of the material source
+
+
+            MIAPPE V1.1 (DM-56) Material source description - Description of the material source'
+          example: Branches were collected from a 10-year-old tree growing in a progeny trial established in a loamy brown earth soil.
+          type: string
+        species:
+          description: "Specific epithet portion of the scientific name in lowercase letters.\n\nMCPD (v2.1) (SPECIES) 6. Specific epithet portion of the scientific name in lowercase letters. Only the following abbreviation is allowed: \"sp.\" \n\nMIAPPE V1.1 (DM-44) Species - Species name (formally: specific epithet) for the organism under study, according to standard scientific nomenclature."
+          example: fructus
+          type: string
+        speciesAuthority:
+          description: "The authority organization responsible for tracking and maintaining the species name \n\nMCPD (v2.1) (SPAUTHOR) 7. Provide the authority for the species name."
+          example: Smith, 1822
+          type: string
+        storageTypes:
+          description: The type of storage this germplasm is kept in at a genebank.
+          example:
+          - code: '20'
+            description: Field collection
+          - code: '11'
+            description: Short term
+          items:
+            properties:
+              code:
+                description: "The 2 digit code representing the type of storage this germplasm is kept in at a genebank. \n\nMCPD (v2.1) (STORAGE) 26. If germplasm is maintained under different types of storage, multiple choices are allowed, separated by a semicolon (e.g. 20;30). (Refer to FAO/IPGRI Genebank Standards 1994 for details on storage type.) \n\n10) Seed collection \n11) Short term \n12) Medium term \n13) Long term \n20) Field collection \n30) In vitro collection \n40) Cryo-preserved collection \n50) DNA collection \n99) Other (elaborate in REMARKS field)"
+                enum:
+                - '10'
+                - '11'
+                - '12'
+                - '13'
+                - '20'
+                - '30'
+                - '40'
+                - '50'
+                - '99'
+                example: '11'
+                type: string
+              description:
+                description: A supplemental text description of the storage type
+                example: Short term
+                type: string
+            type: object
+          type: array
+        subtaxa:
+          description: 'Subtaxon can be used to store any additional taxonomic identifier.
+
+
+            MCPD (v2.1) (SUBTAXA) 8. Subtaxon can be used to store any additional taxonomic identifier. The following abbreviations are allowed: "subsp." (for subspecies); "convar." (for convariety); "var." (for variety); "f." (for form); "Group" (for "cultivar group").
+
+
+            MIAPPE V1.1 (DM-44) Infraspecific name - Name of any subtaxa level, including variety, crossing name, etc. It can be used to store any additional taxonomic identifier. Either free text description or key-value pair list format (the key is the name of the rank and the value is the value of  the rank). Ranks can be among the following terms: subspecies, cultivar, variety, subvariety, convariety, group, subgroup, hybrid, line, form, subform. For MCPD compliance, the following abbreviations are allowed: subsp. (subspecies); convar. (convariety); var. (variety); f. (form); Group (cultivar group).'
+          example: Aspergillus fructus A
+          type: string
+        subtaxaAuthority:
+          description: 'The authority organization responsible for tracking and maintaining the subtaxon information
+
+
+            MCPD (v2.1) (SUBTAUTHOR) 9. Provide the subtaxon authority at the most detailed taxonomic level.'
+          example: Smith, 1822
+          type: string
+        synonyms:
+          description: 'List of alternative names or IDs used to reference this germplasm
+
+
+            MCPD (v2.1) (OTHERNUMB) 24. Any other identifiers known to exist in other collections for this accession. Use the following format: INSTCODE:ACCENUMB;INSTCODE:identifier;INSTCODE and identifier are separated by a colon without space. Pairs of INSTCODE and identifier are separated by a semicolon without space. When the institute is not known, the identifier should be preceded by a colon.'
+          items:
+            properties:
+              synonym:
+                description: Alternative name or ID used to reference this germplasm
+                example: variety_1
+                type: string
+              type:
+                description: A descriptive classification for this synonym
+                example: Pre-Code
+                type: string
+            type: object
+          type: array
+        taxonIds:
+          description: 'The list of IDs for this SPECIES from different sources. If present, NCBI Taxon should be always listed as "ncbiTaxon" preferably with a purl. The rank of this ID should be species.
+
+
+            MIAPPE V1.1 (DM-42) Organism - An identifier for the organism at the species level. Use of the NCBI taxon ID is recommended.'
+          items:
+            $ref: '#/components/schemas/TaxonID'
+          type: array
+      required:
+      - commonCropName
+      - germplasmName
+      - germplasmPUI
+      type: object
+    GermplasmOrigin:
+      description: "MIAPPE V1.1 (DM-52) \n\nMIAPPE V1.1 (DM-53) \n\nMIAPPE V1.1 (DM-54) \n\nMIAPPE V1.1 (DM-55)\n\nMCPD (v2.1) (COORDUNCERT) 15.5 \n\nMCPD (v2.1) (ELEVATION) 16. \n\nMCPD (v2.1) (GEOREFMETH) 15.7 \n\nMCPD (v2.1) (DECLATITUDE) 15.1 \n\nMCPD (v2.1) (DECLONGITUDE) 15.3 "
+      properties:
+        coordinateUncertainty:
+          description: Uncertainty associated with the coordinates in meters. Leave the value empty if the uncertainty is unknown.
+          example: '20'
+          type: string
+        coordinates:
+          $ref: '#/components/schemas/geoJSON'
+      type: object
+    GermplasmSearchRequest:
+      allOf:
+      - $ref: '#/components/schemas/SearchRequestParametersPaging'
+      - $ref: '#/components/schemas/SearchRequestParametersCommonCropNames'
+      - $ref: '#/components/schemas/SearchRequestParametersGermplasm'
+      - $ref: '#/components/schemas/SearchRequestParametersStudies'
+      - $ref: '#/components/schemas/SearchRequestParametersExternalReferences'
+      - properties:
+          accessionNumbers:
+            description: List unique identifiers for accessions within a genebank
+            example:
+            - A0000003
+            - A0000477
+            items:
+              type: string
+            type: array
+          collections:
+            description: A specific panel/collection/population name this germplasm belongs to.
+            example:
+            - RDP1
+            - MDP1
+            items:
+              type: string
+            type: array
+          genus:
+            description: List of Genus names to identify germplasm
+            example:
+            - Aspergillus
+            - Zea
+            items:
+              type: string
+            type: array
+          germplasmPUIs:
+            description: List of Permanent Unique Identifiers to identify germplasm
+            example:
+            - http://pui.per/accession/A0000003
+            - http://pui.per/accession/A0000477
+            items:
+              type: string
+            type: array
+          parentDbIds:
+            description: Search for Germplasm with these parents
+            example:
+            - 72c1001f
+            - 7346c553
+            items:
+              type: string
+            type: array
+          progenyDbIds:
+            description: Search for Germplasm with these children
+            example:
+            - 16e16a7e
+            - ce06cf9e
+            items:
+              type: string
+            type: array
+          species:
+            description: List of Species names to identify germplasm
+            example:
+            - fructus
+            - mays
+            items:
+              type: string
+            type: array
+          synonyms:
+            description: List of alternative names or IDs used to reference this germplasm
+            example:
+            - variety_1
+            - 2c38f9b6
+            items:
+              type: string
+            type: array
+        type: object
+    Method:
+      allOf:
+      - $ref: '#/components/schemas/MethodBaseClass'
+      - properties:
+          methodDbId:
+            description: Method unique identifier
+            example: 0adb2764
+            type: string
+        type: object
+    MethodBaseClass:
+      properties:
+        additionalInfo:
+          additionalProperties:
+            type: string
+          description: Additional arbitrary info
+          type: object
+        bibliographicalReference:
+          description: 'Bibliographical reference describing the method.
+
+
+            MIAPPE V1.1 (DM-91) Reference associated to the method - URI/DOI of reference describing the method.'
+          example: Smith, 1893, Really Cool Paper, Popular Journal
+          type: string
+        description:
+          description: 'Method description
+
+
+            MIAPPE V1.1 (DM-90) Method description - Textual description of the method, which may extend a method defined in an external reference with specific parameters, e.g. growth stage, inoculation precise organ (leaf number)'
+          example: A measuring tape was used
+          type: string
+        externalReferences:
+          $ref: '#/components/schemas/ExternalReferences'
+        formula:
+          description: For computational methods i.e., when the method consists in assessing the trait by computing measurements, write the generic formula used for the calculation
+          example: a^2 + b^2 = c^2
+          type: string
+        methodClass:
+          description: 'Method class (examples: "Measurement", "Counting", "Estimation", "Computation", etc.)'
+          example: Measurement
+          type: string
+        methodName:
+          description: 'Human readable name for the method
+
+
+            MIAPPE V1.1 (DM-88) Method  Name of the method of observation'
+          example: Measuring Tape
+          type: string
+        ontologyReference:
+          $ref: '#/components/schemas/OntologyReference'
+      type: object
+    ObservationUnitHierarchyLevel:
+      description: 'Observation levels indicate the granularity level at which the measurements are taken. `levelName` defines the level, `levelOrder` defines where that level exists in the hierarchy of levels. `levelOrder`s lower numbers are at the top of the hierarchy (ie field > 0) and higher numbers are at the bottom of the hierarchy (ie plant > 6). '
+      properties:
+        levelName:
+          description: A name for this level
+          enum:
+          - study
+          - field
+          - entry
+          - rep
+          - block
+          - sub-block
+          - plot
+          - sub-plot
+          - plant
+          - pot
+          - sample
+          example: plot
+          type: string
+        levelOrder:
+          description: '`levelOrder` defines where that level exists in the hierarchy of levels. `levelOrder`''s lower numbers are at the top of the hierarchy (ie field -> 1) and higher numbers are at the bottom of the hierarchy (ie plant -> 9).'
+          example: 2
+          type: integer
+      title: ObservationUnitHierarchyLevel
+      type: object
+    OntologyReference:
+      description: 'MIAPPE V1.1
+
+
+        (DM-85) Variable accession number - Accession number of the variable in the Crop Ontology
+
+
+        (DM-87) Trait accession number - Accession number of the trait in a suitable controlled vocabulary (Crop Ontology, Trait Ontology).
+
+
+        (DM-89) Method accession number - Accession number of the method in a suitable controlled vocabulary (Crop Ontology, Trait Ontology).
+
+
+        (DM-93) Scale accession number - Accession number of the scale in a suitable controlled vocabulary (Crop Ontology).'
+      properties:
+        documentationLinks:
+          description: links to various ontology documentation
+          items:
+            properties:
+              URL:
+                example: http://purl.obolibrary.org/obo/ro.owl
+                format: uri
+                type: string
+              type:
+                enum:
+                - OBO
+                - RDF
+                - WEBPAGE
+                example: OBO
+                type: string
+            type: object
+          type: array
+        ontologyDbId:
+          description: Ontology database unique identifier
+          example: 6b071868
+          type: string
+        ontologyName:
+          description: Ontology name
+          example: The Crop Ontology
+          type: string
+        version:
+          description: Ontology version (no specific format)
+          example: 7.2.3
+          type: string
+      required:
+      - ontologyName
+      - ontologyDbId
+      type: object
+    PedigreeNode:
+      properties:
+        crossingProjectDbId:
+          description: The crossing project used to generate this germplasm
+          example: 625e745a
+          type: string
+        crossingYear:
+          description: The year the parents were originally crossed
+          example: 2005
+          type: integer
+        familyCode:
+          description: The code representing the family
+          example: F0000203
+          type: string
+        germplasmDbId:
+          description: The ID which uniquely identifies a germplasm
+          example: 1098ebaf
+          type: string
+        germplasmName:
+          description: A human readable name for a germplasm
+          example: A0021004
+          type: string
+        parents:
+          description: List of parent nodes in the pedigree tree.
+          example:
+          - germplasmDbId: b66958de
+            germplasmName: A0000592
+            parentType: MALE
+          - germplasmDbId: a55847ed
+            germplasmName: A0000592
+            parentType: FEMALE
+          items:
+            properties:
+              germplasmDbId:
+                description: The germplasm DbId of the parent of this germplasm
+                example: a55847ed
+                type: string
+              germplasmName:
+                description: the human readable name of the parent of this germplasm
+                example: A0000592
+                type: string
+              parentType:
+                description: The type of parent the parent is. ex. 'MALE', 'FEMALE', 'SELF', 'POPULATION', etc.
+                enum:
+                - MALE
+                - FEMALE
+                - SELF
+                - POPULATION
+                example: FEMALE
+                type: string
+            type: object
+          type: array
+        pedigree:
+          description: The string representation of the pedigree.
+          example: A0000001/A0000002
+          type: string
+        siblings:
+          description: List of sibling germplasm
+          example:
+          - germplasmDbId: 334f53a3
+            germplasmName: A0021005
+          - germplasmDbId: 7bbbda8c
+            germplasmName: A0021006
+          - germplasmDbId: ab1d9b26
+            germplasmName: A0021007
+          items:
+            properties:
+              germplasmDbId:
+                description: the germplasm DbId of the sibling
+                type: string
+              germplasmName:
+                description: the germplasm name of the sibling
+                type: string
+            type: object
+          type: array
+      required:
+      - germplasmDbId
+      type: object
+    PlannedCross:
+      allOf:
+      - $ref: '#/components/schemas/PlannedCrossNewRequest'
+      - properties:
+          plannedCrossDbId:
+            description: the unique identifier for a cross
+            example: c8905568
+            type: string
+        type: object
+    PlannedCrossNewRequest:
+      properties:
+        additionalInfo:
+          additionalProperties:
+            type: string
+          description: Additional arbitrary info
+          type: object
+        crossType:
+          description: the type of cross
+          enum:
+          - BIPARENTAL
+          - SELF
+          - OPEN_POLLINATED
+          - BULK
+          - BULK_SELFED
+          - BULK_OPEN_POLLINATED
+          - DOUBLE_HAPLOID
+          example: BIPARENTAL
+          type: string
+        crossingProjectDbId:
+          description: the unique identifier for a crossing project
+          example: 696d7c92
+          type: string
+        crossingProjectName:
+          description: the human readable name for a crossing project
+          example: my_Ibadan_Crosses_2018
+          type: string
+        externalReferences:
+          $ref: '#/components/schemas/ExternalReferences'
+        parent1:
+          $ref: '#/components/schemas/CrossParent'
+        parent2:
+          $ref: '#/components/schemas/CrossParent'
+        plannedCrossName:
+          description: the human readable name for a cross
+          example: my_Ibadan_Crosses_2018_01
+          type: string
+      type: object
+    ProgenyNode:
+      properties:
+        germplasmDbId:
+          description: The ID which uniquely identifies a germplasm
+          example: 01b974dc
+          type: string
+        germplasmName:
+          description: A human readable name for a germplasm
+          example: A0021004
+          type: string
+        progeny:
+          description: List of germplasm entities which are direct children of this germplasm
+          example:
+          - germplasmDbId: e8d5dad7
+            germplasmName: A0021011
+            parentType: FEMALE
+          - germplasmDbId: ac07fbd8
+            germplasmName: A0021012
+            parentType: FEMALE
+          - germplasmDbId: 07f45f67
+            germplasmName: A0021013
+            parentType: FEMALE
+          items:
+            properties:
+              germplasmDbId:
+                description: The unique identifier of a progeny germplasm
+                example: e8d5dad7
+                type: string
+              germplasmName:
+                description: The human readable name of a progeny germplasm
+                example: A0021011
+                type: string
+              parentType:
+                description: Given a germplasm A having a progeny B and C, 'parentType' for progeny B item refers to the 'parentType' of A toward B.
+                enum:
+                - MALE
+                - FEMALE
+                - SELF
+                - POPULATION
+                example: FEMALE
+                type: string
+            required:
+            - germplasmDbId
+            - parentType
+            type: object
+          type: array
+      required:
+      - germplasmDbId
+      - progeny
+      type: object
+    Scale:
+      allOf:
+      - $ref: '#/components/schemas/ScaleBaseClass'
+      - description: Scale metadata
+        properties:
+          scaleDbId:
+            description: Unique identifier of the scale. If left blank, the upload system will automatically generate a scale ID.
+            example: af730171
+            type: string
+        required:
+        - scaleDbId
+        type: object
+    ScaleBaseClass:
+      description: Scale metadata
+      properties:
+        additionalInfo:
+          additionalProperties:
+            type: string
+          description: Additional arbitrary info
+          type: object
+        dataType:
+          $ref: '#/components/schemas/TraitDataType'
+        decimalPlaces:
+          description: For numerical, number of decimal places to be reported
+          example: 2
+          type: integer
+        externalReferences:
+          $ref: '#/components/schemas/ExternalReferences'
+        ontologyReference:
+          $ref: '#/components/schemas/OntologyReference'
+        scaleName:
+          description: 'Name of the scale
+
+
+            MIAPPE V1.1 (DM-92) Scale Name of the scale associated with the variable'
+          example: Meters
+          type: string
+        validValues:
+          properties:
+            categories:
+              description: List of possible values with optional labels
+              example:
+              - label: low
+                value: '0'
+              - label: medium
+                value: '5'
+              - label: high
+                value: '10'
+              items:
+                properties:
+                  label:
+                    description: A text label for a category
+                    type: string
+                  value:
+                    description: The actual value for a category
+                    type: string
+                type: object
+              type: array
+            max:
+              description: Maximum value (used for field data capture control).
+              example: 9999
+              type: integer
+            min:
+              description: Minimum value (used for data capture control) for numerical and date scales
+              example: 2
+              type: integer
+          type: object
+      required:
+      - scaleName
+      type: object
+    SearchRequestParametersCommonCropNames:
+      properties:
+        commonCropNames:
+          description: Common name for the crop which this program is for
+          example:
+          - Tomatillo
+          - Paw Paw
+          items:
+            type: string
+          type: array
+      type: object
+    SearchRequestParametersExternalReferences:
+      properties:
+        externalReferenceIDs:
+          description: List of external reference IDs. Could be a simple strings or a URIs. (use with `externalReferenceSources` parameter)
+          example:
+          - http://purl.obolibrary.org/obo/ro.owl
+          - 14a19841
+          items:
+            type: string
+          type: array
+        externalReferenceSources:
+          description: List of identifiers for the source system or database of an external reference (use with `externalReferenceIDs` parameter)
+          example:
+          - OBO Library
+          - Field App Name
+          items:
+            type: string
+          type: array
+      type: object
+    SearchRequestParametersGermplasm:
+      properties:
+        germplasmDbIds:
+          description: List of IDs which uniquely identify germplasm to search for
+          example:
+          - e9c6edd7
+          - 1b1df4a6
+          items:
+            type: string
+          type: array
+        germplasmNames:
+          description: List of human readable names to identify germplasm to search for
+          example:
+          - A0000003
+          - A0000477
+          items:
+            type: string
+          type: array
+      type: object
+    SearchRequestParametersLocations:
+      properties:
+        locationDbIds:
+          description: The location ids to search for
+          example:
+          - b28911cf
+          - 5071d1e4
+          items:
+            type: string
+          type: array
+        locationNames:
+          description: A human readable names to search for
+          example:
+          - Location Alpha
+          - The Large Hadron Collider
+          items:
+            type: string
+          type: array
+      type: object
+    SearchRequestParametersObservationVariables:
+      properties:
+        observationVariableDbIds:
+          description: The DbIds of Variables to search for
+          example:
+          - a646187d
+          - 6d23513b
+          items:
+            type: string
+          type: array
+        observationVariableNames:
+          description: The names of Variables to search for
+          example:
+          - Plant Height in meters
+          - Wheat rust score 1-5
+          items:
+            type: string
+          type: array
+      type: object
+    SearchRequestParametersPaging:
+      properties:
+        page:
+          description: Which result page is requested. The page indexing starts at 0 (the first page is 'page'= 0). Default is `0`.
+          example: 0
+          type: integer
+        pageSize:
+          description: The size of the pages to be returned. Default is `1000`.
+          example: 1000
+          type: integer
+      type: object
+    SearchRequestParametersPrograms:
+      properties:
+        programDbIds:
+          description: A program identifier to search for
+          example:
+          - 8f5de35b
+          - 0e2d4a13
+          items:
+            type: string
+          type: array
+        programNames:
+          description: A name of a program to search for
+          example:
+          - Better Breeding Program
+          - Best Breeding Program
+          items:
+            type: string
+          type: array
+      type: object
+    SearchRequestParametersStudies:
+      properties:
+        studyDbIds:
+          description: List of study identifiers to search for
+          example:
+          - cf6c4bd4
+          - 691e69d6
+          items:
+            type: string
+          type: array
+        studyNames:
+          description: List of study names to filter search results
+          example:
+          - The First Bob Study 2017
+          - Wheat Yield Trial 246
+          items:
+            type: string
+          type: array
+      type: object
+    SearchRequestParametersTokenPaging:
+      properties:
+        pageSize:
+          description: The size of the pages to be returned. Default is `1000`.
+          example: 1000
+          type: integer
+        pageToken:
+          description: 'Used to request a specific page of data to be returned.
+
+
+            Tokenized pages are for large data sets which can not be efficiently broken into indexed pages. Use the nextPageToken and prevPageToken from a prior response to construct a query and move to the next or previous page respectively. '
+          example: 33c27874
+          type: string
+      type: object
+    SearchRequestParametersTrials:
+      properties:
+        trialDbIds:
+          description: The ID which uniquely identifies a trial to search for
+          example:
+          - d2593dc2
+          - 9431a731
+          items:
+            type: string
+          type: array
+        trialNames:
+          description: The human readable name of a trial to search for
+          example:
+          - All Yield Trials 2016
+          - Disease Resistance Study Comparison Group
+          items:
+            type: string
+          type: array
+      type: object
+    SeedLot:
+      allOf:
+      - $ref: '#/components/schemas/SeedLotNewRequest'
+      - properties:
+          seedLotDbId:
+            description: Unique DbId for the Seed Lot
+            example: 261ecb09
+            type: string
+        required:
+        - seedLotDbId
+        type: object
+    SeedLotNewRequest:
+      properties:
+        additionalInfo:
+          additionalProperties:
+            type: string
+          description: Additional arbitrary info
+          type: object
+        amount:
+          description: Current balance of seeds in this lot. Could be a count (seeds, bulbs, etc) or a weight (kg of seed).
+          example: 561
+          type: number
+        createdDate:
+          description: The time stamp for when this seed lot was created
+          format: date-time
+          type: string
+        externalReferences:
+          $ref: '#/components/schemas/ExternalReferences'
+        germplasmDbId:
+          description: Unique DbId of the Germplasm held in this Seed Lot
+          example: 029d705d
+          type: string
+        lastUpdated:
+          description: The timestamp for the last update to this Seed Lot (including transactions)
+          format: date-time
+          type: string
+        locationDbId:
+          description: DbId of the storage location
+          example: 7989c44c
+          type: string
+        programDbId:
+          description: Unique DbId of the breeding Program this Seed Lot belongs to
+          example: e972d569
+          type: string
+        seedLotDescription:
+          description: A general description of this Seed Lot
+          example: This is a description of a seed lot
+          type: string
+        seedLotName:
+          description: A human readable name for this Seed Lot
+          example: Seed Lot Alpha
+          type: string
+        sourceCollection:
+          description: The description of the source where this material was originally collected (wild, nursery, etc)
+          example: nursery
+          type: string
+        storageLocation:
+          description: Description the storage location
+          example: The storage location is an massive, underground, bunker.
+          type: string
+        units:
+          description: Description of the things being counted in this Seed Lot (seeds, bulbs, kg, tree, etc)
+          example: seeds
+          type: string
+      type: object
+    SeedLotNewTransactionRequest:
+      properties:
+        additionalInfo:
+          additionalProperties:
+            type: string
+          description: Additional arbitrary info
+          type: object
+        amount:
+          description: The amount of units being transfered. Could be a count (seeds, bulbs, etc) or a weight (kg of seed).
+          example: 45
+          type: number
+        externalReferences:
+          $ref: '#/components/schemas/ExternalReferences'
+        fromSeedLotDbId:
+          description: The identifier for the Seed Lot being transfered out of
+          example: 11eef13b
+          type: string
+        toSeedLotDbId:
+          description: The identifier for the Seed Lot being transfered into
+          example: 59339b90
+          type: string
+        transactionDescription:
+          description: A general description of this Seed Lot Transaction
+          example: f9cd88d2
+          type: string
+        transactionTimestamp:
+          description: The time stamp for when the transaction occured
+          format: date-time
+          type: string
+        units:
+          description: Description of the things being transfered in this transaction (seeds, bulbs, kg, etc)
+          example: seeds
+          type: string
+      type: object
+    SeedLotTransaction:
+      allOf:
+      - $ref: '#/components/schemas/SeedLotNewTransactionRequest'
+      - properties:
+          transactionDbId:
+            description: Unique DbId for the Seed Lot Transaction
+            example: 28e46db9
+            type: string
+        required:
+        - transactionDbId
+        type: object
+    TaxonID:
+      properties:
+        sourceName:
+          description: The human readable name of the taxonomy provider
+          example: NCBI
+          type: string
+        taxonId:
+          description: The identifier (name, ID, URI) of a particular taxonomy within the source provider
+          example: '2026747'
+          type: string
+      required:
+      - sourceName
+      - taxonId
+      type: object
+    Trait:
+      allOf:
+      - $ref: '#/components/schemas/TraitBaseClass'
+      - properties:
+          traitDbId:
+            description: The ID which uniquely identifies a trait
+            example: 9b2e34f5
+            type: string
+        type: object
+    TraitBaseClass:
+      properties:
+        additionalInfo:
+          additionalProperties:
+            type: string
+          description: Additional arbitrary info
+          type: object
+        alternativeAbbreviations:
+          description: Other frequent abbreviations of the trait, if any. These abbreviations do not have to follow a convention
+          example:
+          - H
+          - PH
+          - H1
+          items:
+            type: string
+          type: array
+        attribute:
+          description: A trait can be decomposed as "Trait" = "Entity" + "Attribute", the attribute is the observed feature (or characteristic) of the entity e.g., for "grain colour", attribute = "colour"
+          example: height
+          type: string
+        entity:
+          description: A trait can be decomposed as "Trait" = "Entity" + "Attribute", the entity is the part of the plant that the trait refers to e.g., for "grain colour", entity = "grain"
+          example: Stalk
+          type: string
+        externalReferences:
+          $ref: '#/components/schemas/ExternalReferences'
+        mainAbbreviation:
+          description: 'Main abbreviation for trait name. (examples: "Carotenoid content" => "CC")'
+          example: PH
+          type: string
+        ontologyReference:
+          $ref: '#/components/schemas/OntologyReference'
+        status:
+          description: 'Trait status (examples: "recommended", "obsolete", "legacy", etc.)'
+          example: recommended
+          type: string
+        synonyms:
+          description: Other trait names
+          example:
+          - Height
+          - Plant Height
+          - Stalk Height
+          - Canopy Height
+          items:
+            type: string
+          type: array
+        traitClass:
+          description: 'Trait class. (examples: "morphological", "phenological", "agronomical", "physiological", "abiotic stress", "biotic stress", "biochemical", "quality traits", "fertility", etc.)'
+          example: phenological
+          type: string
+        traitDescription:
+          description: The description of a trait
+          example: The height of the plant
+          type: string
+        traitName:
+          description: 'The human readable name of a trait
+
+
+            MIAPPE V1.1 (DM-86) Trait - Name of the (plant or environmental) trait under observation'
+          example: Height
+          type: string
+      type: object
+    TraitDataType:
+      description: '<p>Class of the scale, entries can be</p>
+
+        <p>"Code" -  This scale class is exceptionally used to express complex traits. Code is a nominal scale that combines the expressions of the different traits composing the complex trait. For example a severity trait might be expressed by a 2 digit and 2 character code. The first 2 digits are the percentage of the plant covered by a fungus and the 2 characters refer to the delay in development, e.g. "75VD" means "75 %" of the plant is infected and the plant is very delayed.</p>
+
+        <p>"Date" - The date class is for events expressed in a time format, See ISO 8601</p>
+
+        <p>"Duration" - The Duration class is for time elapsed between two events expressed in a time format, e.g. days, hours, months</p>
+
+        <p>"Nominal" - Categorical scale that can take one of a limited and fixed number of categories. There is no intrinsic ordering to the categories</p>
+
+        <p>"Numerical" - Numerical scales express the trait with real numbers. The numerical scale defines the unit e.g. centimeter, ton per hectare, branches</p>
+
+        <p>"Ordinal" - Ordinal scales are scales composed of ordered categories</p>
+
+        <p>"Text" - A free text is used to express the trait.</p>'
+      enum:
+      - Code
+      - Date
+      - Duration
+      - Nominal
+      - Numerical
+      - Ordinal
+      - Text
+      example: Numerical
+      type: string
+    VariableBaseClass:
+      properties:
+        additionalInfo:
+          additionalProperties:
+            type: string
+          description: Additional arbitrary info
+          type: object
+        commonCropName:
+          description: 'Crop name (examples: "Maize", "Wheat")'
+          example: Maize
+          type: string
+        contextOfUse:
+          description: 'Indication of how trait is routinely used. (examples: ["Trial evaluation", "Nursery evaluation"])'
+          example:
+          - Trial evaluation
+          - Nursery evaluation
+          items:
+            type: string
+          type: array
+        defaultValue:
+          description: 'Variable default value. (examples: "red", "2.3", etc.)'
+          example: '2.0'
+          type: string
+        documentationURL:
+          description: A URL to the human readable documentation of this object
+          example: https://wiki.brapi.org/documentation.html
+          format: uri
+          type: string
+        externalReferences:
+          $ref: '#/components/schemas/ExternalReferences'
+        growthStage:
+          description: 'Growth stage at which measurement is made (examples: "flowering")'
+          example: flowering
+          type: string
+        institution:
+          description: Name of institution submitting the variable
+          example: The BrAPI Institute
+          type: string
+        language:
+          description: 2 letter ISO 639-1 code for the language of submission of the variable.
+          example: en
+          type: string
+        method:
+          allOf:
+          - $ref: '#/components/schemas/MethodBaseClass'
+          - properties:
+              methodDbId:
+                description: Method unique identifier
+                example: 0adb2764
+                type: string
+            type: object
+        ontologyReference:
+          $ref: '#/components/schemas/OntologyReference'
+        scale:
+          allOf:
+          - $ref: '#/components/schemas/ScaleBaseClass'
+          - description: Scale metadata
+            properties:
+              scaleDbId:
+                description: Unique identifier of the scale. If left blank, the upload system will automatically generate a scale ID.
+                example: af730171
+                type: string
+            required:
+            - scaleDbId
+            type: object
+        scientist:
+          description: Name of scientist submitting the variable.
+          example: Dr. Bob Robertson
+          type: string
+        status:
+          description: 'Variable status. (examples: "recommended", "obsolete", "legacy", etc.)'
+          example: recommended
+          type: string
+        submissionTimestamp:
+          description: Timestamp when the Variable was added (ISO 8601)
+          format: date-time
+          type: string
+        synonyms:
+          description: Other variable names
+          example:
+          - Maize Height
+          - Stalk Height
+          - Corn Height
+          items:
+            type: string
+          type: array
+        trait:
+          allOf:
+          - $ref: '#/components/schemas/TraitBaseClass'
+          - properties:
+              traitDbId:
+                description: The ID which uniquely identifies a trait
+                example: 9b2e34f5
+                type: string
+            type: object
+      required:
+      - trait
+      - method
+      - scale
+      type: object
+    WSMIMEDataTypes:
+      enum:
+      - application/json
+      - text/csv
+      - text/tsv
+      - application/flapjack
+      type: string
+    basePagination:
+      properties:
+        pageSize:
+          default: 1000
+          description: The number of data elements returned, aka the size of the current page. If the requested page does not have enough elements to fill a page at the requested page size, this field should indicate the actual number of elements returned.
+          example: 1000
+          type: integer
+        totalCount:
+          description: The total number of elements that are available on the server and match the requested query parameters.
+          example: 10
+          type: integer
+        totalPages:
+          description: "The total number of pages of elements available on the server. This should be calculated with the following formula. \n\ntotalPages = CEILING( totalCount / requested_page_size)"
+          example: 1
+          type: integer
+      required:
+      - pageSize
+      type: object
+    dataFile:
+      description: A dataFile contains a URL and the relevant file metadata to represent a file
+      properties:
+        fileDescription:
+          description: A human readable description of the file contents
+          example: This is an Excel data file
+          type: string
+        fileMD5Hash:
+          description: The MD5 Hash of the file contents to be used as a check sum
+          example: c2365e900c81a89cf74d83dab60df146
+          type: string
+        fileName:
+          description: The name of the file
+          example: datafile.xlsx
+          type: string
+        fileSize:
+          description: The size of the file in bytes
+          example: 4398
+          type: integer
+        fileType:
+          description: The type or format of the file. Preferably MIME Type.
+          example: application/vnd.ms-excel
+          type: string
+        fileURL:
+          description: The absolute URL where the file is located
+          example: https://wiki.brapi.org/examples/datafile.xlsx
+          format: uri
+          type: string
+      required:
+      - fileURL
+      type: object
+    geoJSON:
+      description: 'One geometry as defined by GeoJSON (RFC 7946). All coordinates are decimal values on the WGS84 geographic coordinate reference system.
+
+
+        Copied from RFC 7946 Section 3.1.1
+
+
+        A position is an array of numbers. There MUST be two or more elements. The first two elements are longitude and latitude, or
+
+        easting and northing, precisely in that order and using decimal numbers. Altitude or elevation MAY be included as an optional third element.'
+      properties:
+        geometry:
+          description: A geometry as defined by GeoJSON (RFC 7946). In this context, only Point or Polygon geometry are allowed.
+          discriminator:
+            mapping:
+              Point: '#/components/schemas/pointGeometry'
+              Polygon: '#/components/schemas/polygonGeometry'
+            propertyName: type
+          example:
+            coordinates:
+            - -76.506042
+            - 42.417373
+            - 123
+            type: Point
+          oneOf:
+          - $ref: '#/components/schemas/pointGeometry'
+          - $ref: '#/components/schemas/polygonGeometry'
+          title: GeoJSON Geometry
+          type: object
+        type:
+          default: Feature
+          description: The literal string "Feature"
+          example: Feature
+          type: string
+      title: GeoJSON
+      type: object
+    geoJSONSearchArea:
+      allOf:
+      - $ref: '#/components/schemas/geoJSON'
+      - description: "A GeoJSON Polygon which describes an area to search for other GeoJSON objects. All contained Points and intersecting Polygons should be returned as search results. \n\nAll coordinates are decimal values on the WGS84 geographic coordinate reference system."
+        example:
+          geometry:
+            coordinates:
+            - - - -77.456654
+                - 42.241133
+              - - -75.414133
+                - 41.508282
+              - - -76.506042
+                - 42.417373
+              - - -77.456654
+                - 42.241133
+            type: Polygon
+          type: Feature
+        properties: {}
+        title: GeoJSONSearchArea
+        type: object
+    indexPagination:
+      allOf:
+      - $ref: '#/components/schemas/basePagination'
+      - description: "The pagination object is applicable only when the payload contains a \"data\" key. It describes the pagination of the data contained in the \"data\" array, as a way to identify which subset of data is being returned. \n\nPages are zero indexed, so the first page will be page 0 (zero)."
+        properties:
+          currentPage:
+            default: 0
+            description: The index number for the returned page of data. This should always match the requested page number or the default page (0).
+            example: 0
+            type: integer
+        required:
+        - currentPage
+        type: object
+    linearRing:
+      description: An array of at least four positions where the first equals the last
+      example:
+      - - -77.456654
+        - 42.241133
+        - 494
+      - - -75.414133
+        - 41.508282
+        - 571
+      - - -76.506042
+        - 42.417373
+        - 123
+      - - -77.456654
+        - 42.241133
+        - 346
+      items:
+        $ref: '#/components/schemas/position'
+      minItems: 4
+      type: array
+    metadata:
+      allOf:
+      - $ref: '#/components/schemas/metadataBase'
+      - properties:
+          pagination:
+            $ref: '#/components/schemas/indexPagination'
+        type: object
+    metadataBase:
+      properties:
+        datafiles:
+          description: "The datafiles contains a list of file URLs and metadata. \nThese files contain additional information related to the returned object and can be retrieved by a subsequent call. \nThis could be a supplementary data file, an informational file, the uploaded file where the data originated from, a generated file representing the whole dataset in a particular format, or any other related file. "
+          items:
+            $ref: '#/components/schemas/dataFile'
+          type: array
+        status:
+          description: "The status field contains a list of informational status messages from the server. \nIf no status is reported, an empty list should be returned. See Error Reporting for more information."
+          items:
+            $ref: '#/components/schemas/status'
+          type: array
+      type: object
+    metadataTokenPagination:
+      allOf:
+      - $ref: '#/components/schemas/metadataBase'
+      - properties:
+          pagination:
+            $ref: '#/components/schemas/tokenPagination'
+        type: object
+    pointGeometry:
+      description: 'Copied from RFC 7946 Section 3.1.1
+
+
+        A position is an array of numbers. There MUST be two or more elements. The first two elements are longitude and latitude, or
+
+        easting and northing, precisely in that order and using decimal numbers. Altitude or elevation MAY be included as an optional third element.'
+      properties:
+        coordinates:
+          $ref: '#/components/schemas/position'
+        type:
+          default: Point
+          description: The literal string "Point"
+          example: Point
+          type: string
+      type: object
+    polygon:
+      description: An array of linear rings
+      example:
+      - - - -77.456654
+          - 42.241133
+          - 494
+        - - -75.414133
+          - 41.508282
+          - 571
+        - - -76.506042
+          - 42.417373
+          - 123
+        - - -77.456654
+          - 42.241133
+          - 346
+      items:
+        $ref: '#/components/schemas/linearRing'
+      type: array
+    polygonGeometry:
+      description: "An array of Linear Rings. Each Linear Ring is an array of Points. \n\nA Point is an array of numbers. There MUST be two or more elements. The first two elements are longitude and latitude, or\neasting and northing, precisely in that order and using decimal numbers. Altitude or elevation MAY be included as an optional third element."
+      properties:
+        coordinates:
+          $ref: '#/components/schemas/polygon'
+        type:
+          default: Polygon
+          description: The literal string "Polygon"
+          example: Polygon
+          type: string
+      type: object
+    position:
+      description: A single position
+      example:
+      - -76.506042
+      - 42.417373
+      - 123
+      items:
+        type: number
+      minItems: 2
+      type: array
+    status:
+      description: An array of status messages to convey technical logging information from the server to the client.
+      properties:
+        message:
+          description: A short message concerning the status of this request/response
+          example: Request accepted, response successful
+          type: string
+        messageType:
+          description: The logging level for the attached message
+          enum:
+          - DEBUG
+          - ERROR
+          - WARNING
+          - INFO
+          example: INFO
+          type: string
+      required:
+      - message
+      - messageType
+      type: object
+    tokenPagination:
+      allOf:
+      - $ref: '#/components/schemas/basePagination'
+      - description: "The pagination object is applicable only when the payload contains a \"data\" key. It describes the pagination of the data contained in the \"data\" array, as a way to identify which subset of data is being returned. \n\nTokenized pages are for large data sets which can not be efficiently broken into indexed pages. Use the nextPageToken and prevPageToken to construct an additional query and move to the next or previous page respectively.  "
+        properties:
+          currentPageToken:
+            description: The string token used to query the current page of data.
+            example: 48bc6ac1
+            type: string
+          nextPageToken:
+            description: The string token used to query the next page of data.
+            example: cb668f63
+            type: string
+          prevPageToken:
+            description: The string token used to query the previous page of data.
+            example: 9659857e
+            type: string
+        required:
+        - nextPageToken
+        type: object
+  securitySchemes:
+    AuthorizationToken:
+      bearerFormat: nonce token or JWT
+      description: OAuth Bearer Token - A valid Bearer token to prove authorization
+      scheme: bearer
+      type: http
+info:
+  description: "The Breeding API (BrAPI) is a Standardized REST ful Web Service API Specification for communicating Plant Breeding Data. BrAPI allows for easy data sharing between databases and tools involved in plant breeding.\n<div class=\"brapi-section\">\n<h2 class=\"brapi-section-title\">General Reference Documentation</h2>\n<div class=\"gen-info-link\"><a href=\"https://github.com/plantbreeding/API/blob/master/Specification/GeneralInfo/URL_Structure.md\">URL Structure</a></div>\n<div class=\"gen-info-link\"><a href=\"https://github.com/plantbreeding/API/blob/master/Specification/GeneralInfo/Response_Structure.md\">Response Structure</a></div>\n<div class=\"gen-info-link\"><a href=\"https://github.com/plantbreeding/API/blob/master/Specification/GeneralInfo/Date_Time_Encoding.md\">Date/Time Encoding</a></div>\n<div class=\"gen-info-link\"><a href=\"https://github.com/plantbreeding/API/blob/master/Specification/GeneralInfo/Location_Encoding.md\">Location Encoding</a></div>\n<div class=\"gen-info-link\"><a href=\"https://github.com/plantbreeding/API/blob/master/Specification/GeneralInfo/Error_Handling.md\">Error Handling</a></div>\n<div class=\"gen-info-link\"><a href=\"https://github.com/plantbreeding/API/blob/master/Specification/GeneralInfo/Search_Services.md\">Search Services</a></div>\n</div>\n\n<div class=\"brapi-section\">\n<h2 class=\"brapi-section-title\">BrAPI Core</h2>\n<div class=\"brapi-section-description\">The BrAPI Core module contains high level entities used for organization and management. This includes Programs, Trials, Studies, Locations, People, and Lists</div>\n<div class=\"version-number\">V2.0</div>\n<div class=\"link-btn\"><a href=\"https://github.com/plantbreeding/API/tree/master/Specification/BrAPI-Core\">GitHub</a></div>\n<div class=\"link-btn\"><a href=\"https://app.swaggerhub.com/apis/PlantBreedingAPI/BrAPI-Core\">SwaggerHub</a></div>\n<div class=\"link-btn\"><a href=\"https://brapicore.docs.apiary.io\">Apiary</a></div>\n<div class=\"stop-float\"></div>\n</div>\n\n<div class=\"brapi-section\">\n<h2 class=\"brapi-section-title\">BrAPI Phenotyping</h2>\n<div class=\"brapi-section-description\">The BrAPI Phenotyping module contains entities related to phenotypic observations. This includes Observation Units, Observations, Observation Variables, Traits, Scales, Methods, and Images</div>\n<div class=\"version-number\">V2.0</div>\n<div class=\"link-btn\"><a href=\"https://github.com/plantbreeding/API/tree/master/Specification/BrAPI-Phenotyping\">GitHub</a></div>\n<div class=\"link-btn\"><a href=\"https://app.swaggerhub.com/apis/PlantBreedingAPI/BrAPI-Phenotyping\">SwaggerHub</a></div>\n<div class=\"link-btn\"><a href=\"https://brapiphenotyping.docs.apiary.io\">Apiary</a></div>\n<div class=\"stop-float\"></div>\n</div>\n\n<div class=\"brapi-section\">\n<h2 class=\"brapi-section-title\">BrAPI Genotyping</h2>\n<div class=\"brapi-section-description\">The BrAPI Genotyping module contains entities related to genotyping analysis. This includes Samples, Markers, Variant Sets, Variants, Call Sets, Calls, References, Reads, and Vendor Orders</div>\n<div class=\"version-number\">V2.0</div>\n<div class=\"link-btn\"><a href=\"https://github.com/plantbreeding/API/tree/master/Specification/BrAPI-Genotyping\">GitHub</a></div>\n<div class=\"link-btn\"><a href=\"https://app.swaggerhub.com/apis/PlantBreedingAPI/BrAPI-Genotyping\">SwaggerHub</a></div>\n<div class=\"link-btn\"><a href=\"https://brapigenotyping.docs.apiary.io\">Apiary</a></div>\n<div class=\"stop-float\"></div>\n</div>\n\n<div class=\"current-brapi-section brapi-section\">\n<h2 class=\"brapi-section-title\">BrAPI Germplasm</h2>\n<div class=\"brapi-section-description\">The BrAPI Germplasm module contains entities related to germplasm management. This includes Germplasm, Germplasm Attributes, Seed Lots, Crosses, Pedigree, and Progeny</div>\n<div class=\"version-number\">V2.0</div>\n<div class=\"link-btn\"><a href=\"https://github.com/plantbreeding/API/tree/master/Specification/BrAPI-Germplasm\">GitHub</a></div>\n<div class=\"link-btn\"><a href=\"https://app.swaggerhub.com/apis/PlantBreedingAPI/BrAPI-Germplasm\">SwaggerHub</a></div>\n<div class=\"link-btn\"><a href=\"https://brapigermplasm.docs.apiary.io\">Apiary</a></div>\n<div class=\"stop-float\"></div>\n</div>\n\n<style>\n.link-btn{\nfloat: left; \nmargin: 2px 10px 0 0; \npadding: 0 5px; \nborder-radius: 5px; \nbackground-color: #ddd;\n}\n.stop-float{\n  clear: both;\n}\n.version-number{\n  float: left; \n  margin: 5px 10px 0 5px;\n}\n.brapi-section-title{\n  margin: 0 10px 0 0;\n  font-size: 20px;\n}\n.current-brapi-section{\n  font-weight: bolder;\n  border-radius: 5px; \n  background-color: #ddd;\n}\n.brapi-section{\n  padding: 5px 5px; \n}\n.brapi-section-description{\n  margin: 5px 0 0 5px;\n}\n</style>"
+  title: BrAPI-Germplasm
+  version: '2.0'
+openapi: 3.0.0
+paths:
+  /attributes:
+    get:
+      description: List available attributes.
+      parameters:
+      - description: The general category for the attribute. very similar to Trait class.
+        in: query
+        name: attributeCategory
+        required: false
+        schema:
+          type: string
+      - description: The unique id for an attribute
+        in: query
+        name: attributeDbId
+        required: false
+        schema:
+          type: string
+      - description: The human readable name for an attribute
+        in: query
+        name: attributeName
+        required: false
+        schema:
+          type: string
+      - description: Get all attributes associated with this germplasm
+        in: query
+        name: germplasmDbId
+        required: false
+        schema:
+          type: string
+      - $ref: '#/components/parameters/externalReferenceID'
+      - $ref: '#/components/parameters/externalReferenceSource'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/authorizationHeader'
+      responses:
+        '200':
+          $ref: '#/components/responses/GermplasmAttributeListResponse'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+      summary: Get the Germplasm Attributes
+      tags:
+      - Germplasm Attributes
+    post:
+      description: Create new Germplasm Attributes
+      parameters:
+      - $ref: '#/components/parameters/authorizationHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/GermplasmAttributeNewRequest'
+              type: array
+      responses:
+        '200':
+          $ref: '#/components/responses/GermplasmAttributeListResponse'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+      summary: Create new Germplasm Attributes
+      tags:
+      - Germplasm Attributes
+  /attributes/categories:
+    get:
+      description: List all available attribute categories.
+      parameters:
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/authorizationHeader'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  '@context':
+                    $ref: '#/components/schemas/Context'
+                  metadata:
+                    $ref: '#/components/schemas/metadata'
+                  result:
+                    properties:
+                      data:
+                        example:
+                        - Morphological
+                        - Agronomic
+                        items:
+                          type: string
+                        type: array
+                    required:
+                    - data
+                    type: object
+                required:
+                - metadata
+                - result
+                title: GermplasmAttributeCategoryListResponse
+                type: object
+          description: OK
+          headers: {}
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+      summary: Get the Categories of Germplasm Attributes
+      tags:
+      - Germplasm Attributes
+  /attributes/{attributeDbId}:
+    get:
+      description: Get the details for a specific Germplasm Attribute
+      parameters:
+      - description: The unique id for an attribute
+        in: path
+        name: attributeDbId
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/authorizationHeader'
+      responses:
+        '200':
+          $ref: '#/components/responses/GermplasmAttributeSingleResponse'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+      summary: Get the details for a specific Germplasm Attribute
+      tags:
+      - Germplasm Attributes
+    put:
+      description: Update an existing Germplasm Attribute
+      parameters:
+      - description: The unique id for an attribute
+        in: path
+        name: attributeDbId
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/authorizationHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GermplasmAttributeNewRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/GermplasmAttributeSingleResponse'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+      summary: Update an existing Germplasm Attribute
+      tags:
+      - Germplasm Attributes
+  /attributevalues:
+    get:
+      description: Get the Germplasm Attribute Values
+      parameters:
+      - description: The unique id for an attribute value
+        in: query
+        name: attributeValueDbId
+        required: false
+        schema:
+          type: string
+      - description: The unique id for an attribute
+        in: query
+        name: attributeDbId
+        required: false
+        schema:
+          type: string
+      - description: The human readable name for an attribute
+        in: query
+        name: attributeName
+        required: false
+        schema:
+          type: string
+      - description: Get all attributes associated with this germplasm
+        in: query
+        name: germplasmDbId
+        required: false
+        schema:
+          type: string
+      - $ref: '#/components/parameters/externalReferenceID'
+      - $ref: '#/components/parameters/externalReferenceSource'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/authorizationHeader'
+      responses:
+        '200':
+          $ref: '#/components/responses/GermplasmAttributeValueListResponse'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+      summary: Get the Germplasm Attribute Values
+      tags:
+      - Germplasm Attribute Values
+    post:
+      description: Create new Germplasm Attribute Values
+      parameters:
+      - $ref: '#/components/parameters/authorizationHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/GermplasmAttributeValueNewRequest'
+              type: array
+      responses:
+        '200':
+          $ref: '#/components/responses/GermplasmAttributeValueListResponse'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+      summary: Create new Germplasm Attribute Values
+      tags:
+      - Germplasm Attribute Values
+  /attributevalues/{attributeValueDbId}:
+    get:
+      description: Get the details for a specific Germplasm Attribute
+      parameters:
+      - description: The unique id for an attribute value
+        in: path
+        name: attributeValueDbId
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/authorizationHeader'
+      responses:
+        '200':
+          $ref: '#/components/responses/GermplasmAttributeValueSingleResponse'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+      summary: Get the details for a specific Germplasm Attribute
+      tags:
+      - Germplasm Attribute Values
+    put:
+      description: Update an existing Germplasm Attribute Value
+      parameters:
+      - description: The unique id for an attribute value
+        in: path
+        name: attributeValueDbId
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/authorizationHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GermplasmAttributeValueNewRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/GermplasmAttributeValueSingleResponse'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+      summary: Update an existing Germplasm Attribute Value
+      tags:
+      - Germplasm Attribute Values
+  /breedingmethods:
+    get:
+      description: Get the list of germplasm breeding methods available in a system.
+      parameters:
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/authorizationHeader'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  '@context':
+                    $ref: '#/components/schemas/Context'
+                  metadata:
+                    $ref: '#/components/schemas/metadata'
+                  result:
+                    properties:
+                      data:
+                        items:
+                          $ref: '#/components/schemas/BreedingMethod'
+                        type: array
+                    required:
+                    - data
+                    type: object
+                required:
+                - metadata
+                - result
+                title: BreedingMethodListResponse
+                type: object
+          description: OK
+          headers: {}
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+      summary: Get the Breeding Methods
+      tags:
+      - Germplasm
+  /breedingmethods/{breedingMethodDbId}:
+    get:
+      description: Get the details of a specific Breeding Method used to produce Germplasm
+      parameters:
+      - description: Internal database identifier for a breeding method
+        in: path
+        name: breedingMethodDbId
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/authorizationHeader'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  '@context':
+                    $ref: '#/components/schemas/Context'
+                  metadata:
+                    $ref: '#/components/schemas/metadata'
+                  result:
+                    $ref: '#/components/schemas/BreedingMethod'
+                required:
+                - metadata
+                - result
+                title: BreedingMethodSingleResponse
+                type: object
+          description: OK
+          headers: {}
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+      summary: Get the details of a specific Breeding Method
+      tags:
+      - Germplasm
+  /crosses:
+    get:
+      description: Get a filtered list of Cross entities.
+      parameters:
+      - description: Search for Crossing Projects with this unique id
+        in: query
+        name: crossingProjectDbId
+        required: false
+        schema:
+          type: string
+      - description: Search for Cross with this unique id
+        in: query
+        name: crossDbId
+        required: false
+        schema:
+          type: string
+      - $ref: '#/components/parameters/externalReferenceID'
+      - $ref: '#/components/parameters/externalReferenceSource'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/authorizationHeader'
+      responses:
+        '200':
+          $ref: '#/components/responses/CrossesListResponse'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+      summary: Get a filtered list of Cross entities
+      tags:
+      - Crosses
+    post:
+      description: Create new Cross entities on this server
+      parameters:
+      - $ref: '#/components/parameters/authorizationHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/CrossNewRequest'
+              type: array
+      responses:
+        '200':
+          $ref: '#/components/responses/CrossesListResponse'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+      summary: Create new Cross entities on this server
+      tags:
+      - Crosses
+    put:
+      description: Update existing Cross entities on this server
+      parameters:
+      - $ref: '#/components/parameters/authorizationHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              additionalProperties:
+                $ref: '#/components/schemas/CrossNewRequest'
+              description: A map of new Cross entities. The key is the crossDbId of the entity to be updated, the value is the Cross object.
+              example:
+                <crossDbId_1>:
+                  additionalInfo: {}
+                  crossAttributes:
+                  - crossAttributeName: string
+                    crossAttributeValue: string
+                  crossName: my_Ibadan_Crosses_2018_01
+                  crossType: BIPARENTAL
+                  crossingProjectDbId: 696d7c92
+                  crossingProjectName: my_Ibadan_Crosses_2018
+                  parent1:
+                    germplasmDbId: d34b10c3
+                    germplasmName: TME_419
+                    observationUnitDbId: 3f0a1798
+                    observationUnitName: my_Ibadan_Plot_9001
+                    parentType: FEMALE
+                  parent2:
+                    germplasmDbId: 776a609c
+                    germplasmName: TME_419
+                    observationUnitDbId: 2e1926a7
+                    observationUnitName: my_Ibadan_Plot_9002
+                    parentType: MALE
+                  pollinationTimeStamp: '2019-08-15T18:49:00.327Z'
+                <crossDbId_2>:
+                  additionalInfo: {}
+                  crossAttributes:
+                  - crossAttributeName: string
+                    crossAttributeValue: string
+                  crossName: my_Ibadan_Crosses_2018_02
+                  crossType: BIPARENTAL
+                  crossingProjectDbId: 696d7c92
+                  crossingProjectName: my_Ibadan_Crosses_2018
+                  parent1:
+                    germplasmDbId: c43a2fd2
+                    germplasmName: TME_419
+                    observationUnitDbId: 3f2a37b8
+                    observationUnitName: my_Ibadan_Plot_9013
+                    parentType: FEMALE
+                  parent2:
+                    germplasmDbId: 124b10ad
+                    germplasmName: TME_419
+                    observationUnitDbId: 27194637
+                    observationUnitName: my_Ibadan_Plot_9014
+                    parentType: MALE
+                  pollinationTimeStamp: '2019-08-15T18:49:00.327Z'
+              type: object
+      responses:
+        '200':
+          $ref: '#/components/responses/CrossesListResponse'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+      summary: Update existing Cross entities on this server
+      tags:
+      - Crosses
+  /crossingprojects:
+    get:
+      description: Get a filtered list of Crossing Projects.
+      parameters:
+      - description: Search for Crossing Projects with this unique id
+        in: query
+        name: crossingProjectDbId
+        required: false
+        schema:
+          type: string
+      - $ref: '#/components/parameters/externalReferenceID'
+      - $ref: '#/components/parameters/externalReferenceSource'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/authorizationHeader'
+      responses:
+        '200':
+          $ref: '#/components/responses/CrossingProjectsListResponse'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+      summary: Get a filtered list of Crossing Projects
+      tags:
+      - Crossing Projects
+    post:
+      description: Create new Crossing Project entities on this server
+      parameters:
+      - $ref: '#/components/parameters/authorizationHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/CrossingProjectNewRequest'
+              type: array
+      responses:
+        '200':
+          $ref: '#/components/responses/CrossingProjectsListResponse'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+      summary: Create new Crossing Project entities on this server
+      tags:
+      - Crossing Projects
+  /crossingprojects/{crossingProjectDbId}:
+    get:
+      description: Get a filtered list of Crossing Projects.
+      parameters:
+      - description: Search for Crossing Projects with this unique id
+        in: path
+        name: crossingProjectDbId
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/authorizationHeader'
+      responses:
+        '200':
+          $ref: '#/components/responses/CrossingProjectsSingleResponse'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+      summary: Get a filtered list of Crossing Projects
+      tags:
+      - Crossing Projects
+    put:
+      description: Update an existing Crossing Project entity on this server
+      parameters:
+      - description: Search for Crossing Projects with this unique id
+        in: path
+        name: crossingProjectDbId
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/authorizationHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CrossingProjectNewRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/CrossingProjectsSingleResponse'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+      summary: Update an existing Crossing Project
+      tags:
+      - Crossing Projects
+  /germplasm:
+    get:
+      description: "Addresses these needs\n\n- General germplasm search mechanism that accepts POST for complex queries \n\n- Possibility to search germplasm by more parameters than those allowed by the existing germplasm search \n\n- Possibility to get MCPD details by PUID rather than dbId"
+      parameters:
+      - description: Permanent unique identifier (DOI, URI, etc.)
+        in: query
+        name: germplasmPUI
+        required: false
+        schema:
+          type: string
+      - description: Internal database identifier
+        in: query
+        name: germplasmDbId
+        required: false
+        schema:
+          type: string
+      - description: Name of the germplasm
+        in: query
+        name: germplasmName
+        required: false
+        schema:
+          type: string
+      - description: The common crop name related to this germplasm
+        in: query
+        name: commonCropName
+        required: false
+        schema:
+          type: string
+      - description: Unique identifiers for accessions within a genebank
+        in: query
+        name: accessionNumber
+        required: false
+        schema:
+          type: string
+      - description: A specific panel/collection/population name this germplasm belongs to.
+        in: query
+        name: collection
+        required: false
+        schema:
+          type: string
+      - description: Genus name to identify germplasm
+        in: query
+        name: genus
+        required: false
+        schema:
+          type: string
+      - description: Species name to identify germplasm
+        in: query
+        name: species
+        required: false
+        schema:
+          type: string
+      - description: Search for Germplasm that are associated with a particular Study
+        in: query
+        name: studyDbId
+        required: false
+        schema:
+          type: string
+      - description: Alternative name or ID used to reference this germplasm
+        in: query
+        name: synonym
+        required: false
+        schema:
+          type: string
+      - description: Search for Germplasm with this parent
+        in: query
+        name: parentDbId
+        required: false
+        schema:
+          type: string
+      - description: Search for Germplasm with this child
+        in: query
+        name: progenyDbId
+        required: false
+        schema:
+          type: string
+      - $ref: '#/components/parameters/externalReferenceID'
+      - $ref: '#/components/parameters/externalReferenceSource'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/authorizationHeader'
+      responses:
+        '200':
+          $ref: '#/components/responses/GermplasmListResponse'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+      summary: Get a filtered list of Germplasm
+      tags:
+      - Germplasm
+    post:
+      description: Create new Germplasm entities on this server
+      parameters:
+      - $ref: '#/components/parameters/authorizationHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/GermplasmNewRequest'
+              type: array
+      responses:
+        '200':
+          $ref: '#/components/responses/GermplasmListResponse'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+      summary: Create new Germplasm entities on this server
+      tags:
+      - Germplasm
+  /germplasm/{germplasmDbId}:
+    get:
+      description: Germplasm Details by germplasmDbId was merged with Germplasm Multi Crop Passport Data. The MCPD fields are optional and marked with the prefix [MCPD].
+      parameters:
+      - description: The internal id of the germplasm
+        in: path
+        name: germplasmDbId
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/authorizationHeader'
+      responses:
+        '200':
+          $ref: '#/components/responses/GermplasmSingleResponse'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+      summary: Get the details of a specific Germplasm
+      tags:
+      - Germplasm
+    put:
+      description: Germplasm Details by germplasmDbId was merged with Germplasm Multi Crop Passport Data. The MCPD fields are optional and marked with the prefix [MCPD].
+      parameters:
+      - description: The internal id of the germplasm
+        in: path
+        name: germplasmDbId
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/authorizationHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GermplasmNewRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/GermplasmSingleResponse'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+      summary: Update the details of an existing Germplasm
+      tags:
+      - Germplasm
+  /germplasm/{germplasmDbId}/mcpd:
+    get:
+      description: 'Get all MCPD details of a germplasm
+
+
+        <a target="_blank" href="https://www.bioversityInternational.org/fileadmin/user_upload/online_library/publications/pdfs/FAOBIOVERSITY_MULTI-CROP_PASSPORT_DESCRIPTORS_V.2.1_2015_2020.pdf"> MCPD v2.1 spec can be found here </a>
+
+
+        Implementation Notes
+
+
+        - When the MCPD spec identifies a field which can have multiple values returned, the JSON response should be an array instead of a semi-colon separated string.'
+      parameters:
+      - description: the internal id of the germplasm
+        in: path
+        name: germplasmDbId
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/authorizationHeader'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  '@context':
+                    $ref: '#/components/schemas/Context'
+                  metadata:
+                    $ref: '#/components/schemas/metadata'
+                  result:
+                    $ref: '#/components/schemas/GermplasmMCPD'
+                required:
+                - metadata
+                - result
+                title: GermplasmMCPDResponse
+                type: object
+          description: OK
+          headers: {}
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+      summary: Get the details of a specific Germplasm in MCPD format
+      tags:
+      - Germplasm
+  /germplasm/{germplasmDbId}/pedigree:
+    get:
+      description: Get the parentage information of a specific Germplasm
+      parameters:
+      - description: the internal id of the germplasm
+        in: path
+        name: germplasmDbId
+        required: true
+        schema:
+          type: string
+      - description: text representation of the pedigree
+        in: query
+        name: notation
+        required: false
+        schema:
+          type: string
+      - description: include array of siblings in response
+        in: query
+        name: includeSiblings
+        required: false
+        schema:
+          type: boolean
+      - $ref: '#/components/parameters/authorizationHeader'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  '@context':
+                    $ref: '#/components/schemas/Context'
+                  metadata:
+                    $ref: '#/components/schemas/metadata'
+                  result:
+                    $ref: '#/components/schemas/PedigreeNode'
+                required:
+                - metadata
+                - result
+                title: GermplasmPedigreeResponse
+                type: object
+          description: OK
+          headers: {}
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+      summary: Get the pedigree details of a specific Germplasm
+      tags:
+      - Germplasm
+  /germplasm/{germplasmDbId}/progeny:
+    get:
+      description: 'Get the germplasmDbIds for all the Progeny of a particular germplasm.
+
+
+        Implementation Notes
+
+
+        - Regarding the ''''parentType'''' field in the progeny object. Given a germplasm A having a progeny B and C, ''''parentType'''' for progeny B refers to the ''''parentType'''' of A toward B.'
+      parameters:
+      - description: the internal id of the germplasm
+        in: path
+        name: germplasmDbId
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/authorizationHeader'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  '@context':
+                    $ref: '#/components/schemas/Context'
+                  metadata:
+                    $ref: '#/components/schemas/metadata'
+                  result:
+                    $ref: '#/components/schemas/ProgenyNode'
+                required:
+                - metadata
+                - result
+                title: GermplasmProgenyResponse
+                type: object
+          description: OK
+          headers: {}
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+      summary: Get the progeny details of a specific Germplasm
+      tags:
+      - Germplasm
+  /plannedcrosses:
+    get:
+      description: Get a filtered list of Planned Cross entities.
+      parameters:
+      - description: Search for Crossing Projects with this unique id
+        in: query
+        name: crossingProjectDbId
+        required: false
+        schema:
+          type: string
+      - description: Search for Planned Cross with this unique id
+        in: query
+        name: plannedCrossDbId
+        required: false
+        schema:
+          type: string
+      - $ref: '#/components/parameters/externalReferenceID'
+      - $ref: '#/components/parameters/externalReferenceSource'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/authorizationHeader'
+      responses:
+        '200':
+          $ref: '#/components/responses/PlannedCrossesListResponse'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+      summary: Get a filtered list of Planned Cross entities
+      tags:
+      - Crosses
+    post:
+      description: Create new Planned Cross entities on this server
+      parameters:
+      - $ref: '#/components/parameters/authorizationHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/PlannedCrossNewRequest'
+              type: array
+      responses:
+        '200':
+          $ref: '#/components/responses/PlannedCrossesListResponse'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+      summary: Create new Planned Cross entities on this server
+      tags:
+      - Crosses
+    put:
+      description: Update existing Planned Cross entities on this server
+      parameters:
+      - $ref: '#/components/parameters/authorizationHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              additionalProperties:
+                $ref: '#/components/schemas/PlannedCrossNewRequest'
+              description: A map of new Planned Cross entities. The key is the plannedCrossDbId of the entity to be updated, the value is the Planned Cross object.
+              example:
+                <plannedCrossDbId_1>:
+                  additionalInfo: {}
+                  crossAttributes:
+                  - crossAttributeName: string
+                    crossAttributeValue: string
+                  crossType: BIPARENTAL
+                  crossingProjectDbId: 696d7c92
+                  crossingProjectName: my_Ibadan_Crosses_2018
+                  parent1:
+                    germplasmDbId: d34b10c3
+                    germplasmName: TME_419
+                    observationUnitDbId: 3f0a1798
+                    observationUnitName: my_Ibadan_Plot_9001
+                    parentType: FEMALE
+                  parent2:
+                    germplasmDbId: 776a609c
+                    germplasmName: TME_419
+                    observationUnitDbId: 2e1926a7
+                    observationUnitName: my_Ibadan_Plot_9002
+                    parentType: MALE
+                  plannedCrossName: my_Ibadan_Crosses_2018_01
+                  pollinationTimeStamp: '2019-08-15T18:49:00.327Z'
+                <plannedCrossDbId_2>:
+                  additionalInfo: {}
+                  crossAttributes:
+                  - crossAttributeName: string
+                    crossAttributeValue: string
+                  crossType: BIPARENTAL
+                  crossingProjectDbId: 696d7c92
+                  crossingProjectName: my_Ibadan_Crosses_2018
+                  parent1:
+                    germplasmDbId: c43a2fd2
+                    germplasmName: TME_419
+                    observationUnitDbId: 3f2a37b8
+                    observationUnitName: my_Ibadan_Plot_9013
+                    parentType: FEMALE
+                  parent2:
+                    germplasmDbId: 124b10ad
+                    germplasmName: TME_419
+                    observationUnitDbId: 27194637
+                    observationUnitName: my_Ibadan_Plot_9014
+                    parentType: MALE
+                  plannedCrossName: my_Ibadan_Crosses_2018_02
+                  pollinationTimeStamp: '2019-08-15T18:49:00.327Z'
+              type: object
+      responses:
+        '200':
+          $ref: '#/components/responses/PlannedCrossesListResponse'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+      summary: Update existing Planned Cross entities on this server
+      tags:
+      - Crosses
+  /search/attributes:
+    post:
+      description: "Search for a set of Germplasm Attributes based on some criteria\n        \nSee Search Services for additional implementation details."
+      parameters:
+      - $ref: '#/components/parameters/authorizationHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GermplasmAttributeSearchRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/GermplasmAttributeListResponse'
+        '202':
+          $ref: '#/components/responses/202AcceptedSearchResponse'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+      summary: Submit a search request for Germplasm Attributes
+      tags:
+      - Germplasm Attributes
+  /search/attributes/{searchResultsDbId}:
+    get:
+      description: 'Get the results of a Germplasm Attributes search request
+
+
+        See Search Services for additional implementation details.'
+      parameters:
+      - $ref: '#/components/parameters/searchResultsDbId'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/authorizationHeader'
+      responses:
+        '200':
+          $ref: '#/components/responses/GermplasmAttributeListResponse'
+        '202':
+          $ref: '#/components/responses/202AcceptedSearchResponse'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+      summary: Get the results of a Germplasm Attributes search request
+      tags:
+      - Germplasm Attributes
+  /search/attributevalues:
+    post:
+      description: "Search for a set of Germplasm Attribute Values based on some criteria\n        \nSee Search Services for additional implementation details."
+      parameters:
+      - $ref: '#/components/parameters/authorizationHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GermplasmAttributeValueSearchRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/GermplasmAttributeValueListResponse'
+        '202':
+          $ref: '#/components/responses/202AcceptedSearchResponse'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+      summary: Submit a search request for Germplasm Attribute Values
+      tags:
+      - Germplasm Attribute Values
+  /search/attributevalues/{searchResultsDbId}:
+    get:
+      description: 'Get the results of a Germplasm Attribute Values search request
+
+
+        See Search Services for additional implementation details.'
+      parameters:
+      - $ref: '#/components/parameters/searchResultsDbId'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/authorizationHeader'
+      responses:
+        '200':
+          $ref: '#/components/responses/GermplasmAttributeValueListResponse'
+        '202':
+          $ref: '#/components/responses/202AcceptedSearchResponse'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+      summary: Get the results of a Germplasm Attribute Values search request
+      tags:
+      - Germplasm Attribute Values
+  /search/germplasm:
+    post:
+      description: "Search for a set of germplasm based on some criteria\n\nAddresses these needs \n\n- General germplasm search mechanism that accepts POST for complex queries \n\n- Possibility to search germplasm by more parameters than those allowed by the existing germplasm search \n\n- Possibility to get MCPD details by PUID rather than dbId\n\nSee Search Services for additional implementation details."
+      parameters:
+      - $ref: '#/components/parameters/authorizationHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GermplasmSearchRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/GermplasmListResponse'
+        '202':
+          $ref: '#/components/responses/202AcceptedSearchResponse'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+      summary: Submit a search request for Germplasm
+      tags:
+      - Germplasm
+  /search/germplasm/{searchResultsDbId}:
+    get:
+      description: "See Search Services for additional implementation details.\n\nAddresses these needs: \n\n1. General germplasm search mechanism that accepts POST for complex queries \n\n2. possibility to search germplasm by more parameters than those allowed by the existing germplasm search \n\n3. possibility to get MCPD details by PUID rather than dbId"
+      parameters:
+      - $ref: '#/components/parameters/searchResultsDbId'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/authorizationHeader'
+      responses:
+        '200':
+          $ref: '#/components/responses/GermplasmListResponse'
+        '202':
+          $ref: '#/components/responses/202AcceptedSearchResponse'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+      summary: Get the results of a Germplasm search request
+      tags:
+      - Germplasm
+  /seedlots:
+    get:
+      description: Get a filtered list of Seed Lot descriptions available in a system.
+      parameters:
+      - description: Unique id for a seed lot on this server
+        in: query
+        name: seedLotDbId
+        required: false
+        schema:
+          type: string
+      - description: The internal id of the germplasm
+        in: query
+        name: germplasmDbId
+        required: false
+        schema:
+          type: string
+      - $ref: '#/components/parameters/externalReferenceID'
+      - $ref: '#/components/parameters/externalReferenceSource'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/authorizationHeader'
+      responses:
+        '200':
+          $ref: '#/components/responses/SeedLotListResponse'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+      summary: Get a filtered list of Seed Lot descriptions
+      tags:
+      - Seed Lots
+    post:
+      description: Add new Seed Lot descriptions to a server
+      parameters:
+      - $ref: '#/components/parameters/authorizationHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/SeedLotNewRequest'
+              type: array
+      responses:
+        '200':
+          $ref: '#/components/responses/SeedLotListResponse'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+      summary: Add new Seed Lot descriptions to a server
+      tags:
+      - Seed Lots
+  /seedlots/transactions:
+    get:
+      description: Get a filtered list of Seed Lot Transactions
+      parameters:
+      - description: Unique id for a transaction on this server
+        in: query
+        name: transactionDbId
+        required: false
+        schema:
+          type: string
+      - description: Unique id for a seed lot on this server
+        in: query
+        name: seedLotDbId
+        required: false
+        schema:
+          type: string
+      - description: The internal id of the germplasm
+        in: query
+        name: germplasmDbId
+        required: false
+        schema:
+          type: string
+      - $ref: '#/components/parameters/externalReferenceID'
+      - $ref: '#/components/parameters/externalReferenceSource'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/authorizationHeader'
+      responses:
+        '200':
+          $ref: '#/components/responses/SeedLotTransactionListResponse'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+      summary: Get a filtered list of Seed Lot Transactions
+      tags:
+      - Seed Lots
+    post:
+      description: Add new Seed Lot Transaction to be recorded
+      parameters:
+      - $ref: '#/components/parameters/authorizationHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/SeedLotNewTransactionRequest'
+              type: array
+      responses:
+        '200':
+          $ref: '#/components/responses/SeedLotTransactionListResponse'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+      summary: Add new Seed Lot Transaction to be recorded
+      tags:
+      - Seed Lots
+  /seedlots/{seedLotDbId}:
+    get:
+      description: Get a specific Seed Lot by seedLotDbId
+      parameters:
+      - description: Unique id for a seed lot on this server
+        in: path
+        name: seedLotDbId
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/authorizationHeader'
+      responses:
+        '200':
+          $ref: '#/components/responses/SeedLotSingleResponse'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+      summary: Get a specific Seed Lot
+      tags:
+      - Seed Lots
+    put:
+      description: Update an existing Seed Lot
+      parameters:
+      - description: Unique id for a seed lot on this server
+        in: path
+        name: seedLotDbId
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/authorizationHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SeedLotNewRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/SeedLotSingleResponse'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+      summary: Update an existing Seed Lot
+      tags:
+      - Seed Lots
+  /seedlots/{seedLotDbId}/transactions:
+    get:
+      description: Get all Transactions related to a specific Seed Lot
+      parameters:
+      - description: Unique id for a seed lot on this server
+        in: path
+        name: seedLotDbId
+        required: true
+        schema:
+          type: string
+      - description: Unique id for a Transaction that has occured
+        in: query
+        name: transactionDbId
+        required: false
+        schema:
+          type: string
+      - description: Filter results to only include transactions directed to the specific Seed Lot (TO), away from the specific Seed Lot (FROM), or both (BOTH). The default value for this parameter is BOTH
+        in: query
+        name: transactionDirection
+        required: false
+        schema:
+          enum:
+          - TO
+          - FROM
+          - BOTH
+          type: string
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/authorizationHeader'
+      responses:
+        '200':
+          $ref: '#/components/responses/SeedLotTransactionListResponse'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+      summary: Get all Transactions related to a specific Seed Lot
+      tags:
+      - Seed Lots
+security:
+- AuthorizationToken: []
+servers:
+- url: https://test-server.brapi.org/brapi/v2
+tags:
+- description: Information about Germplasm
+  externalDocs:
+    description: Docs
+    url: https://wiki.brapi.org/
+  name: Germplasm
+- description: Information about Germplasm Attributes
+  externalDocs:
+    description: Docs
+    url: https://wiki.brapi.org/
+  name: Germplasm Attributes
+- description: Information about Germplasm Attribute Values
+  externalDocs:
+    description: Docs
+    url: https://wiki.brapi.org/
+  name: Germplasm Attribute Values
+- description: Information about Crossing Projects
+  externalDocs:
+    description: Docs
+    url: https://wiki.brapi.org/
+  name: Crossing Projects
+- description: Information about Crosses
+  externalDocs:
+    description: Docs
+    url: https://wiki.brapi.org/
+  name: Crosses
