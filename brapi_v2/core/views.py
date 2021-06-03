@@ -3,7 +3,6 @@
 #   timestamp: 2021-03-24T20:58:23+00:00
 
 from __future__ import annotations
-from brapi_v2.core import services
 
 from datetime import date
 from typing import List, Optional, Union
@@ -622,13 +621,14 @@ def get_serverinfo(
     base_url = os.path.split(str(services_url))[0]
     services = []
     services.append(
+        # Lists Server information (Core Module)
         Service(service=f"{base_url}/serverinfo",
                 methods=[Method.GET], 
                 dataTypes=[ WSMIMEDataTypes.application_json],
                 versions=[Version.v2_0])
     )
     services.append(
-        # Lists Events
+        # Lists Events (Phenotyping Module)
         Service(service=f"{base_url}/events",
                 dataTypes=[ WSMIMEDataTypes.application_json],
                 methods=[Method.GET],
@@ -636,8 +636,16 @@ def get_serverinfo(
     )
 
     services.append(
-        # Lists Events
+        # Lists attributes (Germplasm Module)
         Service(service=f"{base_url}/attributes",
+                dataTypes=[ WSMIMEDataTypes.application_json],
+                methods=[Method.GET],
+                versions=[Version.v2_0])
+    )
+
+    services.append(
+        # Lists samples (Genotyping Module)
+        Service(service=f"{base_url}/samples",
                 dataTypes=[ WSMIMEDataTypes.application_json],
                 methods=[Method.GET],
                 versions=[Version.v2_0])
