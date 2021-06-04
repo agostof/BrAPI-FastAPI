@@ -61,7 +61,7 @@ class AdditionalInfo(BaseModel):
     class Config:
         extra = Extra.allow
 
-    __root__: str
+    #__root__: str
 
 
 class CrossType(Enum):

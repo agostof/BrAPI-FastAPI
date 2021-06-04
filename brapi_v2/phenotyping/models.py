@@ -37,8 +37,9 @@ class Context(BaseModel):
 class AdditionalInfo(BaseModel):
     class Config:
         extra = Extra.allow
+    #pass
 
-    __root__: str
+    #__root__: str
 
 
 class HeaderRowEnum(Enum):

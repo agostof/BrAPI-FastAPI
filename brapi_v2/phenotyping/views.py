@@ -83,8 +83,11 @@ def get_events(
     """
     
     # here we construct a dummy event just to show the functionaliy
-    from .models import Event, EventsResponseResult
-    events = [Event(eventDbId="123456789", eventType="Example event", additionalInfo={"test":"testEvent"})]
+    from .models import Event, EventsResponseResult, AdditionalInfo
+    additional_info_test = {}
+    additional_info_test["info_tag_1"] = AdditionalInfo(location="Earth!",importance="Very Important!")
+
+    events = [Event(eventDbId="123456789", eventType="Example event", additionalInfo=additional_info_test)]
     meta = Metadata()
     result = EventsResponseResult(data=events)
     return EventsResponse(metadata=meta, result = result)

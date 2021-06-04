@@ -82,16 +82,18 @@ def get_attributes(
     pass
 
     # here we construct a dummy GermplasmAttribute just to show the functionaliy
-    from .models import GermplasmAttribute, GermplasmAttributeListResponseResult, Metadata, Trait, Method, Scale
+    from .models import GermplasmAttribute, GermplasmAttributeListResponseResult, Metadata, Trait, Method, Scale, AdditionalInfo
     trait = Trait(traitDbId = '9b2e34f5', traitName="Test Trait Example")
     method = Method(methodDbId='0adb2764')
     scale = Scale(scaleDbId='af730171', scaleName="Dummy Scale")
     
-    
+    additional_info_test = {}
+    additional_info_test["extended_attribute_tag_1"] = AdditionalInfo(some_variable="Some value!")
+
     attributes = [
         GermplasmAttribute(attributeName="Plant Height Example",
                            scale=scale, attributeDbId="123456789", trait=trait, method=method,
-                           additionalInfo={"test":"testAttribute"})]
+                           additionalInfo=additional_info_test)]
 
     meta = Metadata()
     result = GermplasmAttributeListResponseResult(data=attributes)
