@@ -7,7 +7,7 @@ Implementation of the [BrAPI v2.0](https://brapi.org/) specification for Python 
 * use as a template to create your Python-based BrAPI server
 
 ## Quick start
-1. Installation if using pyenv (Python $version could be 3.8.3 and above)
+1. Installation using pyenv (Python $version could be 3.8.3 and above). If not using pyenv just skip to the next step.
 ``` sh
 pyenv virtualenv 3.9.1 WebAPI
 pyenv activate WebAPI
