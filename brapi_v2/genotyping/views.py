@@ -310,16 +310,21 @@ def get_samples(
     Get the Samples
     """
 
-    from .models import SampleListResponseResult, Sample, Metadata
-    
+    from .models import SampleListResponseResult, Sample, Metadata, AdditionalInfo
+
+    # create some additional information to be add to each sample entry
+    # as you can see the field is flexible and it can be anything
+    additional_info_test = {}
+    additional_info_test["info_tag_1"] = AdditionalInfo(location="Jupiter!",importance="Its dummy, so not much!")
+    additional_info_test["info_tag_2"] = AdditionalInfo(color="blue_green", arbitrary_info="this can be anything")
     samples = []
     samples.append(Sample(sampleName="dummy sample 1", 
                           sampleDbId="1213234", 
-                          AdditionalInfo={"test":"dummy field"}))
+                          additionalInfo=additional_info_test))
 
     samples.append(Sample(sampleName="dummy sample 2", 
                           sampleDbId="981975", 
-                          AdditionalInfo={"test":"some more info"}))
+                          additionalInfo=additional_info_test))
     
     result = SampleListResponseResult(data=samples)
     metadata = Metadata()
