@@ -18,7 +18,7 @@ python -m pip install -r requirements.txt
 ./start_dev_server.sh
 ```
 
-4. Now check API server: http://127.0.0.1:9000/brapi/v2/serverinfo
+4. Now check the API server at: http://127.0.0.1:9000/brapi/v2/serverinfo
 
 A few test(dummy) endpoints have been provided from each BrAPI module: Core, Genotyping, Germplasm, Phenotyping.
 
