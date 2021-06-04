@@ -22,9 +22,9 @@ python -m pip install -r requirements.txt
 ```
 
 4. Now check the API server at: http://127.0.0.1:9000/brapi/v2/serverinfo
-5. Self-generated documentation can be seen
-    1. here: http://127.0.0.1:9000/docs or
-    2. or in here http://127.0.0.1:9000/redoc
+5. Self-generated documentation can be seen in the following endpoints:
+    1. http://127.0.0.1:9000/docs or
+    2. here http://127.0.0.1:9000/redoc
 
 A few test(dummy) endpoints have been provided from each BrAPI module: Core, Genotyping, Germplasm, Phenotyping.
 * These are the example endpoints:
