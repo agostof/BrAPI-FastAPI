@@ -13,7 +13,9 @@ from pydantic import constr
 # To keep each module independent we are going to use the router 
 # as a replacement for the app
 from fastapi import APIRouter
-router = APIRouter()
+router = APIRouter(
+    tags = ["phenotyping"]
+)
 app = router
 
 from .models import (
