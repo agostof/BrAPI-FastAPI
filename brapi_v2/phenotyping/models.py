@@ -137,7 +137,9 @@ class PositionCoordinateYType(Enum):
     MEASURED_COL = 'MEASURED_COL'
 
 
-class HeaderRowEnum1(Enum):
+# note: Commented out from the Auto-generated to diferentiate from HeaderRowEnum(Enum) 
+#       and since it is specific to ObservationUnitTable
+class HeaderRowObservationUnitTable(Enum):
     observationUnitDbId = 'observationUnitDbId'
     observationUnitName = 'observationUnitName'
     studyDbId = 'studyDbId'
@@ -1106,7 +1108,7 @@ class ObservationUnitTable(BaseModel):
             ],
         ],
     )
-    headerRow: Optional[List[HeaderRowEnum1]] = Field(
+    headerRow: Optional[List[HeaderRowObservationUnitTable]] = Field(
         None,
         description='<p>The table is REQUIRED to have the following columns</p>\n<ul>\n  <li>observationUnitDbId - Each row is related to one Observation Unit</li>\n  <li>At least one column with an observationVariableDbId</li>\n</ul>\n<p>The table may have any or all of the following OPTIONAL columns. Included columns are decided by the server developer</p>\n<ul>\n  <li>observationUnitName</li>\n  <li>studyDbId</li>\n  <li>studyName</li>\n  <li>germplasmDbId</li>\n  <li>germplasmName</li>\n  <li>positionCoordinateX</li>\n  <li>positionCoordinateY</li>\n  <li>year</li>\n</ul>\n<p>The table also may have any number of Observation Unit Hierarchy Level columns. For example:</p>\n<ul>\n  <li>field</li>\n  <li>plot</li>\n  <li>sub-plot</li>\n  <li>plant</li>\n  <li>pot</li>\n  <li>block</li>\n  <li>entry</li>\n  <li>rep</li>\n</ul>\n<p>The JSON representation provides a pair of extra arrays for defining the headers of the table. \nThe first array "headerRow" will always contain "observationUnitDbId" and any or all of the OPTIONAL column header names. \nThe second array "observationVariables" contains the names and DbIds for the Observation Variables represented in the table. \nBy appending the two arrays, you can construct the complete header row of the table. </p>',
         example=[
@@ -1299,7 +1301,8 @@ class TraitNewRequest(BaseModel):
     __root__: TraitBaseClass
 
 
-class Scale1(ScaleBaseClass):
+# note: renamed from the Auto-generated because a duplicate Scale() is listed a few lines below
+class Scale(ScaleBaseClass):
     scaleDbId: str = Field(
         ...,
         description='Unique identifier of the scale. If left blank, the upload system will automatically generate a scale ID.',
@@ -1307,7 +1310,8 @@ class Scale1(ScaleBaseClass):
     )
 
 
-class Trait1(TraitBaseClass):
+# note: renamed from the Auto-generated because a duplicate Trait() is listed a few lines below
+class Trait(TraitBaseClass):
     traitDbId: Optional[str] = Field(
         None, description='The ID which uniquely identifies a trait', example='9b2e34f5'
     )
@@ -1420,21 +1424,24 @@ class Observation(ObservationNewRequest):
     )
 
 
-class Scale(ScaleBaseClass):
-    scaleDbId: str = Field(
-        ...,
-        description='Unique identifier of the scale. If left blank, the upload system will automatically generate a scale ID.',
-        example='af730171',
-    )
+# note: Commented out from the Auto-generated because of it was a duplicate of Scale() above
+# class Scale(ScaleBaseClass):
+#     scaleDbId: str = Field(
+#         ...,
+#         description='Unique identifier of the scale. If left blank, the upload system will automatically generate a scale ID.',
+#         example='af730171',
+#     )
 
 
-class Trait(TraitBaseClass):
-    traitDbId: Optional[str] = Field(
-        None, description='The ID which uniquely identifies a trait', example='9b2e34f5'
-    )
+# note: Commented out from the Auto-generated because it was a duplicate of Trait() above
+# class Trait(TraitBaseClass):
+#     traitDbId: Optional[str] = Field(
+#         None, description='The ID which uniquely identifies a trait', example='9b2e34f5'
+#     )
 
 
-class Method1(MethodBaseClass):
+# note: renamed from the Auto-generated because a duplicate Method() is listed a few lines below
+class Method(MethodBaseClass):
     methodDbId: Optional[str] = Field(
         None, description='Method unique identifier', example='0adb2764'
     )
@@ -1478,9 +1485,9 @@ class VariableBaseClass(BaseModel):
         description='2 letter ISO 639-1 code for the language of submission of the variable.',
         example='en',
     )
-    method: Method1
+    method: Method
     ontologyReference: Optional[OntologyReference] = None
-    scale: Scale1
+    scale: Scale
     scientist: Optional[str] = Field(
         None,
         description='Name of scientist submitting the variable.',
@@ -1499,7 +1506,7 @@ class VariableBaseClass(BaseModel):
         description='Other variable names',
         example=['Maize Height', 'Stalk Height', 'Corn Height'],
     )
-    trait: Trait1
+    trait: Trait
 
 
 class GeoJSON(BaseModel):
@@ -1716,10 +1723,11 @@ class ImageSearchRequest(
     )
 
 
-class Method(MethodBaseClass):
-    methodDbId: Optional[str] = Field(
-        None, description='Method unique identifier', example='0adb2764'
-    )
+# note: Commented out from the Auto-generated because it was a duplicate of Method() above
+# class Method(MethodBaseClass):
+#     methodDbId: Optional[str] = Field(
+#         None, description='Method unique identifier', example='0adb2764'
+#     )
 
 
 class ObservationUnitPosition(BaseModel):

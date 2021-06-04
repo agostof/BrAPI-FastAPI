@@ -317,7 +317,8 @@ class Season(BaseModel):
     )
 
 
-class Method(Enum):
+# note: changed from the Auto-generated Method(enum)
+class HttpMethod(Enum):
     GET = 'GET'
     POST = 'POST'
     PUT = 'PUT'
@@ -957,7 +958,7 @@ class Service(BaseModel):
         description='The possible data formats returned by the available call',
         example=['application/json'],
     )
-    methods: List[Method] = Field(
+    methods: List[HttpMethod] = Field(
         ...,
         description='The possible HTTP Methods to be used with the available call',
         example=['GET', 'POST'],
@@ -1376,7 +1377,8 @@ class Trial(TrialNewRequest):
     )
 
 
-class Method1(MethodBaseClass):
+# note: changed from the Auto-generated Method1(enum)
+class Method(MethodBaseClass):
     methodDbId: Optional[str] = Field(
         None, description='Method unique identifier', example='0adb2764'
     )
@@ -1420,7 +1422,7 @@ class VariableBaseClass(BaseModel):
         description='2 letter ISO 639-1 code for the language of submission of the variable.',
         example='en',
     )
-    method: Method1
+    method: Method
     ontologyReference: Optional[OntologyReference] = None
     scale: Scale
     scientist: Optional[str] = Field(

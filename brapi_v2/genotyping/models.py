@@ -1072,7 +1072,8 @@ class VendorResultFileListResponseResult(BaseModel):
     data: List[VendorResultFile]
 
 
-class Status1(Enum):
+# note: changed from the Auto-generated Status1(enum)
+class StatusCode(Enum):
     registered = 'registered'
     received = 'received'
     inProgress = 'inProgress'
@@ -1081,7 +1082,7 @@ class Status1(Enum):
 
 
 class VendorOrderStatusResponseResult(BaseModel):
-    status: Optional[Status1] = None
+    status: Optional[StatusCode] = None
 
 
 class Call(BaseModel):

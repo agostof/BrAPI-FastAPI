@@ -172,29 +172,29 @@ class StorageTypeCode(Enum):
     field_50 = '50'
     field_99 = '99'
 
-
-class BiologicalStatusOfAccessionCode1(Enum):
-    field_100 = '100'
-    field_110 = '110'
-    field_120 = '120'
-    field_130 = '130'
-    field_200 = '200'
-    field_300 = '300'
-    field_400 = '400'
-    field_410 = '410'
-    field_411 = '411'
-    field_412 = '412'
-    field_413 = '413'
-    field_414 = '414'
-    field_415 = '415'
-    field_416 = '416'
-    field_420 = '420'
-    field_421 = '421'
-    field_422 = '422'
-    field_423 = '423'
-    field_500 = '500'
-    field_600 = '600'
-    field_999 = '999'
+# note: Commented out from the Auto-generated because it was a duplicate of BiologicalStatusOfAccessionCode(enum)
+# class BiologicalStatusOfAccessionCode1(Enum):
+#     field_100 = '100'
+#     field_110 = '110'
+#     field_120 = '120'
+#     field_130 = '130'
+#     field_200 = '200'
+#     field_300 = '300'
+#     field_400 = '400'
+#     field_410 = '410'
+#     field_411 = '411'
+#     field_412 = '412'
+#     field_413 = '413'
+#     field_414 = '414'
+#     field_415 = '415'
+#     field_416 = '416'
+#     field_420 = '420'
+#     field_421 = '421'
+#     field_422 = '422'
+#     field_423 = '423'
+#     field_500 = '500'
+#     field_600 = '600'
+#     field_999 = '999'
 
 
 class LevelName(Enum):
@@ -221,15 +221,15 @@ class ObservationUnitHierarchyLevel(BaseModel):
         example=2,
     )
 
-
-class CrossType1(Enum):
-    BIPARENTAL = 'BIPARENTAL'
-    SELF = 'SELF'
-    OPEN_POLLINATED = 'OPEN_POLLINATED'
-    BULK = 'BULK'
-    BULK_SELFED = 'BULK_SELFED'
-    BULK_OPEN_POLLINATED = 'BULK_OPEN_POLLINATED'
-    DOUBLE_HAPLOID = 'DOUBLE_HAPLOID'
+# note: Commented out from the Auto-generated because it was a duplicate of CrossType(enum)
+# class CrossType1(Enum):
+#     BIPARENTAL = 'BIPARENTAL'
+#     SELF = 'SELF'
+#     OPEN_POLLINATED = 'OPEN_POLLINATED'
+#     BULK = 'BULK'
+#     BULK_SELFED = 'BULK_SELFED'
+#     BULK_OPEN_POLLINATED = 'BULK_OPEN_POLLINATED'
+#     DOUBLE_HAPLOID = 'DOUBLE_HAPLOID'
 
 
 class SearchRequestParametersCommonCropNames(BaseModel):
@@ -716,11 +716,12 @@ class OntologyReferenceDocumentationLinks(BaseModel):
     type: Optional[Type] = Field(None, example='OBO')
 
 
-class ParentType1(Enum):
-    MALE = 'MALE'
-    FEMALE = 'FEMALE'
-    SELF = 'SELF'
-    POPULATION = 'POPULATION'
+# # note: Commented out from the Auto-generated because it was a duplicate of ParentType(enum)
+# class ParentType1(Enum):
+#     MALE = 'MALE'
+#     FEMALE = 'FEMALE'
+#     SELF = 'SELF'
+#     POPULATION = 'POPULATION'
 
 
 class PedigreeNodeParents(BaseModel):
@@ -734,7 +735,7 @@ class PedigreeNodeParents(BaseModel):
         description='the human readable name of the parent of this germplasm',
         example='A0000592',
     )
-    parentType: Optional[ParentType1] = Field(
+    parentType: Optional[ParentType] = Field(
         None,
         description="The type of parent the parent is. ex. 'MALE', 'FEMALE', 'SELF', 'POPULATION', etc.",
         example='FEMALE',
@@ -750,11 +751,12 @@ class PedigreeNodeSiblings(BaseModel):
     )
 
 
-class ParentType2(Enum):
-    MALE = 'MALE'
-    FEMALE = 'FEMALE'
-    SELF = 'SELF'
-    POPULATION = 'POPULATION'
+# note: Commented out from the Auto-generated because it was a duplicate of ParentType(enum)
+# class ParentType2(Enum):
+#     MALE = 'MALE'
+#     FEMALE = 'FEMALE'
+#     SELF = 'SELF'
+#     POPULATION = 'POPULATION'
 
 
 class ProgenyNodeProgeny(BaseModel):
@@ -768,7 +770,7 @@ class ProgenyNodeProgeny(BaseModel):
         description='The human readable name of a progeny germplasm',
         example='A0021011',
     )
-    parentType: ParentType2 = Field(
+    parentType: ParentType = Field(
         ...,
         description="Given a germplasm A having a progeny B and C, 'parentType' for progeny B item refers to the 'parentType' of A toward B.",
         example='FEMALE',
@@ -1202,7 +1204,7 @@ class PlannedCrossNewRequest(BaseModel):
     additionalInfo: Optional[Dict[str, AdditionalInfo]] = Field(
         None, description='Additional arbitrary info'
     )
-    crossType: Optional[CrossType1] = Field(
+    crossType: Optional[CrossType] = Field(
         None, description='the type of cross', example='BIPARENTAL'
     )
     crossingProjectDbId: Optional[str] = Field(
@@ -1427,7 +1429,7 @@ class TraitBaseClass(BaseModel):
         example='Height',
     )
 
-
+# note: Commented out from the Auto-generated because it was a duplicate of Scale(enum)
 # class Scale1(ScaleBaseClass):
 #     scaleDbId: str = Field(
 #         ...,
@@ -1435,7 +1437,7 @@ class TraitBaseClass(BaseModel):
 #         example='af730171',
 #     )
 
-
+# note: Commented out from the Auto-generated because it was a duplicate of Trait(enum)
 # class Trait1(TraitBaseClass):
 #     traitDbId: Optional[str] = Field(
 #         None, description='The ID which uniquely identifies a trait', example='9b2e34f5'
@@ -1836,6 +1838,7 @@ class GermplasmOrigin(BaseModel):
     coordinates: Optional[GeoJSON] = None
 
 
+# note: Commented out from the Auto-generated because it is duplicated above
 # class Method(MethodBaseClass):
 #     methodDbId: Optional[str] = Field(
 #         None, description='Method unique identifier', example='0adb2764'
@@ -1895,7 +1898,7 @@ class GermplasmNewRequest(BaseModel):
     additionalInfo: Optional[Dict[str, AdditionalInfo]] = Field(
         None, description='Additional arbitrary info'
     )
-    biologicalStatusOfAccessionCode: Optional[BiologicalStatusOfAccessionCode1] = Field(
+    biologicalStatusOfAccessionCode: Optional[BiologicalStatusOfAccessionCode] = Field(
         None,
         description='MCPD (v2.1) (SAMPSTAT) 19. The coding scheme proposed can be used at 3 different levels of detail: either by using the general codes such as 100, 200, 300, 400, or by using the more specific codes such as 110, 120, etc. \n\n100) Wild \n110) Natural \n120) Semi-natural/wild \n130) Semi-natural/sown \n200) Weedy \n300) Traditional cultivar/landrace \n400) Breeding/research material \n410) Breeders line \n411) Synthetic population \n412) Hybrid \n413) Founder stock/base population \n414) Inbred line (parent of hybrid cultivar) \n415) Segregating population \n416) Clonal selection \n420) Genetic stock \n421) Mutant (e.g. induced/insertion mutants, tilling populations) \n422) Cytogenetic stocks (e.g. chromosome addition/substitution, aneuploids,  amphiploids) \n423) Other genetic stocks (e.g. mapping populations) \n500) Advanced or improved cultivar (conventional breeding methods) \n600) GMO (by genetic engineering) \n999) Other (Elaborate in REMARKS field)',
         example='420',
