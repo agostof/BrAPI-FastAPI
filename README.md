@@ -1,7 +1,9 @@
 # BrAPI-FastAPI
-FastAPI-compatible BrAPI
+#FastAPI-compatible BrAPI
 
 Implementation of the [BrAPI v2.0](https://brapi.org/) specification for Python using the [FastAPI](https://fastapi.tiangolo.com/) framework.
+* includes models and server stubs (views.py) for Core, Genotyping, Germplasm, Phenotyping
+* use as a template to create your BrAPI server
 
 #### Quick start ####
 1. Installation if using pyenv (Python $version could be 3.8.3 and above)
