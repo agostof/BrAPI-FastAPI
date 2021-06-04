@@ -30,7 +30,7 @@ A few test(dummy) endpoints have been provided from each BrAPI module: Core, Gen
 If you want to use these stubs as a template you can add them in your project by running:
 
 ```sh
-git submodule add https://github.com/agostof/BrAPI-FastAPI.git [optional local_name]
+git submodule add https://github.com/agostof/BrAPI-FastAPI [optional local_name]
 ```
 Then use (by copying or modifying) the appropriate BrAPI module(s) views (controllers) and models as needed.
 
