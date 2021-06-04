@@ -25,7 +25,7 @@ python -m pip install -r requirements.txt
 
 A few test(dummy) endpoints have been provided from each BrAPI module: Core, Genotyping, Germplasm, Phenotyping.
 
-## Using a BrAPI server template
+## Using as a BrAPI server template
 
 If you want to use these stubs as a template you can add them in your project by running:
 
