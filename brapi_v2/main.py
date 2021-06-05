@@ -22,6 +22,23 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# just to prevent people from running the module as a stand alone script
+def show_usage_information():
+    if __name__ == "__main__":
+        import sys, os
+        package_dir, file_name = os.path.split(__file__)
+        parent_dir, package_name = os.path.split(package_dir)
+        main_module = os.path.splitext(file_name)[0]
+      
+        print("ERROR: This is not a stand alone script!")
+        print("Check FASTAPI's documentation for details on how to start a server.")
+        print("Maybe the startup for your package will be something like this:")
+        print(f"python -m uvicorn {package_name}.{main_module}:app  --port 9000 --reload")
+        sys.exit(1)
+
+if __name__ == "__main__": 
+    show_usage_information()
+
 #from . import views as core#, users
 from . import core
 from . import genotyping
