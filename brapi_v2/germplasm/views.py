@@ -17,7 +17,8 @@ router = APIRouter(
 )
 app = router
 
-from brapi_v2.core.models import (
+# from brapi_v2.core.models import (
+from .. core.models import (
     Field202AcceptedSearchResponse,
     # Field202AcceptedSearchResponseResult,
     WSMIMEDataTypes,

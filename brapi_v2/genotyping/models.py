@@ -10,8 +10,8 @@ from typing import Dict, List, Optional, Union
 
 from pydantic import AnyUrl, BaseModel, Extra, Field, conint
 
-
-from brapi_v2.core.models import (
+# from brapi_v2.core.models import (
+from .. core.models import (
     AdditionalInfo,
     # BasePagination,
     Context,
