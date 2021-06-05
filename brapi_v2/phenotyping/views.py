@@ -17,11 +17,16 @@ router = APIRouter(
     tags = ["phenotyping"]
 )
 app = router
-
-from .models import (
+# from brapi_v2.core.models import (
+from .. core.models import (
+    Field202AcceptedSearchResponse,
+    # Field202AcceptedSearchResponseResult,
+    WSMIMEDataTypes,
+)
+from . models import (
     AdditionalInfo,
     EventsResponse,
-    Field202AcceptedSearchResponse,
+    # Field202AcceptedSearchResponse,
     ImageListResponse,
     ImageNewRequest,
     ImageSearchRequest,
@@ -54,7 +59,7 @@ from .models import (
     TraitListResponse,
     TraitNewRequest,
     TraitSingleResponse,
-    WSMIMEDataTypes,
+    # WSMIMEDataTypes,
 )
 
 

@@ -16,13 +16,21 @@ router = APIRouter(
     tags = ["genotyping"]
 )
 app = router
+
+# from brapi_v2.core.models import (
+from .. core.models import (
+    Field202AcceptedSearchResponse,
+    # Field202AcceptedSearchResponseResult,
+    WSMIMEDataTypes,
+)
+
 from .models import (
     CallSetResponse,
     CallSetsListResponse,
     CallSetsSearchRequest,
     CallsListResponse,
     CallsSearchRequest,
-    Field202AcceptedSearchResponse,
+    # Field202AcceptedSearchResponse,
     GenomeMapListResponse,
     GenomeMapSingleResponse,
     LinkageGroupListResponse,

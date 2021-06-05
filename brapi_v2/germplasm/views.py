@@ -17,6 +17,13 @@ router = APIRouter(
 )
 app = router
 
+# from brapi_v2.core.models import (
+from .. core.models import (
+    Field202AcceptedSearchResponse,
+    # Field202AcceptedSearchResponseResult,
+    WSMIMEDataTypes,
+)
+
 from .models import (
     BreedingMethodListResponse,
     BreedingMethodSingleResponse,
@@ -26,7 +33,7 @@ from .models import (
     CrossingProjectsListResponse,
     CrossingProjectsSingleResponse,
     CrossNewRequest,
-    Field202AcceptedSearchResponse,
+    # Field202AcceptedSearchResponse,
     GermplasmAttributeCategoryListResponse,
     GermplasmAttributeListResponse,
     GermplasmAttributeNewRequest,

@@ -302,15 +302,20 @@ class SearchRequestParametersTrials(BaseModel):
 
 
 class Season(BaseModel):
-    seasonDbId: str = Field(
-        ...,
-        description="The ID which uniquely identifies a season. For backward compatibility it can be a string like '2012', '1957-2004'",
-        example='Spring_2018',
+    season: Optional[str] = Field(
+        None,
+        description="Name of the season. ex. 'Spring', 'Q2', 'Season A', etc.",
+        example='Spring',
     )
     seasonName: Optional[str] = Field(
         None,
         description="Name of the season. ex. 'Spring', 'Q2', 'Season A', etc.",
         example='Spring',
+    )
+    seasonDbId: str = Field(
+        ...,
+        description="The ID which uniquely identifies a season. For backward compatibility it can be a string like '2012', '1957-2004'",
+        example='Spring_2018',
     )
     year: Optional[int] = Field(
         None, description='The 4 digit year of the season.', example=2018
