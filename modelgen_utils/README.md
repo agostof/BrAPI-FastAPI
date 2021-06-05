@@ -7,7 +7,7 @@ In the event of a new release of BrAPI this process has to be runned again.
 
 # Important
 
-The code here is provided as a way of documenting how the models were generated and what needs to be done in a new BrAPI release. Do *NOT* use these models to overwrite [brapi_v2](../brapi_v2), specially if you don't know what you are doing.
+The code here is provided as a way of documenting how the models were generated and what needs to be done in a new BrAPI release. **DO NOT** use these models to overwrite [brapi_v2](../brapi_v2), specially if you don't know what you are doing.
 
 # Note on Model duplicates
 
