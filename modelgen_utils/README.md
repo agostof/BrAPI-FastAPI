@@ -2,12 +2,12 @@
 
 The resolved openapi models in [brapi_openapi_models](brapi_openapi_models) were used to generate the Python Pydanic models (for more details check the documentation in [brapi_openapi_models](brapi_openapi_models)). The resulting models are in the [resolved](resolved) directory.
 
-The models from [resolved](resolved) are the basis for what was used to build the models and views present in `brapi_v2`.
+The models from [resolved](resolved) are the basis for what was used to build the models and views present in [brapi_v2](../brapi_v2).
 In the event of a new release of BrAPI this process has to be runned again.
 
 # Important
 
-The code here is provided as a way of documenting how the models were generated and what needs to be done in a new BrAPI release. Do *NOT* use these models to overwrite `brapi_v2`, specially if you don't know what you are doing.
+The code here is provided as a way of documenting how the models were generated and what needs to be done in a new BrAPI release. Do *NOT* use these models to overwrite [brapi_v2](../brapi_v2), specially if you don't know what you are doing.
 
 # Note on Model duplicates
 
