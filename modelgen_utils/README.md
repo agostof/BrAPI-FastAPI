@@ -11,7 +11,7 @@ The code here is provided as a way of documenting how the models were generated 
 
 # Note on Model duplicates
 
-The FastAPI-code-generator created some duplicated classes definitions across each module. They can be found by looking for "class" instance definitions. The script `find_duplicate_classes.sh` will help in finding these duplicates so they can be edited.
+The FastAPI-code-generator created some duplicated classes definitions across each module. They can be found by looking for "class" instance definitions. The [find_duplicate_classes] script(find_duplicate_classes.sh) will help in finding these duplicates so they can be edited.
 Example usage:
 ```sh
 modelgen_utils/find_duplicate_classes.sh brapi_v2
