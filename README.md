@@ -44,5 +44,7 @@ Then use (by copying or modifying) the appropriate BrAPI module(s) views (contro
 
 ## Notes
 
-The auto-generated models still need cleaning up. Also some models names are *repeated* across modules e.g. **Metadata**, **AdditionalInfo**. These redundant Pydantic models occur because the BrAPI OpenAPI spec files were processed independently.
-Ideally, they should be consolidated as part of the Core module or in a "commons" package. Check the [modelgen_utils](modelgen_utils) directory for additional details.
+The auto-generated models still need cleaning up. Also some models names are *repeated* across modules e.g. **Metadata**, **AdditionalInfo**.
+
+These redundant Pydantic models occur because the BrAPI OpenAPI spec files were processed independently.
+Ideally, they should be consolidated as part of the Core module or in a *commons* package. Check the [modelgen_utils](modelgen_utils) directory for additional details.
