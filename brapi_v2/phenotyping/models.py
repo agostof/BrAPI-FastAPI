@@ -11,6 +11,58 @@ from typing import Dict, List, Optional, Union
 from pydantic import AnyUrl, BaseModel, Extra, Field, constr
 
 
+from brapi_v2.core.models import (
+    AdditionalInfo,
+    # BasePagination,
+    Context,
+    # DataFile,
+    ExternalReferences,
+    # ExternalReferencesInner,
+    # Field202AcceptedSearchResponse,
+    # Field202AcceptedSearchResponseResult,
+    GeoJSON,
+    GeoJSONSearchArea,
+    # IndexPagination,
+    # LevelName,
+    # LinearRing,
+    # MessageType,
+    Metadata,
+    # MetadataBase,
+    # MetadataTokenPagination,
+    Method,
+    MethodBaseClass,
+    ObservationUnitHierarchyLevel,
+    # OntologyReference,
+    # OntologyReferenceDocumentationLinks,
+    # PointGeometry,
+    # Polygon,
+    # PolygonGeometry,
+    # Position,
+    Scale,
+    ScaleBaseClass,
+    # ScaleBaseClassValidValues,
+    # ScaleBaseClassValidValuesCategories,
+    # SearchRequestParametersCommonCropNames,
+    SearchRequestParametersExternalReferences,
+    SearchRequestParametersGermplasm,
+    SearchRequestParametersLocations,
+    SearchRequestParametersObservationVariables,
+    SearchRequestParametersPaging,
+    SearchRequestParametersPrograms,
+    SearchRequestParametersStudies,
+    # SearchRequestParametersTokenPaging,
+    SearchRequestParametersTrials,
+    # Status,
+    # TokenPagination,
+    Trait,
+    TraitBaseClass,
+    TraitDataType,
+    # Type,
+    VariableBaseClass,
+    # WSMIMEDataTypes,
+    Season,
+)
+
 class ObservationsPutRequest(BaseModel):
     pass
 
@@ -25,21 +77,22 @@ class ObservationunitsPutRequest(BaseModel):
         extra = Extra.allow
 
 
-class Context(BaseModel):
-    __root__: List[AnyUrl] = Field(
-        ...,
-        description='The JSON-LD Context is used to provide JSON-LD definitions to each field in a JSON object. By providing an array of context file urls, a BrAPI response object becomes JSON-LD compatible.  \n\nFor more information, see https://w3c.github.io/json-ld-syntax/#the-context',
-        example=['https://brapi.org/jsonld/context/metadata.jsonld'],
-        title='context',
-    )
+# note: consolidation --> already defined in core module
+# class Context(BaseModel):
+#     __root__: List[AnyUrl] = Field(
+#         ...,
+#         description='The JSON-LD Context is used to provide JSON-LD definitions to each field in a JSON object. By providing an array of context file urls, a BrAPI response object becomes JSON-LD compatible.  \n\nFor more information, see https://w3c.github.io/json-ld-syntax/#the-context',
+#         example=['https://brapi.org/jsonld/context/metadata.jsonld'],
+#         title='context',
+#     )
 
+# note: consolidation --> already defined in core module
+# class AdditionalInfo(BaseModel):
+#     class Config:
+#         extra = Extra.allow
+#     #pass
 
-class AdditionalInfo(BaseModel):
-    class Config:
-        extra = Extra.allow
-    #pass
-
-    #__root__: str
+#     #__root__: str
 
 
 class HeaderRowEnum(Enum):
@@ -76,29 +129,31 @@ class ObservationTreatment(BaseModel):
     )
 
 
-class LevelName(Enum):
-    study = 'study'
-    field = 'field'
-    entry = 'entry'
-    rep = 'rep'
-    block = 'block'
-    sub_block = 'sub-block'
-    plot = 'plot'
-    sub_plot = 'sub-plot'
-    plant = 'plant'
-    pot = 'pot'
-    sample = 'sample'
+# note: consolidation --> already defined in core module
+# class LevelName(Enum):
+#     study = 'study'
+#     field = 'field'
+#     entry = 'entry'
+#     rep = 'rep'
+#     block = 'block'
+#     sub_block = 'sub-block'
+#     plot = 'plot'
+#     sub_plot = 'sub-plot'
+#     plant = 'plant'
+#     pot = 'pot'
+#     sample = 'sample'
 
 
-class ObservationUnitHierarchyLevel(BaseModel):
-    levelName: Optional[LevelName] = Field(
-        None, description='A name for this level', example='plot'
-    )
-    levelOrder: Optional[int] = Field(
-        None,
-        description="`levelOrder` defines where that level exists in the hierarchy of levels. `levelOrder`'s lower numbers are at the top of the hierarchy (ie field -> 1) and higher numbers are at the bottom of the hierarchy (ie plant -> 9).",
-        example=2,
-    )
+# note: consolidation --> already defined in core module
+# class ObservationUnitHierarchyLevel(BaseModel):
+#     levelName: Optional[LevelName] = Field(
+#         None, description='A name for this level', example='plot'
+#     )
+#     levelOrder: Optional[int] = Field(
+#         None,
+#         description="`levelOrder` defines where that level exists in the hierarchy of levels. `levelOrder`'s lower numbers are at the top of the hierarchy (ie field -> 1) and higher numbers are at the bottom of the hierarchy (ie plant -> 9).",
+#         example=2,
+#     )
 
 
 class ObservationUnitLevelRelationship(ObservationUnitHierarchyLevel):
@@ -195,262 +250,281 @@ class Ontology(BaseModel):
     )
 
 
-class SearchRequestParametersCommonCropNames(BaseModel):
-    commonCropNames: Optional[List[str]] = Field(
-        None,
-        description='Common name for the crop which this program is for',
-        example=['Tomatillo', 'Paw Paw'],
-    )
+# note: consolidation --> already defined in core module
+# class SearchRequestParametersCommonCropNames(BaseModel):
+#     commonCropNames: Optional[List[str]] = Field(
+#         None,
+#         description='Common name for the crop which this program is for',
+#         example=['Tomatillo', 'Paw Paw'],
+#     )
 
 
-class SearchRequestParametersExternalReferences(BaseModel):
-    externalReferenceIDs: Optional[List[str]] = Field(
-        None,
-        description='List of external reference IDs. Could be a simple strings or a URIs. (use with `externalReferenceSources` parameter)',
-        example=['http://purl.obolibrary.org/obo/ro.owl', '14a19841'],
-    )
-    externalReferenceSources: Optional[List[str]] = Field(
-        None,
-        description='List of identifiers for the source system or database of an external reference (use with `externalReferenceIDs` parameter)',
-        example=['OBO Library', 'Field App Name'],
-    )
+# note: consolidation --> already defined in core module
+# class SearchRequestParametersExternalReferences(BaseModel):
+#     externalReferenceIDs: Optional[List[str]] = Field(
+#         None,
+#         description='List of external reference IDs. Could be a simple strings or a URIs. (use with `externalReferenceSources` parameter)',
+#         example=['http://purl.obolibrary.org/obo/ro.owl', '14a19841'],
+#     )
+#     externalReferenceSources: Optional[List[str]] = Field(
+#         None,
+#         description='List of identifiers for the source system or database of an external reference (use with `externalReferenceIDs` parameter)',
+#         example=['OBO Library', 'Field App Name'],
+#     )
 
 
-class SearchRequestParametersGermplasm(BaseModel):
-    germplasmDbIds: Optional[List[str]] = Field(
-        None,
-        description='List of IDs which uniquely identify germplasm to search for',
-        example=['e9c6edd7', '1b1df4a6'],
-    )
-    germplasmNames: Optional[List[str]] = Field(
-        None,
-        description='List of human readable names to identify germplasm to search for',
-        example=['A0000003', 'A0000477'],
-    )
+# note: consolidation --> already defined in core module
+# class SearchRequestParametersGermplasm(BaseModel):
+#     germplasmDbIds: Optional[List[str]] = Field(
+#         None,
+#         description='List of IDs which uniquely identify germplasm to search for',
+#         example=['e9c6edd7', '1b1df4a6'],
+#     )
+#     germplasmNames: Optional[List[str]] = Field(
+#         None,
+#         description='List of human readable names to identify germplasm to search for',
+#         example=['A0000003', 'A0000477'],
+#     )
 
 
-class SearchRequestParametersLocations(BaseModel):
-    locationDbIds: Optional[List[str]] = Field(
-        None,
-        description='The location ids to search for',
-        example=['b28911cf', '5071d1e4'],
-    )
-    locationNames: Optional[List[str]] = Field(
-        None,
-        description='A human readable names to search for',
-        example=['Location Alpha', 'The Large Hadron Collider'],
-    )
+# note: consolidation --> already defined in core module
+# class SearchRequestParametersLocations(BaseModel):
+#     locationDbIds: Optional[List[str]] = Field(
+#         None,
+#         description='The location ids to search for',
+#         example=['b28911cf', '5071d1e4'],
+#     )
+#     locationNames: Optional[List[str]] = Field(
+#         None,
+#         description='A human readable names to search for',
+#         example=['Location Alpha', 'The Large Hadron Collider'],
+#     )
 
 
-class SearchRequestParametersObservationVariables(BaseModel):
-    observationVariableDbIds: Optional[List[str]] = Field(
-        None,
-        description='The DbIds of Variables to search for',
-        example=['a646187d', '6d23513b'],
-    )
-    observationVariableNames: Optional[List[str]] = Field(
-        None,
-        description='The names of Variables to search for',
-        example=['Plant Height in meters', 'Wheat rust score 1-5'],
-    )
+# note: consolidation --> already defined in core module
+# class SearchRequestParametersObservationVariables(BaseModel):
+#     observationVariableDbIds: Optional[List[str]] = Field(
+#         None,
+#         description='The DbIds of Variables to search for',
+#         example=['a646187d', '6d23513b'],
+#     )
+#     observationVariableNames: Optional[List[str]] = Field(
+#         None,
+#         description='The names of Variables to search for',
+#         example=['Plant Height in meters', 'Wheat rust score 1-5'],
+#     )
 
 
-class SearchRequestParametersPaging(BaseModel):
-    page: Optional[int] = Field(
-        None,
-        description="Which result page is requested. The page indexing starts at 0 (the first page is 'page'= 0). Default is `0`.",
-        example=0,
-    )
-    pageSize: Optional[int] = Field(
-        None,
-        description='The size of the pages to be returned. Default is `1000`.',
-        example=1000,
-    )
+# note: consolidation --> already defined in core module
+# class SearchRequestParametersPaging(BaseModel):
+#     page: Optional[int] = Field(
+#         None,
+#         description="Which result page is requested. The page indexing starts at 0 (the first page is 'page'= 0). Default is `0`.",
+#         example=0,
+#     )
+#     pageSize: Optional[int] = Field(
+#         None,
+#         description='The size of the pages to be returned. Default is `1000`.',
+#         example=1000,
+#     )
 
 
-class SearchRequestParametersPrograms(BaseModel):
-    programDbIds: Optional[List[str]] = Field(
-        None,
-        description='A program identifier to search for',
-        example=['8f5de35b', '0e2d4a13'],
-    )
-    programNames: Optional[List[str]] = Field(
-        None,
-        description='A name of a program to search for',
-        example=['Better Breeding Program', 'Best Breeding Program'],
-    )
+# note: consolidation --> already defined in core module
+# class SearchRequestParametersPrograms(BaseModel):
+#     programDbIds: Optional[List[str]] = Field(
+#         None,
+#         description='A program identifier to search for',
+#         example=['8f5de35b', '0e2d4a13'],
+#     )
+#     programNames: Optional[List[str]] = Field(
+#         None,
+#         description='A name of a program to search for',
+#         example=['Better Breeding Program', 'Best Breeding Program'],
+#     )
 
 
-class SearchRequestParametersStudies(BaseModel):
-    studyDbIds: Optional[List[str]] = Field(
-        None,
-        description='List of study identifiers to search for',
-        example=['cf6c4bd4', '691e69d6'],
-    )
-    studyNames: Optional[List[str]] = Field(
-        None,
-        description='List of study names to filter search results',
-        example=['The First Bob Study 2017', 'Wheat Yield Trial 246'],
-    )
+# note: consolidation --> already defined in core module
+# class SearchRequestParametersStudies(BaseModel):
+#     studyDbIds: Optional[List[str]] = Field(
+#         None,
+#         description='List of study identifiers to search for',
+#         example=['cf6c4bd4', '691e69d6'],
+#     )
+#     studyNames: Optional[List[str]] = Field(
+#         None,
+#         description='List of study names to filter search results',
+#         example=['The First Bob Study 2017', 'Wheat Yield Trial 246'],
+#     )
 
 
-class SearchRequestParametersTokenPaging(BaseModel):
-    pageSize: Optional[int] = Field(
-        None,
-        description='The size of the pages to be returned. Default is `1000`.',
-        example=1000,
-    )
-    pageToken: Optional[str] = Field(
-        None,
-        description='Used to request a specific page of data to be returned.\n\nTokenized pages are for large data sets which can not be efficiently broken into indexed pages. Use the nextPageToken and prevPageToken from a prior response to construct a query and move to the next or previous page respectively. ',
-        example='33c27874',
-    )
+# note: consolidation --> already defined in core module
+# class SearchRequestParametersTokenPaging(BaseModel):
+#     pageSize: Optional[int] = Field(
+#         None,
+#         description='The size of the pages to be returned. Default is `1000`.',
+#         example=1000,
+#     )
+#     pageToken: Optional[str] = Field(
+#         None,
+#         description='Used to request a specific page of data to be returned.\n\nTokenized pages are for large data sets which can not be efficiently broken into indexed pages. Use the nextPageToken and prevPageToken from a prior response to construct a query and move to the next or previous page respectively. ',
+#         example='33c27874',
+#     )
+
+# note: consolidation --> already defined in core module
+# class SearchRequestParametersTrials(BaseModel):
+#     trialDbIds: Optional[List[str]] = Field(
+#         None,
+#         description='The ID which uniquely identifies a trial to search for',
+#         example=['d2593dc2', '9431a731'],
+#     )
+#     trialNames: Optional[List[str]] = Field(
+#         None,
+#         description='The human readable name of a trial to search for',
+#         example=['All Yield Trials 2016', 'Disease Resistance Study Comparison Group'],
+#     )
 
 
-class SearchRequestParametersTrials(BaseModel):
-    trialDbIds: Optional[List[str]] = Field(
-        None,
-        description='The ID which uniquely identifies a trial to search for',
-        example=['d2593dc2', '9431a731'],
-    )
-    trialNames: Optional[List[str]] = Field(
-        None,
-        description='The human readable name of a trial to search for',
-        example=['All Yield Trials 2016', 'Disease Resistance Study Comparison Group'],
-    )
+# note: consolidation --> already defined in core module
+# class Season(BaseModel):
+#     season: Optional[str] = Field(
+#         None,
+#         description="Name of the season. ex. 'Spring', 'Q2', 'Season A', etc.",
+#         example='Spring',
+#     )
+#     seasonDbId: str = Field(
+#         ...,
+#         description="The ID which uniquely identifies a season. For backward compatibility it can be a string like '2012', '1957-2004'",
+#         example='Spring_2018',
+#     )
+#     year: Optional[int] = Field(
+#         None, description='The 4 digit year of the season.', example=2018
+#     )
 
 
-class Season(BaseModel):
-    season: Optional[str] = Field(
-        None,
-        description="Name of the season. ex. 'Spring', 'Q2', 'Season A', etc.",
-        example='Spring',
-    )
-    seasonDbId: str = Field(
-        ...,
-        description="The ID which uniquely identifies a season. For backward compatibility it can be a string like '2012', '1957-2004'",
-        example='Spring_2018',
-    )
-    year: Optional[int] = Field(
-        None, description='The 4 digit year of the season.', example=2018
-    )
+# note: consolidation --> already defined in core module
+# class TraitDataType(Enum):
+#     Code = 'Code'
+#     Date = 'Date'
+#     Duration = 'Duration'
+#     Nominal = 'Nominal'
+#     Numerical = 'Numerical'
+#     Ordinal = 'Ordinal'
+#     Text = 'Text'
 
 
-class TraitDataType(Enum):
-    Code = 'Code'
-    Date = 'Date'
-    Duration = 'Duration'
-    Nominal = 'Nominal'
-    Numerical = 'Numerical'
-    Ordinal = 'Ordinal'
-    Text = 'Text'
+# note: consolidation --> already defined in core module
+# class WSMIMEDataTypes(Enum):
+#     application_json = 'application/json'
+#     text_csv = 'text/csv'
+#     text_tsv = 'text/tsv'
+#     application_flapjack = 'application/flapjack'
 
 
-class WSMIMEDataTypes(Enum):
-    application_json = 'application/json'
-    text_csv = 'text/csv'
-    text_tsv = 'text/tsv'
-    application_flapjack = 'application/flapjack'
+# note: consolidation --> already defined in core module
+# class BasePagination(BaseModel):
+#     pageSize: int = Field(
+#         ...,
+#         description='The number of data elements returned, aka the size of the current page. If the requested page does not have enough elements to fill a page at the requested page size, this field should indicate the actual number of elements returned.',
+#         example=1000,
+#     )
+#     totalCount: Optional[int] = Field(
+#         None,
+#         description='The total number of elements that are available on the server and match the requested query parameters.',
+#         example=10,
+#     )
+#     totalPages: Optional[int] = Field(
+#         None,
+#         description='The total number of pages of elements available on the server. This should be calculated with the following formula. \n\ntotalPages = CEILING( totalCount / requested_page_size)',
+#         example=1,
+#     )
 
 
-class BasePagination(BaseModel):
-    pageSize: int = Field(
-        ...,
-        description='The number of data elements returned, aka the size of the current page. If the requested page does not have enough elements to fill a page at the requested page size, this field should indicate the actual number of elements returned.',
-        example=1000,
-    )
-    totalCount: Optional[int] = Field(
-        None,
-        description='The total number of elements that are available on the server and match the requested query parameters.',
-        example=10,
-    )
-    totalPages: Optional[int] = Field(
-        None,
-        description='The total number of pages of elements available on the server. This should be calculated with the following formula. \n\ntotalPages = CEILING( totalCount / requested_page_size)',
-        example=1,
-    )
+# note: consolidation --> already defined in core module
+# class DataFile(BaseModel):
+#     fileDescription: Optional[str] = Field(
+#         None,
+#         description='A human readable description of the file contents',
+#         example='This is an Excel data file',
+#     )
+#     fileMD5Hash: Optional[str] = Field(
+#         None,
+#         description='The MD5 Hash of the file contents to be used as a check sum',
+#         example='c2365e900c81a89cf74d83dab60df146',
+#     )
+#     fileName: Optional[str] = Field(
+#         None, description='The name of the file', example='datafile.xlsx'
+#     )
+#     fileSize: Optional[int] = Field(
+#         None, description='The size of the file in bytes', example=4398
+#     )
+#     fileType: Optional[str] = Field(
+#         None,
+#         description='The type or format of the file. Preferably MIME Type.',
+#         example='application/vnd.ms-excel',
+#     )
+#     fileURL: AnyUrl = Field(
+#         ...,
+#         description='The absolute URL where the file is located',
+#         example='https://wiki.brapi.org/examples/datafile.xlsx',
+#     )
 
 
-class DataFile(BaseModel):
-    fileDescription: Optional[str] = Field(
-        None,
-        description='A human readable description of the file contents',
-        example='This is an Excel data file',
-    )
-    fileMD5Hash: Optional[str] = Field(
-        None,
-        description='The MD5 Hash of the file contents to be used as a check sum',
-        example='c2365e900c81a89cf74d83dab60df146',
-    )
-    fileName: Optional[str] = Field(
-        None, description='The name of the file', example='datafile.xlsx'
-    )
-    fileSize: Optional[int] = Field(
-        None, description='The size of the file in bytes', example=4398
-    )
-    fileType: Optional[str] = Field(
-        None,
-        description='The type or format of the file. Preferably MIME Type.',
-        example='application/vnd.ms-excel',
-    )
-    fileURL: AnyUrl = Field(
-        ...,
-        description='The absolute URL where the file is located',
-        example='https://wiki.brapi.org/examples/datafile.xlsx',
-    )
+# note: consolidation --> already defined in core module
+# class IndexPagination(BasePagination):
+#     currentPage: int = Field(
+#         ...,
+#         description='The index number for the returned page of data. This should always match the requested page number or the default page (0).',
+#         example=0,
+#     )
 
 
-class IndexPagination(BasePagination):
-    currentPage: int = Field(
-        ...,
-        description='The index number for the returned page of data. This should always match the requested page number or the default page (0).',
-        example=0,
-    )
+# note: consolidation --> already defined in core module
+# class Position(BaseModel):
+#     __root__: List[float] = Field(
+#         ...,
+#         description='A single position',
+#         example=[-76.506042, 42.417373, 123],
+#         min_items=2,
+#     )
 
 
-class Position(BaseModel):
-    __root__: List[float] = Field(
-        ...,
-        description='A single position',
-        example=[-76.506042, 42.417373, 123],
-        min_items=2,
-    )
+# note: consolidation --> already defined in core module
+# class MessageType(Enum):
+#     DEBUG = 'DEBUG'
+#     ERROR = 'ERROR'
+#     WARNING = 'WARNING'
+#     INFO = 'INFO'
 
 
-class MessageType(Enum):
-    DEBUG = 'DEBUG'
-    ERROR = 'ERROR'
-    WARNING = 'WARNING'
-    INFO = 'INFO'
+# note: consolidation --> already defined in core module
+# class Status(BaseModel):
+#     message: str = Field(
+#         ...,
+#         description='A short message concerning the status of this request/response',
+#         example='Request accepted, response successful',
+#     )
+#     messageType: MessageType = Field(
+#         ..., description='The logging level for the attached message', example='INFO'
+#     )
 
 
-class Status(BaseModel):
-    message: str = Field(
-        ...,
-        description='A short message concerning the status of this request/response',
-        example='Request accepted, response successful',
-    )
-    messageType: MessageType = Field(
-        ..., description='The logging level for the attached message', example='INFO'
-    )
-
-
-class TokenPagination(BasePagination):
-    currentPageToken: Optional[str] = Field(
-        None,
-        description='The string token used to query the current page of data.',
-        example='48bc6ac1',
-    )
-    nextPageToken: str = Field(
-        ...,
-        description='The string token used to query the next page of data.',
-        example='cb668f63',
-    )
-    prevPageToken: Optional[str] = Field(
-        None,
-        description='The string token used to query the previous page of data.',
-        example='9659857e',
-    )
+# note: consolidation --> already defined in core module
+# class TokenPagination(BasePagination):
+#     currentPageToken: Optional[str] = Field(
+#         None,
+#         description='The string token used to query the current page of data.',
+#         example='48bc6ac1',
+#     )
+#     nextPageToken: str = Field(
+#         ...,
+#         description='The string token used to query the next page of data.',
+#         example='cb668f63',
+#     )
+#     prevPageToken: Optional[str] = Field(
+#         None,
+#         description='The string token used to query the previous page of data.',
+#         example='9659857e',
+#     )
 
 
 class EventEventParameters(BaseModel):
@@ -470,16 +544,16 @@ class EventEventParameters(BaseModel):
         example='Bob Robertson',
     )
 
-
-class ExternalReferencesInner(BaseModel):
-    referenceID: Optional[str] = Field(
-        None,
-        description='The external reference ID. Could be a simple string or a URI.',
-    )
-    referenceSource: Optional[str] = Field(
-        None,
-        description='An identifier for the source system or database of this reference',
-    )
+# note: consolidation --> already defined in core module
+# class ExternalReferencesInner(BaseModel):
+#     referenceID: Optional[str] = Field(
+#         None,
+#         description='The external reference ID. Could be a simple string or a URI.',
+#     )
+#     referenceSource: Optional[str] = Field(
+#         None,
+#         description='An identifier for the source system or database of this reference',
+#     )
 
 
 class ObservationTableObservationVariables(BaseModel):
@@ -491,42 +565,46 @@ class ObservationTableObservationVariables(BaseModel):
     )
 
 
-class Type(Enum):
-    OBO = 'OBO'
-    RDF = 'RDF'
-    WEBPAGE = 'WEBPAGE'
+# note: consolidation --> already defined in core module
+# class Type(Enum):
+#     OBO = 'OBO'
+#     RDF = 'RDF'
+#     WEBPAGE = 'WEBPAGE'
 
 
-class OntologyReferenceDocumentationLinks(BaseModel):
-    URL: Optional[AnyUrl] = Field(None, example='http://purl.obolibrary.org/obo/ro.owl')
-    type: Optional[Type] = Field(None, example='OBO')
+# note: consolidation --> already defined in core module
+# class OntologyReferenceDocumentationLinks(BaseModel):
+#     URL: Optional[AnyUrl] = Field(None, example='http://purl.obolibrary.org/obo/ro.owl')
+#     type: Optional[Type] = Field(None, example='OBO')
 
 
-class ScaleBaseClassValidValuesCategories(BaseModel):
-    label: Optional[str] = Field(None, description='A text label for a category')
-    value: Optional[str] = Field(None, description='The actual value for a category')
+# note: consolidation --> already defined in core module
+# class ScaleBaseClassValidValuesCategories(BaseModel):
+#     label: Optional[str] = Field(None, description='A text label for a category')
+#     value: Optional[str] = Field(None, description='The actual value for a category')
 
 
-class ScaleBaseClassValidValues(BaseModel):
-    categories: Optional[List[ScaleBaseClassValidValuesCategories]] = Field(
-        None,
-        description='List of possible values with optional labels',
-        example=[
-            {'label': 'low', 'value': '0'},
-            {'label': 'medium', 'value': '5'},
-            {'label': 'high', 'value': '10'},
-        ],
-    )
-    max: Optional[int] = Field(
-        None,
-        description='Maximum value (used for field data capture control).',
-        example=9999,
-    )
-    min: Optional[int] = Field(
-        None,
-        description='Minimum value (used for data capture control) for numerical and date scales',
-        example=2,
-    )
+# note: consolidation --> already defined in core module
+# class ScaleBaseClassValidValues(BaseModel):
+#     categories: Optional[List[ScaleBaseClassValidValuesCategories]] = Field(
+#         None,
+#         description='List of possible values with optional labels',
+#         example=[
+#             {'label': 'low', 'value': '0'},
+#             {'label': 'medium', 'value': '5'},
+#             {'label': 'high', 'value': '10'},
+#         ],
+#     )
+#     max: Optional[int] = Field(
+#         None,
+#         description='Maximum value (used for field data capture control).',
+#         example=9999,
+#     )
+#     min: Optional[int] = Field(
+#         None,
+#         description='Minimum value (used for data capture control) for numerical and date scales',
+#         example=2,
+#     )
 
 
 class ObservationLevelListResponseResult(BaseModel):
@@ -546,8 +624,9 @@ class OntologyListResponseResult(BaseModel):
     data: List[Ontology]
 
 
-class Field202AcceptedSearchResponseResult(BaseModel):
-    searchResultsDbId: Optional[str] = Field(None, example='551ae08c')
+# note: consolidation --> already defined in core module
+# class Field202AcceptedSearchResponseResult(BaseModel):
+#     searchResultsDbId: Optional[str] = Field(None, example='551ae08c')
 
 
 class Event(BaseModel):
@@ -599,23 +678,24 @@ class Event(BaseModel):
     )
 
 
-class ExternalReferences(BaseModel):
-    __root__: List[ExternalReferencesInner] = Field(
-        ...,
-        description='An array of external reference ids. These are references to this piece of data in an external system. Could be a simple string or a URI.',
-        example=[
-            {'referenceID': 'doi:10.155454/12341234', 'referenceSource': 'DOI'},
-            {
-                'referenceID': 'http://purl.obolibrary.org/obo/ro.owl',
-                'referenceSource': 'OBO Library',
-            },
-            {
-                'referenceID': '75a50e76',
-                'referenceSource': 'Remote Data Collection Upload Tool',
-            },
-        ],
-        title='ExternalReferences',
-    )
+# note: consolidation --> already defined in core module
+# class ExternalReferences(BaseModel):
+#     __root__: List[ExternalReferencesInner] = Field(
+#         ...,
+#         description='An array of external reference ids. These are references to this piece of data in an external system. Could be a simple string or a URI.',
+#         example=[
+#             {'referenceID': 'doi:10.155454/12341234', 'referenceSource': 'DOI'},
+#             {
+#                 'referenceID': 'http://purl.obolibrary.org/obo/ro.owl',
+#                 'referenceSource': 'OBO Library',
+#             },
+#             {
+#                 'referenceID': '75a50e76',
+#                 'referenceSource': 'Remote Data Collection Upload Tool',
+#             },
+#         ],
+#         title='ExternalReferences',
+#     )
 
 
 class ObservationNewRequest(BaseModel):
@@ -1205,211 +1285,222 @@ class ObservationVariableSearchRequest(
     )
 
 
-class OntologyReference(BaseModel):
-    documentationLinks: Optional[List[OntologyReferenceDocumentationLinks]] = Field(
-        None, description='links to various ontology documentation'
-    )
-    ontologyDbId: str = Field(
-        ..., description='Ontology database unique identifier', example='6b071868'
-    )
-    ontologyName: str = Field(
-        ..., description='Ontology name', example='The Crop Ontology'
-    )
-    version: Optional[str] = Field(
-        None, description='Ontology version (no specific format)', example='7.2.3'
-    )
+# note: consolidation --> already defined in core module
+# class OntologyReference(BaseModel):
+#     documentationLinks: Optional[List[OntologyReferenceDocumentationLinks]] = Field(
+#         None, description='links to various ontology documentation'
+#     )
+#     ontologyDbId: str = Field(
+#         ..., description='Ontology database unique identifier', example='6b071868'
+#     )
+#     ontologyName: str = Field(
+#         ..., description='Ontology name', example='The Crop Ontology'
+#     )
+#     version: Optional[str] = Field(
+#         None, description='Ontology version (no specific format)', example='7.2.3'
+#     )
 
 
-class ScaleBaseClass(BaseModel):
-    additionalInfo: Optional[Dict[str, AdditionalInfo]] = Field(
-        None, description='Additional arbitrary info'
-    )
-    dataType: Optional[TraitDataType] = None
-    decimalPlaces: Optional[int] = Field(
-        None,
-        description='For numerical, number of decimal places to be reported',
-        example=2,
-    )
-    externalReferences: Optional[ExternalReferences] = None
-    ontologyReference: Optional[OntologyReference] = None
-    scaleName: str = Field(
-        ...,
-        description='Name of the scale\n\nMIAPPE V1.1 (DM-92) Scale Name of the scale associated with the variable',
-        example='Meters',
-    )
-    validValues: Optional[ScaleBaseClassValidValues] = None
+# note: consolidation --> already defined in core module
+# class ScaleBaseClass(BaseModel):
+#     additionalInfo: Optional[Dict[str, AdditionalInfo]] = Field(
+#         None, description='Additional arbitrary info'
+#     )
+#     dataType: Optional[TraitDataType] = None
+#     decimalPlaces: Optional[int] = Field(
+#         None,
+#         description='For numerical, number of decimal places to be reported',
+#         example=2,
+#     )
+#     externalReferences: Optional[ExternalReferences] = None
+#     ontologyReference: Optional[OntologyReference] = None
+#     scaleName: str = Field(
+#         ...,
+#         description='Name of the scale\n\nMIAPPE V1.1 (DM-92) Scale Name of the scale associated with the variable',
+#         example='Meters',
+#     )
+#     validValues: Optional[ScaleBaseClassValidValues] = None
 
 
 class ScaleNewRequest(BaseModel):
     __root__: ScaleBaseClass
 
 
-class TraitBaseClass(BaseModel):
-    additionalInfo: Optional[Dict[str, AdditionalInfo]] = Field(
-        None, description='Additional arbitrary info'
-    )
-    alternativeAbbreviations: Optional[List[str]] = Field(
-        None,
-        description='Other frequent abbreviations of the trait, if any. These abbreviations do not have to follow a convention',
-        example=['H', 'PH', 'H1'],
-    )
-    attribute: Optional[str] = Field(
-        None,
-        description='A trait can be decomposed as "Trait" = "Entity" + "Attribute", the attribute is the observed feature (or characteristic) of the entity e.g., for "grain colour", attribute = "colour"',
-        example='height',
-    )
-    entity: Optional[str] = Field(
-        None,
-        description='A trait can be decomposed as "Trait" = "Entity" + "Attribute", the entity is the part of the plant that the trait refers to e.g., for "grain colour", entity = "grain"',
-        example='Stalk',
-    )
-    externalReferences: Optional[ExternalReferences] = None
-    mainAbbreviation: Optional[str] = Field(
-        None,
-        description='Main abbreviation for trait name. (examples: "Carotenoid content" => "CC")',
-        example='PH',
-    )
-    ontologyReference: Optional[OntologyReference] = None
-    status: Optional[str] = Field(
-        None,
-        description='Trait status (examples: "recommended", "obsolete", "legacy", etc.)',
-        example='recommended',
-    )
-    synonyms: Optional[List[str]] = Field(
-        None,
-        description='Other trait names',
-        example=['Height', 'Plant Height', 'Stalk Height', 'Canopy Height'],
-    )
-    traitClass: Optional[str] = Field(
-        None,
-        description='Trait class. (examples: "morphological", "phenological", "agronomical", "physiological", "abiotic stress", "biotic stress", "biochemical", "quality traits", "fertility", etc.)',
-        example='phenological',
-    )
-    traitDescription: Optional[str] = Field(
-        None,
-        description='The description of a trait',
-        example='The height of the plant',
-    )
-    traitName: Optional[str] = Field(
-        None,
-        description='The human readable name of a trait\n\nMIAPPE V1.1 (DM-86) Trait - Name of the (plant or environmental) trait under observation',
-        example='Height',
-    )
+# note: consolidation --> already defined in core module
+# class TraitBaseClass(BaseModel):
+#     additionalInfo: Optional[Dict[str, AdditionalInfo]] = Field(
+#         None, description='Additional arbitrary info'
+#     )
+#     alternativeAbbreviations: Optional[List[str]] = Field(
+#         None,
+#         description='Other frequent abbreviations of the trait, if any. These abbreviations do not have to follow a convention',
+#         example=['H', 'PH', 'H1'],
+#     )
+#     attribute: Optional[str] = Field(
+#         None,
+#         description='A trait can be decomposed as "Trait" = "Entity" + "Attribute", the attribute is the observed feature (or characteristic) of the entity e.g., for "grain colour", attribute = "colour"',
+#         example='height',
+#     )
+#     entity: Optional[str] = Field(
+#         None,
+#         description='A trait can be decomposed as "Trait" = "Entity" + "Attribute", the entity is the part of the plant that the trait refers to e.g., for "grain colour", entity = "grain"',
+#         example='Stalk',
+#     )
+#     externalReferences: Optional[ExternalReferences] = None
+#     mainAbbreviation: Optional[str] = Field(
+#         None,
+#         description='Main abbreviation for trait name. (examples: "Carotenoid content" => "CC")',
+#         example='PH',
+#     )
+#     ontologyReference: Optional[OntologyReference] = None
+#     status: Optional[str] = Field(
+#         None,
+#         description='Trait status (examples: "recommended", "obsolete", "legacy", etc.)',
+#         example='recommended',
+#     )
+#     synonyms: Optional[List[str]] = Field(
+#         None,
+#         description='Other trait names',
+#         example=['Height', 'Plant Height', 'Stalk Height', 'Canopy Height'],
+#     )
+#     traitClass: Optional[str] = Field(
+#         None,
+#         description='Trait class. (examples: "morphological", "phenological", "agronomical", "physiological", "abiotic stress", "biotic stress", "biochemical", "quality traits", "fertility", etc.)',
+#         example='phenological',
+#     )
+#     traitDescription: Optional[str] = Field(
+#         None,
+#         description='The description of a trait',
+#         example='The height of the plant',
+#     )
+#     traitName: Optional[str] = Field(
+#         None,
+#         description='The human readable name of a trait\n\nMIAPPE V1.1 (DM-86) Trait - Name of the (plant or environmental) trait under observation',
+#         example='Height',
+#     )
 
 
 class TraitNewRequest(BaseModel):
     __root__: TraitBaseClass
 
-
+# note: consolidation --> already defined in core module
 # note: renamed from the Auto-generated because a duplicate Scale() is listed a few lines below
-class Scale(ScaleBaseClass):
-    scaleDbId: str = Field(
-        ...,
-        description='Unique identifier of the scale. If left blank, the upload system will automatically generate a scale ID.',
-        example='af730171',
-    )
+# class Scale(ScaleBaseClass):
+#     scaleDbId: str = Field(
+#         ...,
+#         description='Unique identifier of the scale. If left blank, the upload system will automatically generate a scale ID.',
+#         example='af730171',
+#     )
 
 
 # note: renamed from the Auto-generated because a duplicate Trait() is listed a few lines below
-class Trait(TraitBaseClass):
-    traitDbId: Optional[str] = Field(
-        None, description='The ID which uniquely identifies a trait', example='9b2e34f5'
-    )
+# note: consolidation --> already defined in core module
+# class Trait(TraitBaseClass):
+#     traitDbId: Optional[str] = Field(
+#         None, description='The ID which uniquely identifies a trait', example='9b2e34f5'
+#     )
 
 
-class LinearRing(BaseModel):
-    __root__: List[Position] = Field(
-        ...,
-        description='An array of at least four positions where the first equals the last',
-        example=[
-            [-77.456654, 42.241133, 494],
-            [-75.414133, 41.508282, 571],
-            [-76.506042, 42.417373, 123],
-            [-77.456654, 42.241133, 346],
-        ],
-        min_items=4,
-    )
+# note: consolidation --> already defined in core module
+# class LinearRing(BaseModel):
+#     __root__: List[Position] = Field(
+#         ...,
+#         description='An array of at least four positions where the first equals the last',
+#         example=[
+#             [-77.456654, 42.241133, 494],
+#             [-75.414133, 41.508282, 571],
+#             [-76.506042, 42.417373, 123],
+#             [-77.456654, 42.241133, 346],
+#         ],
+#         min_items=4,
+#     )
 
 
-class MetadataBase(BaseModel):
-    datafiles: Optional[List[DataFile]] = Field(
-        None,
-        description='The datafiles contains a list of file URLs and metadata. \nThese files contain additional information related to the returned object and can be retrieved by a subsequent call. \nThis could be a supplementary data file, an informational file, the uploaded file where the data originated from, a generated file representing the whole dataset in a particular format, or any other related file. ',
-    )
-    status: Optional[List[Status]] = Field(
-        None,
-        description='The status field contains a list of informational status messages from the server. \nIf no status is reported, an empty list should be returned. See Error Reporting for more information.',
-    )
+# note: consolidation --> already defined in core module
+# class MetadataBase(BaseModel):
+#     datafiles: Optional[List[DataFile]] = Field(
+#         None,
+#         description='The datafiles contains a list of file URLs and metadata. \nThese files contain additional information related to the returned object and can be retrieved by a subsequent call. \nThis could be a supplementary data file, an informational file, the uploaded file where the data originated from, a generated file representing the whole dataset in a particular format, or any other related file. ',
+#     )
+#     status: Optional[List[Status]] = Field(
+#         None,
+#         description='The status field contains a list of informational status messages from the server. \nIf no status is reported, an empty list should be returned. See Error Reporting for more information.',
+#     )
 
 
-class MetadataTokenPagination(MetadataBase):
-    pagination: Optional[TokenPagination] = None
+# note: consolidation --> already defined in core module
+# class MetadataTokenPagination(MetadataBase):
+#     pagination: Optional[TokenPagination] = None
 
 
-class PointGeometry(BaseModel):
-    coordinates: Optional[Position] = None
-    type: Optional[str] = Field(
-        'Point', description='The literal string "Point"', example='Point'
-    )
+# note: consolidation --> already defined in core module
+# class PointGeometry(BaseModel):
+#     coordinates: Optional[Position] = None
+#     type: Optional[str] = Field(
+#         'Point', description='The literal string "Point"', example='Point'
+#     )
 
 
-class Polygon(BaseModel):
-    __root__: List[LinearRing] = Field(
-        ...,
-        description='An array of linear rings',
-        example=[
-            [
-                [-77.456654, 42.241133, 494],
-                [-75.414133, 41.508282, 571],
-                [-76.506042, 42.417373, 123],
-                [-77.456654, 42.241133, 346],
-            ]
-        ],
-    )
+# note: consolidation --> already defined in core module
+# class Polygon(BaseModel):
+#     __root__: List[LinearRing] = Field(
+#         ...,
+#         description='An array of linear rings',
+#         example=[
+#             [
+#                 [-77.456654, 42.241133, 494],
+#                 [-75.414133, 41.508282, 571],
+#                 [-76.506042, 42.417373, 123],
+#                 [-77.456654, 42.241133, 346],
+#             ]
+#         ],
+#     )
 
 
-class PolygonGeometry(BaseModel):
-    coordinates: Optional[Polygon] = None
-    type: Optional[str] = Field(
-        'Polygon', description='The literal string "Polygon"', example='Polygon'
-    )
+# note: consolidation --> already defined in core module
+# class PolygonGeometry(BaseModel):
+#     coordinates: Optional[Polygon] = None
+#     type: Optional[str] = Field(
+#         'Polygon', description='The literal string "Polygon"', example='Polygon'
+#     )
 
 
 class EventsResponseResult(BaseModel):
     data: List[Event]
 
 
-class MethodBaseClass(BaseModel):
-    additionalInfo: Optional[Dict[str, AdditionalInfo]] = Field(
-        None, description='Additional arbitrary info'
-    )
-    bibliographicalReference: Optional[str] = Field(
-        None,
-        description='Bibliographical reference describing the method.\n\nMIAPPE V1.1 (DM-91) Reference associated to the method - URI/DOI of reference describing the method.',
-        example='Smith, 1893, Really Cool Paper, Popular Journal',
-    )
-    description: Optional[str] = Field(
-        None,
-        description='Method description\n\nMIAPPE V1.1 (DM-90) Method description - Textual description of the method, which may extend a method defined in an external reference with specific parameters, e.g. growth stage, inoculation precise organ (leaf number)',
-        example='A measuring tape was used',
-    )
-    externalReferences: Optional[ExternalReferences] = None
-    formula: Optional[str] = Field(
-        None,
-        description='For computational methods i.e., when the method consists in assessing the trait by computing measurements, write the generic formula used for the calculation',
-        example='a^2 + b^2 = c^2',
-    )
-    methodClass: Optional[str] = Field(
-        None,
-        description='Method class (examples: "Measurement", "Counting", "Estimation", "Computation", etc.)',
-        example='Measurement',
-    )
-    methodName: Optional[str] = Field(
-        None,
-        description='Human readable name for the method\n\nMIAPPE V1.1 (DM-88) Method  Name of the method of observation',
-        example='Measuring Tape',
-    )
-    ontologyReference: Optional[OntologyReference] = None
+# note: consolidation --> already defined in core module
+# class MethodBaseClass(BaseModel):
+#     additionalInfo: Optional[Dict[str, AdditionalInfo]] = Field(
+#         None, description='Additional arbitrary info'
+#     )
+#     bibliographicalReference: Optional[str] = Field(
+#         None,
+#         description='Bibliographical reference describing the method.\n\nMIAPPE V1.1 (DM-91) Reference associated to the method - URI/DOI of reference describing the method.',
+#         example='Smith, 1893, Really Cool Paper, Popular Journal',
+#     )
+#     description: Optional[str] = Field(
+#         None,
+#         description='Method description\n\nMIAPPE V1.1 (DM-90) Method description - Textual description of the method, which may extend a method defined in an external reference with specific parameters, e.g. growth stage, inoculation precise organ (leaf number)',
+#         example='A measuring tape was used',
+#     )
+#     externalReferences: Optional[ExternalReferences] = None
+#     formula: Optional[str] = Field(
+#         None,
+#         description='For computational methods i.e., when the method consists in assessing the trait by computing measurements, write the generic formula used for the calculation',
+#         example='a^2 + b^2 = c^2',
+#     )
+#     methodClass: Optional[str] = Field(
+#         None,
+#         description='Method class (examples: "Measurement", "Counting", "Estimation", "Computation", etc.)',
+#         example='Measurement',
+#     )
+#     methodName: Optional[str] = Field(
+#         None,
+#         description='Human readable name for the method\n\nMIAPPE V1.1 (DM-88) Method  Name of the method of observation',
+#         example='Measuring Tape',
+#     )
+#     ontologyReference: Optional[OntologyReference] = None
 
 
 class MethodNewRequest(BaseModel):
@@ -1441,92 +1532,97 @@ class Observation(ObservationNewRequest):
 
 
 # note: renamed from the Auto-generated because a duplicate Method() is listed a few lines below
-class Method(MethodBaseClass):
-    methodDbId: Optional[str] = Field(
-        None, description='Method unique identifier', example='0adb2764'
-    )
+# note: consolidation --> already defined in core module
+# class Method(MethodBaseClass):
+#     methodDbId: Optional[str] = Field(
+#         None, description='Method unique identifier', example='0adb2764'
+#     )
 
 
-class VariableBaseClass(BaseModel):
-    additionalInfo: Optional[Dict[str, AdditionalInfo]] = Field(
-        None, description='Additional arbitrary info'
-    )
-    commonCropName: Optional[str] = Field(
-        None, description='Crop name (examples: "Maize", "Wheat")', example='Maize'
-    )
-    contextOfUse: Optional[List[str]] = Field(
-        None,
-        description='Indication of how trait is routinely used. (examples: ["Trial evaluation", "Nursery evaluation"])',
-        example=['Trial evaluation', 'Nursery evaluation'],
-    )
-    defaultValue: Optional[str] = Field(
-        None,
-        description='Variable default value. (examples: "red", "2.3", etc.)',
-        example='2.0',
-    )
-    documentationURL: Optional[AnyUrl] = Field(
-        None,
-        description='A URL to the human readable documentation of this object',
-        example='https://wiki.brapi.org/documentation.html',
-    )
-    externalReferences: Optional[ExternalReferences] = None
-    growthStage: Optional[str] = Field(
-        None,
-        description='Growth stage at which measurement is made (examples: "flowering")',
-        example='flowering',
-    )
-    institution: Optional[str] = Field(
-        None,
-        description='Name of institution submitting the variable',
-        example='The BrAPI Institute',
-    )
-    language: Optional[str] = Field(
-        None,
-        description='2 letter ISO 639-1 code for the language of submission of the variable.',
-        example='en',
-    )
-    method: Method
-    ontologyReference: Optional[OntologyReference] = None
-    scale: Scale
-    scientist: Optional[str] = Field(
-        None,
-        description='Name of scientist submitting the variable.',
-        example='Dr. Bob Robertson',
-    )
-    status: Optional[str] = Field(
-        None,
-        description='Variable status. (examples: "recommended", "obsolete", "legacy", etc.)',
-        example='recommended',
-    )
-    submissionTimestamp: Optional[datetime] = Field(
-        None, description='Timestamp when the Variable was added (ISO 8601)'
-    )
-    synonyms: Optional[List[str]] = Field(
-        None,
-        description='Other variable names',
-        example=['Maize Height', 'Stalk Height', 'Corn Height'],
-    )
-    trait: Trait
+# note: note: consolidation --> already defined in core module
+# class VariableBaseClass(BaseModel):
+#     additionalInfo: Optional[Dict[str, AdditionalInfo]] = Field(
+#         None, description='Additional arbitrary info'
+#     )
+#     commonCropName: Optional[str] = Field(
+#         None, description='Crop name (examples: "Maize", "Wheat")', example='Maize'
+#     )
+#     contextOfUse: Optional[List[str]] = Field(
+#         None,
+#         description='Indication of how trait is routinely used. (examples: ["Trial evaluation", "Nursery evaluation"])',
+#         example=['Trial evaluation', 'Nursery evaluation'],
+#     )
+#     defaultValue: Optional[str] = Field(
+#         None,
+#         description='Variable default value. (examples: "red", "2.3", etc.)',
+#         example='2.0',
+#     )
+#     documentationURL: Optional[AnyUrl] = Field(
+#         None,
+#         description='A URL to the human readable documentation of this object',
+#         example='https://wiki.brapi.org/documentation.html',
+#     )
+#     externalReferences: Optional[ExternalReferences] = None
+#     growthStage: Optional[str] = Field(
+#         None,
+#         description='Growth stage at which measurement is made (examples: "flowering")',
+#         example='flowering',
+#     )
+#     institution: Optional[str] = Field(
+#         None,
+#         description='Name of institution submitting the variable',
+#         example='The BrAPI Institute',
+#     )
+#     language: Optional[str] = Field(
+#         None,
+#         description='2 letter ISO 639-1 code for the language of submission of the variable.',
+#         example='en',
+#     )
+#     method: Method
+#     ontologyReference: Optional[OntologyReference] = None
+#     scale: Scale
+#     scientist: Optional[str] = Field(
+#         None,
+#         description='Name of scientist submitting the variable.',
+#         example='Dr. Bob Robertson',
+#     )
+#     status: Optional[str] = Field(
+#         None,
+#         description='Variable status. (examples: "recommended", "obsolete", "legacy", etc.)',
+#         example='recommended',
+#     )
+#     submissionTimestamp: Optional[datetime] = Field(
+#         None, description='Timestamp when the Variable was added (ISO 8601)'
+#     )
+#     synonyms: Optional[List[str]] = Field(
+#         None,
+#         description='Other variable names',
+#         example=['Maize Height', 'Stalk Height', 'Corn Height'],
+#     )
+#     trait: Trait
 
 
-class GeoJSON(BaseModel):
-    geometry: Optional[Union[PointGeometry, PolygonGeometry]] = Field(
-        None,
-        description='A geometry as defined by GeoJSON (RFC 7946). In this context, only Point or Polygon geometry are allowed.',
-        example={'coordinates': [-76.506042, 42.417373, 123], 'type': 'Point'},
-        title='GeoJSON Geometry',
-    )
-    type: Optional[str] = Field(
-        'Feature', description='The literal string "Feature"', example='Feature'
-    )
+# note: consolidation --> already defined in core module
+# class GeoJSON(BaseModel):
+#     geometry: Optional[Union[PointGeometry, PolygonGeometry]] = Field(
+#         None,
+#         description='A geometry as defined by GeoJSON (RFC 7946). In this context, only Point or Polygon geometry are allowed.',
+#         example={'coordinates': [-76.506042, 42.417373, 123], 'type': 'Point'},
+#         title='GeoJSON Geometry',
+#     )
+#     type: Optional[str] = Field(
+#         'Feature', description='The literal string "Feature"', example='Feature'
+#     )
 
 
-class GeoJSONSearchArea(GeoJSON):
-    pass
+# note: consolidation --> already defined in core module
+# class GeoJSONSearchArea(GeoJSON):
+#     pass
 
 
-class Metadata(MetadataBase):
-    pagination: Optional[IndexPagination] = None
+# note: consolidation --> already defined in core module
+# class Metadata(MetadataBase):
+#     pagination: Optional[IndexPagination] = None
 
 
 class EventsResponse(BaseModel):
@@ -1571,10 +1667,11 @@ class ScaleSingleResponse(BaseModel):
     result: Scale
 
 
-class Field202AcceptedSearchResponse(BaseModel):
-    _context: Optional[Context] = Field(None, alias='@context')
-    metadata: Optional[Metadata] = None
-    result: Optional[Field202AcceptedSearchResponseResult] = None
+# note: consolidation --> already defined in core module
+# class Field202AcceptedSearchResponse(BaseModel):
+#     _context: Optional[Context] = Field(None, alias='@context')
+#     metadata: Optional[Metadata] = None
+#     result: Optional[Field202AcceptedSearchResponseResult] = None
 
 
 class TraitSingleResponse(BaseModel):
