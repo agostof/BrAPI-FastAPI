@@ -22,7 +22,7 @@ python -m pip install -r requirements.txt
 4. Now check the API server at: http://127.0.0.1:9000/brapi/v2/serverinfo
 ## Auto-generated documentation
 The default FastAPI server will generate and display documentation for your running instance. This documentation will be available at `http://127.0.0.1:9000/docs` or `http://127.0.0.1:9000/redocs`.
-To control *if* and *how* this documentation is display, see [FastAPI](https://fastapi.tiangolo.com/tutorial/metadata).
+To control **if** and **how** this documentation is displayed, see [FastAPI](https://fastapi.tiangolo.com/tutorial/metadata).
 ## Available endpoints
 A few test(dummy) endpoints have been provided from each BrAPI module: Core, Genotyping, Germplasm, Phenotyping.
 * These are the example endpoints available:

@@ -5,7 +5,7 @@
 Implementation of the [BrAPI v2.0](https://brapi.org/) specification for Python using the [FastAPI](https://fastapi.tiangolo.com/) framework.
 * includes models and server stubs (views.py) for [Core](brapi_v2/core), [Genotyping](brapi_v2/genotyping), [Germplasm](brapi_v2/germplasm), and [Phenotyping](brapi_v2/phenotyping).
 * use as a template to create your Python-based [BrAPI server](brapi_v2/main.py)
-* use models to create a [BrAPI client](client/brapi_client.py) (a.k.a BrAPP) or to create a client library
+* use models to create a [BrAPI client](client/brapi_client.py) (a.k.a *BrAPP*) or to create a client library
 
 ## Quick start
 1. Installation using pyenv, skip this step if you don't want to use pyenv.
@@ -25,7 +25,7 @@ cd server
 The local server should be running at `port 9000`, to see available enpoints visit your serverinfo endpoint: http://127.0.0.1:9000/brapi/v2/serverinfo. Available end-points are also listed in the [server's README](server/README.md).
 
 ### Auto-generated documentation
-The default FastAPI server will generate and display documentation for your running instance using *Swagger UI* and *ReDoc*. This documentation will be available at `{server_url}/docs` or `{server_url}/redocs`. Check the [server's README](server/README.md) for details.
+The default FastAPI server will generate and display documentation for your running instance using **Swagger UI** and **ReDoc**. This documentation will be available at `{server_url}/docs` or `{server_url}/redocs`. Check the [server's README](server/README.md) for details.
 
 
 ## Using as a BrAPI server template
