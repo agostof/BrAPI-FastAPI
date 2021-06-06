@@ -1,14 +1,14 @@
-# Overview
+## Overview
 
 ## BrAPI-FastAPI: Python-based BrAPI server stubs
 
 Implementation of the [BrAPI v2.0](https://brapi.org/) specification for Python using the [FastAPI](https://fastapi.tiangolo.com/) framework.
 * includes models and server stubs (views.py) for [Core](brapi_v2/core), [Genotyping](brapi_v2/genotyping), [Germplasm](brapi_v2/germplasm), and [Phenotyping](brapi_v2/phenotyping).
-* use as a template to create your Python-based [BrAPI server](server/brapi_v2/main.py)
+* use as a template to create your Python-based [BrAPI server](brapi_v2/main.py)
 * use models to create a [BrAPI client](client/brapi_client.py) (a.k.a BrAPP) or to create a client library
 
 ## Quick start
-1. Installation using pyenv (Python $version could be 3.8.3 and above). If not using pyenv just skip to the next step.
+1. Installation using pyenv, skip this step if you don't want to use pyenv.
 ``` sh
 pyenv virtualenv 3.9.1 WebAPI
 pyenv activate WebAPI
@@ -17,23 +17,16 @@ pyenv activate WebAPI
 ``` sh
 python -m pip install -r requirements.txt
 ```
-3. Then start server (do check the script in case you want to modify how the server starts)
+3. Then start server
 ``` sh
 cd server
 ./start_dev_server.sh
 ```
+The local server should be running at `port 9000`, to see available enpoints visit your serverinfo endpoint: http://127.0.0.1:9000/brapi/v2/serverinfo. Available end-points are also listed in the [server's README](server/README.md).
 
-4. Now check the API server at: http://127.0.0.1:9000/brapi/v2/serverinfo
-5. Self-generated documentation can be seen in the following endpoints:
-    1. http://127.0.0.1:9000/docs or
-    2. here http://127.0.0.1:9000/redoc
+### Auto-generated documentation
+The default FastAPI server will generate and display documentation for your running instance using *Swagger UI* and *ReDoc*. This documentation will be available at `{server_url}/docs` or `{server_url}/redocs`. Check the [server's README](server/README.md) for details.
 
-A few test(dummy) endpoints have been provided from each BrAPI module: Core, Genotyping, Germplasm, Phenotyping.
-* These are the example endpoints:
-    * brapi/v2/serverinfo
-    * brapi/v2/samples
-    * brapi/v2/attributes
-    * brapi/v2/events
 
 ## Using as a BrAPI server template
 
