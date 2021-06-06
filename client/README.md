@@ -1,7 +1,7 @@
 # BrAPI-FastAPI: Python-based BrAPI clients
 ## Using for building BrAPI clients
 
-We can use the Pydantic models to parse the responses returned by the server. By looking at the server stubs and the API specification we can figure out what is the approriate response object to use for a given call.
+The Pydantic models can be used to parse the responses returned by a BrAPI server. We can figure out what is the approriate response object to use for a given call by looking at the server stubs, the API specification, or the auto-generated docs for your FastAPI:BrAPI server instance e.g. **{your_server_url}/docs**.
 
 For instance, to parse the ServerInfo call we would use the **ServerInfoResponse** model, then we could parse the response by using the appropriate Pydantic method as follows:
 ```python
