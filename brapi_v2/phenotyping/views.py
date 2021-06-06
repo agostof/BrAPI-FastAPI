@@ -86,7 +86,19 @@ def get_events(
     additional_info_test = {}
     additional_info_test["info_tag_1"] = AdditionalInfo(location="Earth!",importance="Very Important!")
 
-    events = [Event(eventDbId="123456789", eventType="Example event", additionalInfo=additional_info_test)]
+    events = []
+    events.append(
+        Event(eventDbId="123456789", 
+            eventDescription="FIRST Testing event!!", 
+            eventType="JUST_AN_EXAMPLE", 
+            additionalInfo=additional_info_test)
+        )
+    events.append(
+        Event(eventDbId="912831282", 
+            eventDescription="Testing event number two", 
+            eventType="JUST_AN_EXAMPLE", 
+            additionalInfo=additional_info_test)
+        )
     meta = Metadata()
     result = EventsResponseResult(data=events)
     return EventsResponse(metadata=meta, result = result)

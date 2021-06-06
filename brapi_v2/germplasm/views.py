@@ -94,7 +94,11 @@ def get_attributes(
     attributes = [
         GermplasmAttribute(attributeName="Plant Height Example",
                            scale=scale, attributeDbId="123456789", trait=trait, method=method,
-                           additionalInfo=additional_info_test)]
+                           additionalInfo=additional_info_test),
+        GermplasmAttribute(attributeName="Dry Weight Example",
+                           scale=scale, attributeDbId="91231", trait=trait, method=method,
+                           additionalInfo=additional_info_test)
+                           ]
 
     meta = Metadata()
     result = GermplasmAttributeListResponseResult(data=attributes)
