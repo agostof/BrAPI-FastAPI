@@ -4,8 +4,8 @@
 
 Implementation of the [BrAPI v2.0](https://brapi.org/) specification for Python using the [FastAPI](https://fastapi.tiangolo.com/) framework.
 * includes models and server stubs (views.py) for Core, Genotyping, Germplasm, and Phenotyping
-* use as a template to create your Python-based BrAPI server
-* use models to create BrAPI client
+* use as a template to create your Python-based [BrAPI server](brapi_v2/main.py)
+* use models to create a [BrAPI client](client/brapi_client.py)
 
 ## Quick start
 1. Installation using pyenv (Python $version could be 3.8.3 and above). If not using pyenv just skip to the next step.
@@ -52,7 +52,7 @@ from brapi_v2.core.models import ServerInfoResponse
 ```
 then use the module to contruct an object that could be used by the client.
 
-This is demonstrated by a simple [brapi_client](client/brapi_client.py) that parses the demo endpoints already defined by this server, see [client](client/README.md) for details.
+This is demonstrated by a simple [brapi_client](client/brapi_client.py) that parses the demo endpoints already defined by this server, see [client's documentation](client/README.md) for details.
 
 ## Notes
 
