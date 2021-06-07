@@ -22,6 +22,9 @@ app = router
 
 # from brapi_v2.core.models import (
 from .. core.models import (
+    AdditionalInfo, 
+    Metadata,
+    IndexPagination,
     Field202AcceptedSearchResponse,
     # Field202AcceptedSearchResponseResult,
     WSMIMEDataTypes,
@@ -315,7 +318,7 @@ def get_samples(
     Get the Samples
     """
 
-    from .models import SampleListResponseResult, Sample, Metadata, AdditionalInfo
+    from .models import SampleListResponseResult, Sample
 
     # create some additional information to be add to each sample entry
     # as you can see the field is flexible and it can be anything
@@ -330,9 +333,19 @@ def get_samples(
     samples.append(Sample(sampleName="dummy sample 2", 
                           sampleDbId="981975", 
                           additionalInfo=additional_info_test))
+    # create extra content just for demo...
+    for sample_no in range(3, 9):
+        sample_id = 1787 * sample_no
+        samples.append(Sample(sampleName=f"dummy sample {sample_no}", 
+                          sampleDbId=f"{sample_id}", 
+                          additionalInfo=additional_info_test))
     
     result = SampleListResponseResult(data=samples)
-    metadata = Metadata()
+    # build pagination and metadata objects
+    total_count = len(samples)
+    pagination = IndexPagination(currentPage = 0, pageSize=1000, 
+                                totalCount=total_count, totalPages=1)
+    metadata = Metadata(datafiles=[], status=[], pagination=pagination)
     response = SampleListResponse(metadata=metadata, result=result)
     
     return response

@@ -22,6 +22,10 @@ app = router
 
 # from brapi_v2.core.models import (
 from .. core.models import (
+    AdditionalInfo, 
+    Metadata,
+    Method,
+    IndexPagination,
     Field202AcceptedSearchResponse,
     # Field202AcceptedSearchResponseResult,
     WSMIMEDataTypes,
@@ -86,7 +90,7 @@ def get_attributes(
     pass
 
     # here we construct a dummy GermplasmAttribute just to show the functionaliy
-    from .models import GermplasmAttribute, GermplasmAttributeListResponseResult, Metadata, Trait, Method, Scale, AdditionalInfo
+    from .models import GermplasmAttribute, GermplasmAttributeListResponseResult, Trait, Scale
     trait = Trait(traitDbId = '9b2e34f5', traitName="Test Trait Example")
     method = Method(methodDbId='0adb2764')
     scale = Scale(scaleDbId='af730171', scaleName="Dummy Scale")
@@ -100,12 +104,20 @@ def get_attributes(
                            additionalInfo=additional_info_test),
         GermplasmAttribute(attributeName="Dry Weight Example",
                            scale=scale, attributeDbId="91231", trait=trait, method=method,
+                           additionalInfo=additional_info_test),
+        GermplasmAttribute(attributeName="Leaf Weight Example",
+                           scale=scale, attributeDbId="987", trait=trait, method=method,
                            additionalInfo=additional_info_test)
                            ]
+    # build pagination and metadata objects
+    total_count = len(attributes)
+    pagination = IndexPagination(currentPage = 0, pageSize=1000, 
+                                totalCount=total_count, totalPages=1)
+    metadata = Metadata(datafiles=[], status=[], pagination=pagination)
 
-    meta = Metadata()
     result = GermplasmAttributeListResponseResult(data=attributes)
-    return GermplasmAttributeListResponse(metadata=meta, result = result)
+    response = GermplasmAttributeListResponse(metadata=metadata, result=result)
+    return response
 
 
 @app.post('/attributes', response_model=GermplasmAttributeListResponse)

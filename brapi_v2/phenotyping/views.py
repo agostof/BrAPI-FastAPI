@@ -22,19 +22,22 @@ router = APIRouter(
 app = router
 # from brapi_v2.core.models import (
 from .. core.models import (
+    AdditionalInfo, 
+    Metadata,
+    IndexPagination,
     Field202AcceptedSearchResponse,
     # Field202AcceptedSearchResponseResult,
     WSMIMEDataTypes,
 )
 from . models import (
-    AdditionalInfo,
+    # AdditionalInfo,
     EventsResponse,
     # Field202AcceptedSearchResponse,
     ImageListResponse,
     ImageNewRequest,
     ImageSearchRequest,
     ImageSingleResponse,
-    Metadata,
+    # Metadata,
     MethodListResponse,
     MethodNewRequest,
     MethodSingleResponse,
@@ -85,7 +88,7 @@ def get_events(
     """
     
     # here we construct a dummy event just to show the functionaliy
-    from .models import Event, EventsResponseResult, AdditionalInfo
+    from .models import Event, EventsResponseResult
     additional_info_test = {}
     additional_info_test["info_tag_1"] = AdditionalInfo(location="Earth!",importance="Very Important!")
 
@@ -102,9 +105,16 @@ def get_events(
             eventType="JUST_AN_EXAMPLE", 
             additionalInfo=additional_info_test)
         )
-    meta = Metadata()
+    
+    # build pagination and metadata objects
+    total_count = len(events)
+    pagination = IndexPagination(currentPage = 0, pageSize=1000, 
+                                totalCount=total_count, totalPages=1)
+    metadata = Metadata(datafiles=[], status=[], pagination=pagination)
+
     result = EventsResponseResult(data=events)
-    return EventsResponse(metadata=meta, result = result)
+    response = EventsResponse(metadata=metadata, result = result)
+    return response
 
 
 @app.get('/images', response_model=ImageListResponse)

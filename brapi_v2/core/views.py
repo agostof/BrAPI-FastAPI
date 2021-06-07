@@ -27,6 +27,7 @@ app = router
 from .models import (
     CommonCropNamesResponse,
     Field202AcceptedSearchResponse,
+    IndexPagination,
     ListNewRequest,
     ListResponse,
     ListSearchRequest,
@@ -609,7 +610,8 @@ def get_serverinfo(
     """
     import os
     from .models import Metadata, ServerInfo, Version, HttpMethod, Service
-    metadata = Metadata(datafiles=[], status=[], pagination=None)
+    pagination = IndexPagination(currentPage = 0, pageSize=1000, totalCount=1, totalPages=1)
+    metadata = Metadata(datafiles=[], status=[], pagination=pagination)
 
     # retrieve the request url as it its "seen" by the client
     services_url = request.url
@@ -652,6 +654,10 @@ def get_serverinfo(
                     contactEmail='user@email.host.com',
                     serverDescription='BrAPI FastAPI Server Testbed.',
                     calls=services)
+
+    # build pagination and metadata objects
+    pagination = IndexPagination(currentPage = 0, pageSize=1000)
+    metadata = Metadata(datafiles=[], status=[], pagination=pagination)
 
     import time
     serverinfo.serverName += ' Current server time: ' + str(time.asctime())
