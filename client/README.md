@@ -1,7 +1,7 @@
 # BrAPI-FastAPI: Python-based BrAPI clients
 ## Using for building BrAPI clients
 
-The Pydantic models can be used to parse the responses returned by a BrAPI server. We can figure out what is the approriate response object to use for a given call by looking at the server stubs, the API specification, or the auto-generated docs for your FastAPI:BrAPI server instance e.g. **{your_server_url}/docs**.
+The Pydantic models can be used to parse the responses returned by a BrAPI server. We can figure out what is the appropriate response object to use for a given call by looking at the server stubs, the API specification, or the auto-generated docs for your FastAPI:BrAPI server instance e.g. **{your_server_url}/docs**.
 
 For instance, to parse the ServerInfo call we would use the **ServerInfoResponse** model, then we could parse the response by using the appropriate Pydantic method as follows:
 ```python
@@ -12,10 +12,18 @@ server_info = ServerInfoResponse.parse_obj(json.loads(response_json_text))
 # parse parse text
 server_info = ServerInfoResponse.parse_raw(response_json_text)
 
+# Since the responses are pydantic model instances
+# we could them used as part of our tests e.g:
+assert isinstance(server_info, ServerInfoResponse)
+
 # work with your data here
+# e.g. 
+# access metadata
+# print("Call metadata", server_info.metadata)
 # ...
+
 ```
-In order to parse all the reponses provided in the example **BrAPI server** we needed the following models:
+In order to parse all the responses provided in the example **BrAPI server** we needed the following models:
 ```python
 from brapi_v2.core.models import ServerInfoResponse
 from brapi_v2.genotyping.models import SampleListResponse
@@ -32,7 +40,7 @@ Here is an example of output:
 ```
 ==================================
 Supported BrAPI calls on: http://127.0.0.1:9000/brapi/v2
-row_no	end_point	full_url
+row_no	endpoint	full_url
 1	/serverinfo	http://127.0.0.1:9000/brapi/v2/serverinfo
 2	/events	http://127.0.0.1:9000/brapi/v2/events
 3	/attributes	http://127.0.0.1:9000/brapi/v2/attributes

@@ -1,8 +1,8 @@
 ## BrAPI-FastAPI: Server Stubs
 
 Implementation of the [BrAPI v2.0](https://brapi.org/) specification for Python using the [FastAPI](https://fastapi.tiangolo.com/) framework.
-* includes models and server stubs (views.py) for [Core](../brapi_v2/core), [Genotyping](../brapi_v2/genotyping), [Germplasm](../brapi_v2/germplasm), and [Phenotyping](../brapi_v2/phenotyping).
-* use as a template to create your Python-based [BrAPI server](../brapi_v2/main.py)
+* Includes models and server stubs (views.py) for [Core](../brapi_v2/core), [Genotyping](../brapi_v2/genotyping), [Germplasm](../brapi_v2/germplasm), and [Phenotyping](../brapi_v2/phenotyping).
+* Use as a template to create your Python-based [BrAPI server](../brapi_v2/main.py).
 
 ## Run BrAPI server
 1. Installation using pyenv (Python $version could be 3.8.3 and above). If not using pyenv just skip to the next step.
@@ -21,10 +21,10 @@ python -m pip install -r requirements.txt
 
 4. Now check the API server at: http://127.0.0.1:9000/brapi/v2/serverinfo
 ## Auto-generated documentation
-The default FastAPI server will generate and display documentation for your running instance. This documentation will be available at `http://127.0.0.1:9000/docs` or `http://127.0.0.1:9000/redocs`.
+The default **FastAPI** server will generate and display documentation for your running instance. This documentation will be available at `http://127.0.0.1:9000/docs` or `http://127.0.0.1:9000/redocs`.
 To control **if** and **how** this documentation is displayed, see [FastAPI](https://fastapi.tiangolo.com/tutorial/metadata).
 ## Available endpoints
-A few test(dummy) endpoints have been provided from each BrAPI module: Core, Genotyping, Germplasm, Phenotyping.
+A few test(dummy) endpoints have been provided from each BrAPI module (at least one per module): Core, Genotyping, Germplasm, and Phenotyping.
 * These are the example endpoints available:
     * brapi/v2/serverinfo
     * brapi/v2/samples
@@ -33,7 +33,7 @@ A few test(dummy) endpoints have been provided from each BrAPI module: Core, Gen
 
 ## Using as a BrAPI server template
 
-If you want to use these stubs as a template you can add them in your project by running:
+If you want to use these stubs as a template, you can add them in your project by running:
 
 ```sh
 git submodule add https://github.com/agostof/BrAPI-FastAPI [optional local_name]

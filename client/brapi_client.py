@@ -1,5 +1,9 @@
+# This is a simple proof of concept client that demonstrates how to send api requests 
+# to a BrAPI server, and parse the responses using the brapi_v2 pydantic models.
+
 import requests
 import re
+
 from brapi_v2.core.models import ServerInfoResponse, HttpMethod
 from brapi_v2.genotyping.models import SampleListResponse
 from brapi_v2.germplasm.models import GermplasmAttributeListResponse
@@ -20,23 +24,26 @@ api_url = "http://127.0.0.1:9000/brapi/v2"
 
 server_info_url = api_url+"/serverinfo"
 status_code, server_info = run_brapi_request(server_info_url, HttpMethod.GET, ServerInfoResponse)
+# Since the responses are pydantic model instances
+# we could them used as part of our tests e.g:
+assert isinstance(server_info, ServerInfoResponse)
 
-regexp = re.compile('.*(?P<api_name>brapi/v2)(?P<end_point>.*)')
+regexp = re.compile('.*(?P<api_name>brapi/v2)(?P<endpoint>.*)')
 # access metadata
 # print("Call metadata", server_info.metadata)
 
 print("\n==================================")
 print(f"Supported BrAPI calls on: {api_url}")
-print("row_no\tend_point\tfull_url")
+print("row_no\tendpoint\tfull_url")
 for count, call in enumerate(server_info.result.calls, 1):
     service_match = regexp.match(call.service)
-    # extract the end-point from the call
+    # extract the endpoint from the call
     if service_match:
         service_detail = service_match.groupdict()
-        end_point = service_detail['end_point']
+        endpoint = service_detail['endpoint']
     else:
-        end_point = ''
-    print(f"{count}\t{end_point}\t{call.service}")
+        endpoint = ''
+    print(f"{count}\t{endpoint}\t{call.service}")
 
 print("\n==================================")
 
@@ -45,6 +52,8 @@ print("\n==================================")
 print("Querying germplasm endpoint: /attributes")
 germplasm_url = api_url + "/attributes"
 status_code, germplasm_attributes = run_brapi_request(germplasm_url, HttpMethod.GET, GermplasmAttributeListResponse)
+assert isinstance(germplasm_attributes, GermplasmAttributeListResponse)
+
 print("Germplasm Attributes results:")
 print("row_no\tattributeName\tattributeName")
 # for count,sample in enumerate(samples.result.data, 1):
@@ -57,6 +66,8 @@ print("\n==================================")
 print("Querying genotyping endpoint: /samples")
 genotyping_samples_url = api_url + "/samples"
 status_code, samples = run_brapi_request(genotyping_samples_url, HttpMethod.GET, SampleListResponse)
+assert isinstance(samples, SampleListResponse)
+
 print("Genotyping Samples results:")
 print('row_no\tsampleDbId\tsampleName')
 for count,sample in enumerate(samples.result.data, 1):
@@ -68,6 +79,8 @@ print("\n==================================")
 print("Querying phenotyping endpoint: /events")
 phenotyping_events_url = api_url + "/events"
 status_code, pheno_events = run_brapi_request(phenotyping_events_url, HttpMethod.GET, EventsResponse)
+assert isinstance(pheno_events, EventsResponse)
+
 print("Phenotyping Events results:")
 print('row_no\teventDbId\teventType\teventDescription')
 for count,event in enumerate(pheno_events.result.data, 1):
