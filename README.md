@@ -1,6 +1,6 @@
 ## Overview
 
-## BrAPI-FastAPI: Python-based BrAPI server stubs
+## BrAPI-FastAPI: Python-based Breeder's API (BrAPI) server stubs and data models
 
 Implementation of the [BrAPI v2.0](https://brapi.org/) specification for Python using the [FastAPI](https://fastapi.tiangolo.com/) framework.
 * Includes models and server stubs (views.py) for [Core](brapi_v2/core), [Genotyping](brapi_v2/genotyping), [Germplasm](brapi_v2/germplasm), and [Phenotyping](brapi_v2/phenotyping).
