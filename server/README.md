@@ -66,7 +66,7 @@ def get_commoncropnames(
  ```
 The first thing you might notice is that the return response is built using the EndPointName + Response, e.g. `commoncropnames --> CommonCropNamesResponse`.
 
-The general response structure of a BrAPI call has two components at the top level: a metadata,  and a data results list. To create a response we need *at least* the following objects: **Metadata**, **IndexPagination**, and a **Result**, and **Response** objects of the endpoints data type.
+The general response structure of a BrAPI call has two components at the top level: a metadata,  and a data results list. To create a response we need *at least* the following objects: **Metadata**, **IndexPagination**, and a **Result**, and **Response** objects of the endpoint's data type.
 
 To illustrate this process lets look at the **CommonCropNamesResponse**:
 ```python
@@ -173,7 +173,7 @@ The output of the call will should be similar to this:
         }
     }
 ```
-If you want to remove the null values from the response, add this parameter to the decorator: `response_model_exclude_unset` as follows:
+If you want to remove the `null` values from the response, add this parameter to the decorator: `response_model_exclude_unset` as follows:
 ```python
 @app.get('/commoncropnames', response_model=CommonCropNamesResponse, response_model_exclude_unset=True)
 ```
@@ -198,8 +198,8 @@ With that your output should look like this:
         }
     }
 ```
-## Why it did not see */brapi/v2*?
-You might have noticed is that the */brapi/v2* is missing for this definition. This is because that prefix is already added when each view is mounted to the app in the applications [main.py](../brapi_v2/main.py), in detail:
+## Why I did not see *"/brapi/v2"* on endpoint definitions?
+You might have noticed that the */brapi/v2* prefix string is missing from endpoint definitions. This is because that prefix is already added when each view is mounted to the app using the [APIRouter](https://fastapi.tiangolo.com/tutorial/bigger-applications/#apirouter) feature. This is done in the applications [main.py](../brapi_v2/main.py), in detail:
 ```python
 # brapi_v2/main.py
 #...
@@ -211,7 +211,8 @@ app.include_router(phenotyping.views.router, prefix='/brapi/v2')
 
 #...
 ```
-On that note, [main.py](../brapi_v2/main.py) has other settings worth looking into like, [CORS](https://fastapi.tiangolo.com/tutorial/cors/)(Cross-Origin Resource Sharing), application root level endpoints among others, please take a look. 
+
+On that note, [main.py](../brapi_v2/main.py) has other settings worth checking like, [CORS](https://fastapi.tiangolo.com/tutorial/cors/)(Cross-Origin Resource Sharing), application root-level endpoints among others, please take a look. 
  
 ## What is left?
 Now you have enough information to start filling any of the server stubs that you need. Things like, security, databases connectivy (e.g. [SqlAlchemy](https://www.sqlalchemy.org/)) will be needed, but are beyond the scope of this document. Consult the [FastAPI](https://fastapi.tiangolo.com/) documentation for more details an ideas.
