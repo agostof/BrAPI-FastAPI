@@ -25,6 +25,7 @@ router = APIRouter(
 app = router
 
 from .models import (
+    Metadata,
     CommonCropNamesResponse,
     Field202AcceptedSearchResponse,
     IndexPagination,

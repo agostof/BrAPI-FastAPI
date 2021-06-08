@@ -21,8 +21,8 @@ python -m pip install -r requirements.txt
 
 4. Now check the API server at: http://127.0.0.1:9000/brapi/v2/serverinfo
 ## Auto-generated documentation
-The default **FastAPI** server will generate and display documentation for your running instance. This documentation will be available at `http://127.0.0.1:9000/docs` or `http://127.0.0.1:9000/redocs`.
-To control **if** and **how** this documentation is displayed, see [FastAPI](https://fastapi.tiangolo.com/tutorial/metadata).
+The default **FastAPI** server will generate and display documentation for your running instance using **Swagger UI** and **ReDoc**. This documentation will be available at `http://127.0.0.1:9000/docs` or `http://127.0.0.1:9000/redocs` respectively.
+To control **if** and **how** this documentation is displayed, see the [FastAPI](https://fastapi.tiangolo.com/tutorial/metadata) documentation.
 ## Available endpoints
 A few test(dummy) endpoints have been provided from each BrAPI module (at least one per module): Core, Genotyping, Germplasm, and Phenotyping.
 * These are the example endpoints available:
@@ -33,9 +33,184 @@ A few test(dummy) endpoints have been provided from each BrAPI module (at least 
 
 ## Using as a BrAPI server template
 
-If you want to use these stubs as a template, you can add them in your project by running:
-
+If you want to use these stubs as a template, you can add them into your project by running:
 ```sh
 git submodule add https://github.com/agostof/BrAPI-FastAPI [optional local_name]
 ```
 Then use (by copying or modifying) the appropriate BrAPI module(s) views (controllers) and models as needed.
+## Implementing BrAPI endpoints
+All the server stubs provided here have a stucture similar to this:
+```python
+@app.get('/endpoint_name', response_model_obj)
+def httpmethod_endpoint_name(query_parameters) -> ResponseReturnType:
+    # implementation ...
+    # your implementation
+    # e.g. get data, build medatada, build response of ResponseReturnType
+    return ResponseReturnType
+```
+The server stub for */brapi/v2/commoncropnames* might look something like this (to follow along check the code in [core.views.py](../brapi_v2/core/views.py)):
+```python
+@app.get('/commoncropnames', response_model=CommonCropNamesResponse)
+def get_commoncropnames(
+    page: Optional[int] = None,
+    page_size: Optional[int] = Query(None, alias='pageSize'),
+    authorization: Optional[constr(regex=r'^Bearer .*$')] = Query(
+        None, alias='Authorization'
+    ),
+) -> CommonCropNamesResponse:
+    """
+    Get the Common Crop Names
+    """
+    pass
+    
+ ```
+The first thing you might notice is that the return response is built using the EndPointName + Response, e.g. `commoncropnames --> CommonCropNamesResponse`.
+
+The general response structure of a BrAPI call has two components at the top level: a metadata,  and a data results list. To create a response we need *at least* the following objects: **Metadata**, **IndexPagination**, and a **Result**, and **Response** objects of the endpoints data type.
+
+To illustrate this process lets look at the **CommonCropNamesResponse**:
+```python
+class CommonCropNamesResponse(BaseModel):
+    _context: Optional[Context] = Field(None, alias='@context')
+    metadata: Metadata
+    result: CommonCropNamesResponseResult
+```
+We see that the we also need a **CommonCropNamesResponseResult** model to hold our data.
+The *ResponseResult* model we need is defined as follows:
+```python
+class CommonCropNamesResponseResult(BaseModel):
+    data: List[str] = Field(
+        ...,
+        description='array of crop names available on the server',
+        example=['Tomatillo', 'Paw Paw'],
+    )
+```
+Using these pieces of information, we can now build the **CommonCropNamesResponse** needed to implement the example above (*well, sort of, just with dummy data!!*).
+
+First, lets assume we have a database that tracks which crops are available, and it returns them in a list `available_crops`. We will build a response with the list of crops and the associated medatadata as follows: 
+```python
+    pagination = IndexPagination(
+        currentPage=0,  # requiered
+        pageSize=1000,  # requiered
+        totalCount=total_item,  # optional
+        # totalPages=None,  # optional
+    )
+    metadata = Metadata(
+        pagination=pagination,
+        # datafiles=[],  # optional
+        # status=[]  # optional
+    )
+```
+Then use that information to create **CommonCropNamesResponseResult** and **CommonCropNamesResponse**. If we put it all together we have the following:
+```python
+@app.get('/commoncropnames', response_model=CommonCropNamesResponse)
+def get_commoncropnames(
+    page: Optional[int] = None,
+    page_size: Optional[int] = Query(None, alias='pageSize'),
+    authorization: Optional[constr(regex=r'^Bearer .*$')] = Query(
+        None, alias='Authorization'
+    ),
+) -> CommonCropNamesResponse:
+    
+    # import models needed
+    from .models import CommonCropNamesResponseResult, CommonCropNamesResponse
+    
+    # simualted crop db, use your real datbase here
+    available_crops = ['rice', 'maize', 'wheat', 'tomato', 'sorghum']
+    total_item = len(available_crops)
+    
+    pagination = IndexPagination(
+        currentPage=0,  # requiered
+        pageSize=1000,  # requiered
+        totalCount=total_item,  # optional
+        # totalPages=None,  # optional
+    )
+    
+    metadata = Metadata(
+        pagination=pagination,
+        # datafiles=[],  # optional
+        # status=[]  # optional
+    )
+
+    # build result object
+    result = CommonCropNamesResponseResult(
+        data=available_crops # it accepts a list of strings
+    )
+
+    # build a response!!
+    response = CommonCropNamesResponse(
+        metadata=metadata,
+        result=result
+    )
+
+    # if all goes well we should have a response to send back to the client!!! \(^.^)/
+    # check: http://{your_url}/brapi/v2/commoncropnames
+    return response
+
+```
+
+The output of the call will should be similar to this:
+```json
+    {
+        "metadata": {
+            "datafiles": null,
+            "status": null,
+            "pagination": {
+                "pageSize": 1000,
+                "totalCount": 5,
+                "totalPages": null,
+                "currentPage": 0
+            }
+        },
+        "result": {
+            "data": [
+                "rice",
+                "maize",
+                "wheat",
+                "tomato",
+                "sorghum"
+            ]
+        }
+    }
+```
+If you want to remove the null values from the response, add this parameter to the decorator: `response_model_exclude_unset` as follows:
+```python
+@app.get('/commoncropnames', response_model=CommonCropNamesResponse, response_model_exclude_unset=True)
+```
+With that your output should look like this:
+```json
+    {
+        "metadata": {
+            "pagination": {
+                "pageSize": 1000,
+                "totalCount": 5,
+                "currentPage": 0
+            }
+        },
+        "result": {
+            "data": [
+                "rice",
+                "maize",
+                "wheat",
+                "tomato",
+                "sorghum"
+            ]
+        }
+    }
+```
+## Why it did not see */brapi/v2*?
+You might have noticed is that the */brapi/v2* is missing for this definition. This is because that prefix is already added when each view is mounted to the app in the applications [main.py](../brapi_v2/main.py), in detail:
+```python
+# brapi_v2/main.py
+#...
+
+app.include_router(core.views.router, prefix='/brapi/v2')
+app.include_router(genotyping.views.router, prefix='/brapi/v2')
+app.include_router(germplasm.views.router, prefix='/brapi/v2')
+app.include_router(phenotyping.views.router, prefix='/brapi/v2')
+
+#...
+```
+## What is left?
+Now you have enough information to start filling any of the server stubs that you need. Things like, security, databases connectivy (e.g. [SqlAlchemy](https://www.sqlalchemy.org/)) will be needed, but are beyond the scope of this document. Consult the [FastAPI](https://fastapi.tiangolo.com/) documentation for more details an ideas.
+
