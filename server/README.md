@@ -211,6 +211,8 @@ app.include_router(phenotyping.views.router, prefix='/brapi/v2')
 
 #...
 ```
+On that note, [main.py](../brapi_v2/main.py) has other settings worth looking into like, [CORS](https://fastapi.tiangolo.com/tutorial/cors/)(Cross-Origin Resource Sharing), application root level endpoints among others, please take a look. 
+ 
 ## What is left?
 Now you have enough information to start filling any of the server stubs that you need. Things like, security, databases connectivy (e.g. [SqlAlchemy](https://www.sqlalchemy.org/)) will be needed, but are beyond the scope of this document. Consult the [FastAPI](https://fastapi.tiangolo.com/) documentation for more details an ideas.
 

@@ -7,20 +7,22 @@ app = FastAPI(
     version='2.0',
 )
 
-from fastapi.middleware.cors import CORSMiddleware
-origins = [
-    "http://localhost",
-    "http://localhost:8080",
-    "http://localhost:9000",
-]
+# See FastAPI doc's on how enable CORS (Cross-Origin Resource Sharing) 
+# https://fastapi.tiangolo.com/tutorial/cors
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+# from fastapi.middleware.cors import CORSMiddleware
+# origins = [
+#     "http://localhost",
+#     "http://localhost:8080",
+#     "http://localhost:9000",
+# ]
+# app.add_middleware(
+#     CORSMiddleware,
+#     allow_origins=origins,
+#     allow_credentials=True,
+#     allow_methods=["*"],
+#     allow_headers=["*"],
+# )
 
 
 #from . import views as core#, users
