@@ -68,16 +68,17 @@ The first thing you might notice is that the return response is built using the 
 
 The general response structure of a BrAPI call has two components at the top level: a metadata,  and a data results list. To create a response we need *at least* the following objects: **Metadata**, **IndexPagination**, and a **Result**, and **Response** objects of the endpoint's data type.
 
-To illustrate this process lets look at the **CommonCropNamesResponse**:
+To illustrate this process lets look at the **CommonCropNamesResponse**, defined in [core.models.py](../brapi_v2/core/models.py)):
 ```python
+# brapi_v2/core/models.py
 class CommonCropNamesResponse(BaseModel):
     _context: Optional[Context] = Field(None, alias='@context')
     metadata: Metadata
-    result: CommonCropNamesResponseResult
+    result: CommonCropNamesResponseResult # <-- we need this to hold our data
 ```
-We see that the we also need a **CommonCropNamesResponseResult** model to hold our data.
-The *ResponseResult* model we need is defined as follows:
+We see that *ResponseResult* result model needed to hold our data is an instance of **CommonCropNamesResponseResult**, which is defined as follows:
 ```python
+# brapi_v2/core/models.py
 class CommonCropNamesResponseResult(BaseModel):
     data: List[str] = Field(
         ...,
@@ -85,15 +86,15 @@ class CommonCropNamesResponseResult(BaseModel):
         example=['Tomatillo', 'Paw Paw'],
     )
 ```
-Using these pieces of information, we can now build the **CommonCropNamesResponse** needed to implement the example above (*well, sort of, just with dummy data!!*).
+With these pieces of information, we are ready to build the **CommonCropNamesResponse** needed to implement the example above (*well, sort of, just with dummy data!!*).
 
-First, lets assume we have a database that tracks which crops are available, and it returns them in a list `available_crops`. We will build a response with the list of crops and the associated medatadata as follows: 
+First, lets assume we have a database that tracks which crops are available, and that we can get the data in a list `available_crops`. Using this data, we will build a response with `available_crops` and the associated medatadata as follows: 
 ```python
     pagination = IndexPagination(
         currentPage=0,  # requiered
         pageSize=1000,  # requiered
-        totalCount=total_item,  # optional
-        # totalPages=None,  # optional
+        totalCount=total_items,  # optional
+        totalPages=1,  # 1 in our case
     )
     metadata = Metadata(
         pagination=pagination,
@@ -101,7 +102,7 @@ First, lets assume we have a database that tracks which crops are available, and
         # status=[]  # optional
     )
 ```
-Then use that information to create **CommonCropNamesResponseResult** and **CommonCropNamesResponse**. If we put it all together we have the following:
+Then we combine the data and metadata to create **CommonCropNamesResponseResult** and **CommonCropNamesResponse**. If we put it all together we have the following:
 ```python
 @app.get('/commoncropnames', response_model=CommonCropNamesResponse)
 def get_commoncropnames(
@@ -117,13 +118,13 @@ def get_commoncropnames(
     
     # simualted crop db, use your real datbase here
     available_crops = ['rice', 'maize', 'wheat', 'tomato', 'sorghum']
-    total_item = len(available_crops)
+    total_items = len(available_crops)
     
     pagination = IndexPagination(
         currentPage=0,  # requiered
         pageSize=1000,  # requiered
-        totalCount=total_item,  # optional
-        # totalPages=None,  # optional
+        totalCount=total_items,  # optional
+        totalPages=1,  # 1 in our case
     )
     
     metadata = Metadata(
@@ -149,7 +150,7 @@ def get_commoncropnames(
 
 ```
 
-The output of the call will should be similar to this:
+The output of the BrAPI call (i.e. *http://{your_url}/brapi/v2/commoncropnames*) should contain the following information:
 ```json
     {
         "metadata": {
@@ -158,7 +159,7 @@ The output of the call will should be similar to this:
             "pagination": {
                 "pageSize": 1000,
                 "totalCount": 5,
-                "totalPages": null,
+                "totalPages": 1,
                 "currentPage": 0
             }
         },
@@ -177,13 +178,14 @@ If you want to remove the `null` values from the response, add this parameter to
 ```python
 @app.get('/commoncropnames', response_model=CommonCropNamesResponse, response_model_exclude_unset=True)
 ```
-With that your output should look like this:
+With that change, your output should look like this:
 ```json
     {
         "metadata": {
             "pagination": {
                 "pageSize": 1000,
                 "totalCount": 5,
+                "totalPages": 1,
                 "currentPage": 0
             }
         },
