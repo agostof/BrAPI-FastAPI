@@ -14,7 +14,7 @@ response_json_text = fav_lib(url)
 # parse dictionary using pydantic model
 server_info = ServerInfoResponse.parse_obj(json.loads(response_json_text))
 
-# parse parse text using pydantic model
+# parse text using pydantic model
 server_info = ServerInfoResponse.parse_raw(response_json_text)
 
 # Since the responses are pydantic model instances

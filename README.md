@@ -24,7 +24,7 @@ cd server
 ```
 The local server should be running at `port 9000`, to see available endpoints visit your serverinfo endpoint: http://127.0.0.1:9000/brapi/v2/serverinfo.
 
-Details for how to implment an endpoint, and a list of the implemented example endpoints are available in the [server's README](server/README.md).
+Details for how to implement an endpoint, and a list of the implemented example endpoints are available in the [server's README](server/README.md).
 
 ### Auto-generated documentation
 The default **FastAPI** server will generate and display documentation for your running instance using **Swagger UI** and **ReDoc**. This documentation will be available at `{server_url}/docs` or `{server_url}/redocs`. Check the [server's README](server/README.md) for details.
