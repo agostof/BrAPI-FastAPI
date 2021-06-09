@@ -192,7 +192,7 @@ The output of our newly constructed BrAPI call (i.e. *http://{your_url}/brapi/v2
 ```
 If you got the output above, you have successfully implemented a BrAPI endpoint!🎉
 
-If you want to remove the `null` values from the response, add this parameter to the function decorator: `response_model_exclude_unset` as follows:
+If you want to remove the `null` values from the response, add the `response_model_exclude_unset` parameter to the endpoints's function decorator as follows:
 ```python
 # decorator
 @app.get('/commoncropnames', response_model=CommonCropNamesResponse, response_model_exclude_unset=True)
