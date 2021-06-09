@@ -6,6 +6,8 @@ Implementation of the [BrAPI v2.0](https://brapi.org/) specification for Python 
 * Includes models and server stubs (views.py) for [Core](brapi_v2/core), [Genotyping](brapi_v2/genotyping), [Germplasm](brapi_v2/germplasm), and [Phenotyping](brapi_v2/phenotyping).
 * Use as a template to create your Python-based [BrAPI server](brapi_v2/main.py).
 * Use models to create a [BrAPI client](client/barebones_brapi_client.py) (a.k.a *BrAPP*) or to create a client library.
+* Integrate models with other Python frameworks.
+
 
 ## Quick start
 1. Installation using pyenv, skip this step if you don't want to use pyenv.
@@ -24,7 +26,7 @@ cd server
 ```
 The local server should be running at `port 9000`, to see available endpoints visit your serverinfo endpoint: http://127.0.0.1:9000/brapi/v2/serverinfo.
 
-Details for how to implement an endpoint, and a list of the implemented example endpoints are available in the [server's README](server/README.md).
+Details for how to [implement an endpoint](server/README.md#implementing-brapi-endpoints), and a list of the implemented example endpoints are available in the [server's README](server/README.md).
 
 ### Auto-generated documentation
 The default **FastAPI** server will generate and display documentation for your running instance using **Swagger UI** and **ReDoc**. This documentation will be available at `{server_url}/docs` or `{server_url}/redocs`. Check the [server's README](server/README.md) for details.
@@ -43,7 +45,7 @@ Then use (by copying or modifying) the appropriate BrAPI module(s) views (contro
 ## Using for building BrAPI clients
 
 Simple clients can be built using the Pydantic models. Using these models, clients can parse the responses returned by a BrAPI server with little effort.
-***Note:*** *A more capable BrAPI* ***client library*** *is also possible* ***(coming soon)****, for now we provide a very basic client usecase.*
+***Note:*** *A more capable BrAPI* ***client library*** *is also possible* ***(coming soon)****, for now we provide a very basic client use case.*
 
 For example, to parse the *serverInfo* call response we could import the following **ServerInfoResponse** model:
 ```python
@@ -63,7 +65,7 @@ The code above is merely an introduction and omit several details. The steps nec
 
 ## Notes
 
-The auto-generated models still need cleaning up. ~~Also some models names are *repeated* across modules e.g. **Metadata**, **AdditionalInfo**.~~ These *repeated* models were consolidated and they are uniquely imported from core.models e.g. **core.models.Metadata**,  **core.models.AdditionalInfo**, etc.
+OpenApi-compatible codegen tools were used to generate the foundational data models and servers stubs used on this project. The auto-generated models might still need some cleaning up. ~~Also some models names are *repeated* across modules e.g. **Metadata**, **AdditionalInfo**.~~ These *repeated* models were consolidated and they are uniquely imported from core.models e.g. **core.models.Metadata**,  **core.models.AdditionalInfo**, etc.
 
 These redundant Pydantic models occur because the BrAPI OpenAPI spec files were processed independently.
-Ideally, they should be consolidated as part of the Core module or in a *commons* package. Check the [modelgen_utils](modelgen_utils) directory for additional details.
+~~Ideally, they should be consolidated as part of the Core module or in a *commons* package.~~ Check the [modelgen_utils](modelgen_utils) directory for additional details.

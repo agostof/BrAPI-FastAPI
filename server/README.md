@@ -3,6 +3,7 @@
 Implementation of the [BrAPI v2.0](https://brapi.org/) specification for Python using the [FastAPI](https://fastapi.tiangolo.com/) framework.
 * Includes models and server stubs (views.py) for [Core](../brapi_v2/core), [Genotyping](../brapi_v2/genotyping), [Germplasm](../brapi_v2/germplasm), and [Phenotyping](../brapi_v2/phenotyping).
 * Use as a template to create your Python-based [BrAPI server](../brapi_v2/main.py).
+* Use during BrAPP development to produce data for your BrAPP (see how to [implement an endpoint below](#implementing-brapi-endpoints)).
 
 ## Run BrAPI server
 1. Installation using pyenv (Python $version could be 3.8.3 and above). If not using pyenv just skip to the next step.
@@ -164,7 +165,7 @@ def get_commoncropnames(
     return response
 
 ```
-If you are following along, fill free to replace the `get_commoncropnames` in your copy of [core.views.py](../brapi_v2/core/views.py) with the code above. After this, your server should refresh, and the endpoint should be available for querying. You will need to access the endpoint directly by calling *http://{your_url}/brapi/v2/commoncropnames*. *Note: We have to use direct access becasue we have not added this new endpoint yet to the /serverinfo call in [core.views.py](../brapi_v2/core/views.py#L600-668). We leave that as an excercise for the reader.*
+If you are following along, fill free to replace the `get_commoncropnames` in your copy of [core.views.py](../brapi_v2/core/views.py) with the code above. After this, your server should reload, and the endpoint should be available for querying. You will need to access the endpoint directly by calling *http://{your_url}/brapi/v2/commoncropnames*. *Note: We have to use direct access becasue we have not added this new endpoint yet to the /serverinfo call in [core.views.py](../brapi_v2/core/views.py#L600-668). We leave that as an excercise for the reader.*
 The output of our newly constructed BrAPI call (i.e. *http://{your_url}/brapi/v2/commoncropnames*) should contain the following information:
 ```json
     {
@@ -190,6 +191,7 @@ The output of our newly constructed BrAPI call (i.e. *http://{your_url}/brapi/v2
     }
 ```
 If you got the output above, you have successfully implemented a BrAPI endpoint!🎉
+
 If you want to remove the `null` values from the response, add this parameter to the function decorator: `response_model_exclude_unset` as follows:
 ```python
 # decorator
@@ -234,4 +236,4 @@ app.include_router(phenotyping.views.router, prefix='/brapi/v2')
 On that note, [main.py](../brapi_v2/main.py) has other settings worth checking like, [CORS](https://fastapi.tiangolo.com/tutorial/cors/)(Cross-Origin Resource Sharing), application root-level endpoints among others, please take a look. 
  
 ## What is left?
-Now you have enough information to start filling any of the server stubs that you need. Things like security and databases connectivity (e.g. [SQLAlchemy](https://www.sqlalchemy.org/)) will be needed but are beyond the scope of this document. Consult the [FastAPI](https://fastapi.tiangolo.com/) documentation for details about which options are available to address these concerns.
+Now you have enough information to start implenting any of the server stubs that you need. Things like security and databases connectivity (e.g. [SQLAlchemy](https://www.sqlalchemy.org/)) will be needed but are beyond the scope of this document. Consult the [FastAPI](https://fastapi.tiangolo.com/) documentation for details about which options are available to address these concerns.
