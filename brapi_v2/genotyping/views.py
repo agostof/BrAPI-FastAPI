@@ -323,8 +323,11 @@ def get_samples(
     # create some additional information to be add to each sample entry
     # as you can see the field is flexible and it can be anything
     additional_info_test = {}
-    additional_info_test["info_tag_1"] = AdditionalInfo(location="Jupiter!",importance="Its dummy, so not much!")
-    additional_info_test["info_tag_2"] = AdditionalInfo(color="blue_green", arbitrary_info="this can be anything")
+    # additional_info_test["info_tag_1"] = AdditionalInfo(location="Jupiter!",importance="Its dummy, so not much!")
+    # additional_info_test["info_tag_2"] = AdditionalInfo(color="blue_green", arbitrary_info="this can be anything")
+    additional_info_test["a_planet"] = AdditionalInfo(__root__="Jupiter!")
+    additional_info_test["info_tag_1"] = AdditionalInfo(__root__="this can be any string")
+
     samples = []
     samples.append(Sample(sampleName="dummy sample 1", 
                           sampleDbId="1213234", 

@@ -96,7 +96,7 @@ def get_attributes(
     scale = Scale(scaleDbId='af730171', scaleName="Dummy Scale")
     
     additional_info_test = {}
-    additional_info_test["extended_attribute_tag_1"] = AdditionalInfo(some_variable="Some value!")
+    additional_info_test["some_variable"] = AdditionalInfo(__root__="Some value!")
 
     attributes = [
         GermplasmAttribute(attributeName="Plant Height Example",
