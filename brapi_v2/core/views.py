@@ -615,20 +615,20 @@ def get_serverinfo(
     metadata = Metadata(datafiles=[], status=[], pagination=pagination)
 
     # retrieve the request url as it its "seen" by the client
-    services_url = request.url
-    base_url = os.path.split(str(services_url))[0]
+    # services_url = request.url
+    # base_url = os.path.split(str(services_url))[0]
 
     services = []
     services.append(
         # Lists Server information (Core Module)
-        Service(service=f"{base_url}/serverinfo",
+        Service(service="serverinfo",
                 methods=[HttpMethod.GET], 
                 dataTypes=[ WSMIMEDataTypes.application_json],
                 versions=[Version.v2_0])
     )
     services.append(
         # Lists Events (Phenotyping Module)
-        Service(service=f"{base_url}/events",
+        Service(service="events",
                 dataTypes=[ WSMIMEDataTypes.application_json],
                 methods=[HttpMethod.GET],
                 versions=[Version.v2_0])
@@ -636,7 +636,7 @@ def get_serverinfo(
 
     services.append(
         # Lists attributes (Germplasm Module)
-        Service(service=f"{base_url}/attributes",
+        Service(service="attributes",
                 dataTypes=[ WSMIMEDataTypes.application_json],
                 methods=[HttpMethod.GET],
                 versions=[Version.v2_0])
@@ -644,7 +644,7 @@ def get_serverinfo(
 
     services.append(
         # Lists samples (Genotyping Module)
-        Service(service=f"{base_url}/samples",
+        Service(service="samples",
                 dataTypes=[ WSMIMEDataTypes.application_json],
                 methods=[HttpMethod.GET],
                 versions=[Version.v2_0])
