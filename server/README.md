@@ -84,7 +84,7 @@ The first pattern that you might notice is that the return response object name 
 
 In general, the response structure of a BrAPI call has two components at the top level: a metadata object and a data results list. To create a response, we need *at least* the following objects: **Metadata**, **IndexPagination**, and a **Result**, and a **Response** objects of the endpoint's data type.
 
-To illustrate how this process works, lets look at the **CommonCropNamesResponse**, defined in [core.models.py](../brapi_v2/core/models.py#L1477-L1480):
+To illustrate how this process works, lets look at the **CommonCropNamesResponse**, defined in [core.models.py](../brapi_v2/core/models.py#L1531-L1534):
 ```python
 # brapi_v2/core/models.py
 class CommonCropNamesResponse(BaseModel):

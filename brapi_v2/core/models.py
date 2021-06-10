@@ -54,6 +54,15 @@ class Context(BaseModel):
         example=['https://brapi.org/jsonld/context/metadata.jsonld'],
         title='context',
     )
+    # exerimental added to avoid specifing __root__ as a parameter on the model
+    def __init__(self, *args, **kwargs):
+        print(len(args), type(args[0]))
+        if len(args) == 1 and type(args[0]) == list:
+            # a single value was passed as a parameter - this is a direct instantiation 
+            __root__ = args[0]
+            super().__init__(__root__=__root__, *args[1:], **kwargs)
+        else:
+            super().__init__(*args, **kwargs)
 
 
 class DataLink(BaseModel):
@@ -140,6 +149,15 @@ class AdditionalInfo(BaseModel):
         extra = Extra.allow
 
     __root__: str
+    
+    # need to add this so we don't have to specify __root__ when the object is constructed
+    def __init__(self, *args, **kwargs):
+        if len(args) == 1 and type(args[0]) == str:
+            # a single value was passed as a parameter - this is a direct instantiation 
+            __root__ = args[0]
+            super().__init__(__root__=__root__, *args[1:], **kwargs)
+        else:
+            super().__init__(*args, **kwargs)
 
 
 class ListTypes(Enum):
@@ -520,6 +538,15 @@ class Position(BaseModel):
         example=[-76.506042, 42.417373, 123],
         min_items=2,
     )
+    # exerimental added to avoid specifing __root__ as a parameter on the model
+    def __init__(self, *args, **kwargs):
+        print(len(args), type(args[0]))
+        if len(args) == 1 and type(args[0]) == list:
+            # a single value was passed as a parameter - this is a direct instantiation 
+            __root__ = args[0]
+            super().__init__(__root__=__root__, *args[1:], **kwargs)
+        else:
+            super().__init__(*args, **kwargs)
 
 
 class MessageType(Enum):
@@ -704,6 +731,15 @@ class ExternalReferences(BaseModel):
         ],
         title='ExternalReferences',
     )
+    # exerimental added to avoid specifing __root__ as a parameter on the model
+    def __init__(self, *args, **kwargs):
+        print(len(args), type(args[0]))
+        if len(args) == 1 and type(args[0]) == list:
+            # a single value was passed as a parameter - this is a direct instantiation 
+            __root__ = args[0]
+            super().__init__(__root__=__root__, *args[1:], **kwargs)
+        else:
+            super().__init__(*args, **kwargs)
 
 
 class ListBaseFields(BaseModel):
@@ -1229,6 +1265,15 @@ class LinearRing(BaseModel):
         ],
         min_items=4,
     )
+    # exerimental added to avoid specifing __root__ as a parameter on the model
+    def __init__(self, *args, **kwargs):
+        print(len(args), type(args[0]))
+        if len(args) == 1 and type(args[0]) == list:
+            # a single value was passed as a parameter - this is a direct instantiation 
+            __root__ = args[0]
+            super().__init__(__root__=__root__, *args[1:], **kwargs)
+        else:
+            super().__init__(*args, **kwargs)
 
 
 class MetadataBase(BaseModel):
@@ -1266,6 +1311,15 @@ class Polygon(BaseModel):
             ]
         ],
     )
+    # exerimental added to avoid specifing __root__ as a parameter on the model
+    def __init__(self, *args, **kwargs):
+        print(len(args), type(args[0]))
+        if len(args) == 1 and type(args[0]) == list:
+            # a single value was passed as a parameter - this is a direct instantiation 
+            __root__ = args[0]
+            super().__init__(__root__=__root__, *args[1:], **kwargs)
+        else:
+            super().__init__(*args, **kwargs)
 
 
 class PolygonGeometry(BaseModel):

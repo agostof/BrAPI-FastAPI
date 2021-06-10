@@ -90,8 +90,8 @@ def get_events(
     # here we construct a dummy event just to show the functionaliy
     from .models import Event, EventsResponseResult
     additional_info_test = {}
-    additional_info_test["location"] = AdditionalInfo(__root__="Planet Earth!")
-    additional_info_test["importance"] = AdditionalInfo(__root__="Very Important!")
+    additional_info_test["location"] = AdditionalInfo("Planet Earth!")
+    additional_info_test["importance"] = AdditionalInfo("Very Important!")
 
     events = []
     events.append(
